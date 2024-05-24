@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
 import FormField, { Input, FileInput, Textarea } from "./FormField";
 import Error from "../../ui/Error";
+import useCreateEditCabin from "./useCreateEditCabin";
+import propTypes from "prop-types";
 
 const Form = styled.form`
   margin: 1.5rem auto;
@@ -34,6 +34,11 @@ const Div = styled.div`
   padding: 1rem;
 `;
 
+CabinForm.propTypes = {
+  setIsFormOpen: propTypes.func,
+  cabinToEdit: propTypes.object,
+};
+
 function CabinForm({ setIsFormOpen, cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
@@ -41,22 +46,10 @@ function CabinForm({ setIsFormOpen, cabinToEdit = {} }) {
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
-  const queryClient = useQueryClient();
-  const { isPending, mutate } = useMutation({
-    mutationKey: ["cabins"],
-    mutationFn: createEditCabin,
-    onError: (err) => toast.error(err.message),
-    onSuccess: (data) => {
-      toast.success(
-        isEditSession
-          ? `Cabin ${data.name} has been updated successfully!`
-          : `Cabin ${data.name} has been added successfully!`
-      );
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      setIsFormOpen(false);
-    },
-  });
-
+  const { isPending, mutate } = useCreateEditCabin(
+    isEditSession,
+    setIsFormOpen
+  );
   function onSubmit(cabinData) {
     mutate({ cabinData, editId });
   }

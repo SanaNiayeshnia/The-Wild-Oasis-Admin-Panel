@@ -2,13 +2,11 @@ import TableRow from "./TableRow";
 import Button from "../../ui/Button";
 import propTypes from "prop-types";
 import styled from "styled-components";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
 import { useState } from "react";
 import CabinForm from "./CabinForm";
 import { HiOutlineTrash } from "react-icons/hi2";
+import useDeleteCabin from "./useDeleteCabin";
 Cabin.propTypes = {
   cabin: propTypes.object,
 };
@@ -44,18 +42,7 @@ const DeleteSpinner = styled(Spinner)`
 
 function Cabin({ cabin }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const { isPending: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("The Cabin has been deleted.");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
+  const { isDeleting, mutate } = useDeleteCabin();
   return (
     <>
       <TableRow>
@@ -65,7 +52,7 @@ function Cabin({ cabin }) {
         <td>{cabin.name}</td>
         <td>{cabin.maxCapacity}</td>
         <td>{cabin.regularPrice}$</td>
-        <td>{cabin.discount ? `${cabin.discount} $` : "no discount"}</td>
+        <td>{cabin.discount ? `${cabin.discount} $` : "-"}</td>
         <LastTd>
           <Button className="quaternary" onClick={() => setIsFormOpen(true)}>
             Update

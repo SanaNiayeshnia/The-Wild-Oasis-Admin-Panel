@@ -19,6 +19,7 @@ const CabinHead = styled.div`
   & p {
     color: var(--color-Gray-800);
     font-weight: 600;
+    margin: 1rem 0;
   }
   & :first-child {
     font-size: 1.5rem;
