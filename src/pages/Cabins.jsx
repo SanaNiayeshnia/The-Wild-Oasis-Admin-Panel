@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import CabinTable from "../features/cabins/CabinTable";
+import CabinTable from "../features/cabins/cabinTable/CabinTable";
 import Button from "../ui/Button";
 import { useState } from "react";
-import CabinForm from "../features/cabins/CabinForm";
+import CabinForm from "../features/cabins/cabinForm/CabinForm";
 
 const StyledCabin = styled.div`
   padding: 1rem;

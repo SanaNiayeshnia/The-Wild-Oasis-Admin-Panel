@@ -1,10 +1,10 @@
-import TableRow from "./TableRow";
+import TableRow from "./cabinTable/TableRow";
 import Button from "../../ui/Button";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import { useState } from "react";
-import CabinForm from "./CabinForm";
+import CabinForm from "./cabinForm/CabinForm";
 import { HiOutlineTrash } from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
 Cabin.propTypes = {

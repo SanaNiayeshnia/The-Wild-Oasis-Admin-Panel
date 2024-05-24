@@ -16,7 +16,7 @@ function useCreateEditCabin(isEditSession, setIsFormOpen) {
           : `Cabin ${data.name} has been added successfully!`
       );
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      setIsFormOpen(false);
+      setIsFormOpen && setIsFormOpen(false);
     },
   });
   return { isPending, mutate };
