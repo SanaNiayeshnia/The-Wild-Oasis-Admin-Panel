@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 
-function useCreateEditCabin(isEditSession, setIsFormOpen) {
+function useCreateEditCabin(isEditSession = false, setIsFormOpen) {
   const queryClient = useQueryClient();
 
   const { isPending, mutate } = useMutation({
@@ -13,7 +13,7 @@ function useCreateEditCabin(isEditSession, setIsFormOpen) {
       toast.success(
         isEditSession
           ? `Cabin ${data.name} has been updated successfully!`
-          : `Cabin ${data.name} has been added successfully!`
+          : `New Cabin has been created successfully!`
       );
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       setIsFormOpen && setIsFormOpen(false);

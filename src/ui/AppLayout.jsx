@@ -12,6 +12,22 @@ const StyledAppLayout = styled.div`
 const Main = styled.main`
   background-color: var(--color-Gray-50);
   overflow: auto;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    appearance: none;
+    width: 0.5rem;
+    background-color: var(--color-Gray-300);
+    transition: all 0.3s;
+  }
+  &::-webkit-scrollbar-thumb {
+    width: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-Gray-400);
+    transition: all 0.3s;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-green-500);
+  }
 `;
 
 function AppLayout() {

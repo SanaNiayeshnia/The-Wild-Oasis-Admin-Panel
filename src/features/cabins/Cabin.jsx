@@ -4,45 +4,36 @@ import propTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import { useState } from "react";
-import CabinForm from "./cabinForm/CabinForm";
-import { HiOutlineTrash } from "react-icons/hi2";
+import CabinForm from "./CabinForm";
+import { HiOutlineTrash, HiSquare2Stack } from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
-Cabin.propTypes = {
-  cabin: propTypes.object,
-};
+import LastTd from "./cabinTable/LastTd";
+import useCreateEditCabin from "./useCreateEditCabin";
 
 const CabinImage = styled.img`
   max-width: 100px;
   border-radius: 0.25rem;
   vertical-align: middle;
 `;
-const LastTd = styled.td`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  & button {
-    text-align: center;
-    margin: 0 !important;
-  }
-  & svg {
-    width: 1.25em;
-    height: 1.25em;
-    cursor: pointer;
-    color: var(--color-red-600);
-    transition: all 0.3s;
-  }
-  & svg:hover {
-    transform: scale(1.1);
-  }
-`;
 const DeleteSpinner = styled(Spinner)`
   max-width: 20px !important;
 `;
 
+Cabin.propTypes = {
+  cabin: propTypes.object,
+};
+
 function Cabin({ cabin }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const { isDeleting, mutate } = useDeleteCabin();
+  const { isDeleting, mutate: deletingMutate } = useDeleteCabin();
+  const { isPending: isDuplicating, mutate: duplicatingMutate } =
+    useCreateEditCabin();
+
+  function handelDuplicate() {
+    const { id, ...cabinData } = cabin;
+    duplicatingMutate({ cabinData });
+  }
+
   return (
     <>
       <TableRow>
@@ -60,7 +51,21 @@ function Cabin({ cabin }) {
           {isDeleting ? (
             <DeleteSpinner type="secondary" />
           ) : (
-            <HiOutlineTrash onClick={() => mutate(cabin.id)} />
+            <HiOutlineTrash
+              className="deleteBtn"
+              title="delete"
+              onClick={() => deletingMutate(cabin.id)}
+            />
+          )}
+
+          {isDuplicating ? (
+            <DeleteSpinner type="secondary" />
+          ) : (
+            <HiSquare2Stack
+              className="duplicateBtn"
+              title="duplicate"
+              onClick={handelDuplicate}
+            />
           )}
         </LastTd>
       </TableRow>
