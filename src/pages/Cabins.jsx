@@ -2,10 +2,13 @@ import styled from "styled-components";
 import CabinTable from "../features/cabins/CabinTable";
 import Button from "../ui/Button";
 import { useState } from "react";
-import NewCabinForm from "../features/cabins/NewCabinForm";
+import CabinForm from "../features/cabins/CabinForm";
 
 const StyledCabin = styled.div`
   padding: 1rem;
+  height: 100%;
+  max-width: 55rem;
+  margin: auto;
 `;
 const CabinHead = styled.div`
   display: flex;
@@ -29,40 +32,27 @@ const Div = styled.div`
   justify-content: flex-end;
   padding: 1rem 0.5rem;
 `;
-const AddCabinBtn = styled(Button)`
-  background-color: var(--color-green-500);
-  color: white;
-  padding: 0.5rem 0.75rem;
-  &:hover {
-    background-color: var(--color-green-600);
-    color: white;
-  }
-`;
-const Container = styled.div`
-  margin: auto;
 
-  max-width: 55rem;
-`;
 function Cabins() {
-  const [isAddNewCabinFormOpen, setIsAddNewCabinFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   return (
     <StyledCabin>
-      <Container>
-        <CabinHead>
-          <p>All Cabins</p>
-          <p>Filter / Sort</p>
-        </CabinHead>
-        <CabinTable />
-        {!isAddNewCabinFormOpen ? (
+      {!isFormOpen ? (
+        <>
+          <CabinHead>
+            <p>All Cabins</p>
+            <p>Filter / Sort</p>
+          </CabinHead>
+          <CabinTable />
           <Div>
-            <AddCabinBtn onClick={() => setIsAddNewCabinFormOpen(true)}>
+            <Button className="secondary" onClick={() => setIsFormOpen(true)}>
               Add New Cabin
-            </AddCabinBtn>
+            </Button>
           </Div>
-        ) : (
-          <NewCabinForm setIsAddNewCabinFormOpen={setIsAddNewCabinFormOpen} />
-        )}
-      </Container>
+        </>
+      ) : (
+        <CabinForm setIsFormOpen={setIsFormOpen} />
+      )}
     </StyledCabin>
   );
 }
