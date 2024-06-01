@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import CabinTable from "../features/cabins/cabinTable/CabinTable";
 import Button from "../ui/Button";
-import { useState } from "react";
 import CabinForm from "../features/cabins/CabinForm";
+import { useGeneralContext } from "../contexts/GeneralContext";
 
-const StyledCabin = styled.div`
+const StyledCabins = styled.div`
   padding: 0 1rem;
   max-width: 55rem;
+  max-height: min-content;
   margin: auto;
 `;
 const CabinHead = styled.div`
@@ -33,26 +34,27 @@ const Div = styled.div`
 `;
 
 function Cabins() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { handleShowModal } = useGeneralContext();
+
   return (
-    <StyledCabin>
-      {!isFormOpen ? (
-        <>
-          <CabinHead>
-            <p>All Cabins</p>
-            <p>Filter / Sort</p>
-          </CabinHead>
-          <CabinTable />
-          <Div>
-            <Button className="secondary" onClick={() => setIsFormOpen(true)}>
-              Add New Cabin
-            </Button>
-          </Div>
-        </>
-      ) : (
-        <CabinForm setIsFormOpen={setIsFormOpen} />
-      )}
-    </StyledCabin>
+    <StyledCabins>
+      <CabinHead>
+        <p>All Cabins</p>
+        <p>Filter / Sort</p>
+      </CabinHead>
+      <CabinTable />
+
+      <Div>
+        <Button
+          className="secondary"
+          onClick={() => {
+            handleShowModal(<CabinForm key={Math.random()} cabinToEdit={{}} />);
+          }}
+        >
+          Add New Cabin
+        </Button>
+      </Div>
+    </StyledCabins>
   );
 }
 

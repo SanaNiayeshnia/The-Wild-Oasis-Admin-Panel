@@ -25,10 +25,10 @@ function SettingsForm() {
   });
   const { register, handleSubmit, reset, formState, control } = useForm();
   const watchedValues = useWatch({ control });
-
-  const { isUpdaing, mutate } = useUpdateSettings();
+  const { errors } = formState;
+  const { isUpdating, mutate } = useUpdateSettings();
   useEffect(() => {
-    //settingDefaultValues
+    //setting default values
     if (settings) reset(settings);
   }, [settings, reset]);
 
@@ -55,39 +55,67 @@ function SettingsForm() {
             <Input
               type="number"
               id="minBookingLength"
-              {...register("minBookingLength")}
+              {...register("minBookingLength", {
+                required: "This field can't be empty!",
+                min: {
+                  value: 1,
+                  message: "Minimum booking nights should be greater than 1!",
+                },
+              })}
             />
-            <Error />
+            <Error>{errors?.minBookingLength?.message}</Error>
           </FormField>
           <FormField label="Maximum Nights/Bookings">
             <Input
               type="number"
               id="maxBookingLength"
-              {...register("maxBookingLength")}
+              {...register("maxBookingLength", {
+                required: "This field can't be empty!",
+                min: {
+                  value: 1,
+                  message: "Maximum booking nights should be greater than 1!",
+                },
+                validate: (value) =>
+                  value >= watchedValues.minBookingLength ||
+                  "Maximum booking nights should be greater or equal to minimum booking nights!",
+              })}
             />
-            <Error />
+            <Error>{errors?.maxBookingLength?.message}</Error>
           </FormField>
           <FormField label="Maximum Guests/Bookings">
             <Input
               type="number"
               id="maxGuestsPerBooking"
-              {...register("maxGuestsPerBooking")}
+              {...register("maxGuestsPerBooking", {
+                required: "This field can't be empty!",
+                min: {
+                  value: 1,
+                  message:
+                    "Maximum guests per booking shiuld be greater than 1!",
+                },
+              })}
             />
-            <Error />
+            <Error>{errors?.maxGuestsPerBooking?.message}</Error>
           </FormField>
           <FormField label="Breakfast Price">
             <Input
               type="number"
               id="breakfastPrice"
-              {...register("breakfastPrice")}
+              {...register("breakfastPrice", {
+                required: "This field can't be empty!",
+                min: {
+                  value: 0,
+                  message: "Breakfast price can't be a negative amount!",
+                },
+              })}
             />
-            <Error />
+            <Error>{errors?.breakfastPrice?.message}</Error>
           </FormField>
 
           {isUpdated && (
-            <UpdateButton className="secondary" disabled={isUpdaing}>
-              {isUpdaing && <Spinner type="secondary" />}
-              <span>{!isUpdaing ? "Update" : "Updating"}</span>
+            <UpdateButton className="secondary" disabled={isUpdating}>
+              {isUpdating && <Spinner type="secondary" />}
+              <span>{!isUpdating ? "Update" : "Updating"}</span>
             </UpdateButton>
           )}
         </Form>

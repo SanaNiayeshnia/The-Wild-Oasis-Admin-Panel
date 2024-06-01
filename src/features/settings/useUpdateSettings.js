@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 function useUpdateSettings() {
   const queryClient = useQueryClient();
-  const { isPending: isUpdaing, mutate } = useMutation({
+  const { isPending: isUpdating, mutate } = useMutation({
     mutationKey: ["settings"],
     mutationFn: updateSettings,
     onError: (err) => toast.error(err),
@@ -14,7 +14,7 @@ function useUpdateSettings() {
     },
   });
 
-  return { isUpdaing, mutate };
+  return { isUpdating, mutate };
 }
 
 export default useUpdateSettings;

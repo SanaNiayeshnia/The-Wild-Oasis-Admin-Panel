@@ -1,17 +1,19 @@
 import TableRow from "./cabinTable/TableRow";
 import Button from "../../ui/Button";
+import CabinForm from "./CabinForm";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
-import { useState } from "react";
-import CabinForm from "./CabinForm";
 import { HiOutlineTrash, HiSquare2Stack } from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
 import LastTd from "./cabinTable/LastTd";
 import useCreateEditCabin from "./useCreateEditCabin";
+import { useGeneralContext } from "../../contexts/GeneralContext";
+import DeleteCabinConfirmation from "./DeleteCabinConfirmation";
 
 const CabinImage = styled.img`
   max-width: 100px;
+  max-height: 67px;
   border-radius: 0.25rem;
   vertical-align: middle;
 `;
@@ -24,7 +26,7 @@ Cabin.propTypes = {
 };
 
 function Cabin({ cabin }) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { handleShowModal } = useGeneralContext();
   const { isDeleting, mutate: deletingMutate } = useDeleteCabin();
   const { isPending: isDuplicating, mutate: duplicatingMutate } =
     useCreateEditCabin();
@@ -32,6 +34,16 @@ function Cabin({ cabin }) {
   function handelDuplicate() {
     const { id, ...cabinData } = cabin;
     duplicatingMutate({ cabinData });
+  }
+
+  function handleDelete() {
+    handleShowModal(
+      <DeleteCabinConfirmation cabin={cabin} deletingMutate={deletingMutate} />
+    );
+  }
+
+  function handleUpdate() {
+    handleShowModal(<CabinForm key={Math.random()} cabinToEdit={cabin} />);
   }
 
   return (
@@ -45,7 +57,7 @@ function Cabin({ cabin }) {
         <td>{cabin.regularPrice}$</td>
         <td>{cabin.discount ? `${cabin.discount} $` : "-"}</td>
         <LastTd>
-          <Button className="quaternary" onClick={() => setIsFormOpen(true)}>
+          <Button className="quaternary" onClick={handleUpdate}>
             Update
           </Button>
           {isDeleting ? (
@@ -54,7 +66,7 @@ function Cabin({ cabin }) {
             <HiOutlineTrash
               className="deleteBtn"
               title="delete"
-              onClick={() => deletingMutate(cabin.id)}
+              onClick={handleDelete}
             />
           )}
 
@@ -69,13 +81,6 @@ function Cabin({ cabin }) {
           )}
         </LastTd>
       </TableRow>
-      {isFormOpen && (
-        <tr>
-          <td style={{ width: "100%" }}>
-            <CabinForm cabinToEdit={cabin} setIsFormOpen={setIsFormOpen} />
-          </td>
-        </tr>
-      )}
     </>
   );
 }

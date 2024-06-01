@@ -17,7 +17,7 @@ export async function deleteCabin(id) {
     .select()
     .single();
 
-  if (error) throw new Error(`cabin ${id} could not be deleted`);
+  if (error) throw new Error(`Cabin ${data.name} could not be deleted`);
   return data;
 }
 
@@ -45,7 +45,8 @@ export async function createEditCabin({ cabinData, editId }) {
       .insert([{ ...cabinData, image: imgUrl }])
       .select()
       .single();
-    if (createError) throw new Error("The Cabin could not be created!");
+    if (createError)
+      throw new Error(`Cabin ${createData.name} could not be created!`);
     return createData;
   } else {
     const { data: updateData, error: updateError } = await supabase
@@ -54,7 +55,8 @@ export async function createEditCabin({ cabinData, editId }) {
       .eq("id", editId)
       .select()
       .single();
-    if (updateError) throw new Error("The Cabin could not be updated!");
+    if (updateError)
+      throw new Error(`Cabin ${updateData.name} could not be updated!`);
     return updateData;
   }
 }

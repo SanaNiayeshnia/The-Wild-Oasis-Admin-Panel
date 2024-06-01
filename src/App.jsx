@@ -13,6 +13,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import GeneralContextProvider from "./contexts/GeneralContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,34 +26,36 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <GlobalStyles />
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "0.75rem" }}
-        toastOptions={{
-          success: { duration: 3000 },
-          error: { duration: 5000 },
-          style: { fontSize: "0.9rem", padding: "1rem" },
-        }}
-      />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="/dashboard" />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bookings" element={<Bookings />} />
-            <Route path="/cabins" element={<Cabins />} />
-            <Route path="/checkin/:bookingID" element={<CheckIn />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <GeneralContextProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyles />
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "0.75rem" }}
+          toastOptions={{
+            success: { duration: 3000 },
+            error: { duration: 5000 },
+            style: { fontSize: "0.9rem", padding: "1rem" },
+          }}
+        />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<Navigate replace to="/dashboard" />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/bookings" element={<Bookings />} />
+              <Route path="/cabins" element={<Cabins />} />
+              <Route path="/checkin/:bookingID" element={<CheckIn />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </GeneralContextProvider>
     </QueryClientProvider>
   );
 }

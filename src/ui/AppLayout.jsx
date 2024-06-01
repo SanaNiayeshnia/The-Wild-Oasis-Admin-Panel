@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import styled from "styled-components";
 import SideBar from "./sidebar/SideBar";
+import { useGeneralContext } from "../contexts/GeneralContext";
+import Modal from "./Modal";
 const StyledAppLayout = styled.div`
   display: grid;
   grid-template-columns: 18rem 1fr;
@@ -11,6 +13,7 @@ const StyledAppLayout = styled.div`
 
 const Main = styled.main`
   background-color: var(--color-Gray-50);
+  position: relative;
   overflow: auto;
   scroll-behavior: smooth;
   &::-webkit-scrollbar {
@@ -28,14 +31,19 @@ const Main = styled.main`
   &::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-green-500);
   }
+  &.modal-open {
+    overflow: hidden;
+  }
 `;
 
 function AppLayout() {
+  const { showModal, mainRef } = useGeneralContext();
   return (
     <StyledAppLayout>
       <SideBar />
       <Header />
-      <Main>
+      <Main className={showModal && "modal-open"} ref={mainRef}>
+        <Modal className={`no-padding ${showModal && "show"}`} />
         <Outlet />
       </Main>
     </StyledAppLayout>

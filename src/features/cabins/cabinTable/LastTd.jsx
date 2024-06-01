@@ -9,8 +9,8 @@ const LastTd = styled.td`
     margin: 0 !important;
   }
   & svg {
-    width: 1.25em;
-    height: 1.25em;
+    width: 1.25rem;
+    height: 1.25rem;
     cursor: pointer;
     transition: all 0.3s;
   }

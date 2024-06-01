@@ -12,8 +12,7 @@ import Error from "../../ui/Error";
 import useCreateEditCabin from "./useCreateEditCabin";
 import propTypes from "prop-types";
 import Form from "../../ui/form/Form";
-import { useQuery } from "@tanstack/react-query";
-import { getSettings } from "../../services/apiSettings";
+import { useGeneralContext } from "../../contexts/GeneralContext";
 
 const Div = styled.div`
   display: flex;
@@ -23,22 +22,19 @@ const Div = styled.div`
 `;
 
 CabinForm.propTypes = {
-  setIsFormOpen: propTypes.func,
   cabinToEdit: propTypes.object,
 };
 
-function CabinForm({ setIsFormOpen, cabinToEdit = {} }) {
+function CabinForm({ cabinToEdit = {} }) {
+  const { handleCloseModal } = useGeneralContext();
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
-  const { register, handleSubmit, getValues, formState, control } = useForm({
+  const { register, handleSubmit, formState, control } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
   const watchedValues = useWatch({ control });
-  const { isPending, mutate } = useCreateEditCabin(
-    isEditSession,
-    setIsFormOpen
-  );
+  const { isPending, mutate } = useCreateEditCabin(isEditSession);
   function onSubmit(cabinData) {
     mutate({ cabinData, editId });
   }
@@ -133,7 +129,7 @@ function CabinForm({ setIsFormOpen, cabinToEdit = {} }) {
         <Button
           className="primary"
           type="reset"
-          onClick={() => setIsFormOpen(false)}
+          onClick={handleCloseModal}
           disabled={isPending}
         >
           Cancel
