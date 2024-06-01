@@ -14,6 +14,10 @@ const Div = styled.div`
     font-size: 0.85rem !important;
   }
 `;
+const Head = styled.h3`
+  margin-bottom: 0;
+  color: var(--color-Gray-900);
+`;
 function DeleteCabinConfirmation({ cabin, deletingMutate }) {
   const { handleCloseModal } = useGeneralContext();
   async function deleteCabin() {
@@ -22,7 +26,8 @@ function DeleteCabinConfirmation({ cabin, deletingMutate }) {
   }
   return (
     <StyledDeletCabinConfirmation>
-      <p>Do you want to delete cabin {cabin.name}?</p>
+      <Head>Delete Cabins</Head>
+      <p>Are you sure you want to delete cabin {cabin.name}?</p>
       <Div>
         <Button className="primary" type="cancel" onClick={handleCloseModal}>
           Cancel
