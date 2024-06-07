@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import CabinTable from "../features/cabins/cabinTable/CabinTable";
+import CabinTable from "../features/cabins/CabinTable";
 import Button from "../ui/Button";
 import CabinForm from "../features/cabins/CabinForm";
 import { useGeneralContext } from "../contexts/GeneralContext";
+import TableOperations from "../ui/table/TableOperations";
 
 const StyledCabins = styled.div`
   padding: 0 1rem;
@@ -20,7 +21,7 @@ const CabinHead = styled.div`
     color: var(--color-Gray-800);
     font-weight: 600;
   }
-  & :first-child {
+  &:first-child {
     font-size: 1.5rem;
   }
 `;
@@ -40,7 +41,7 @@ function Cabins() {
     <StyledCabins>
       <CabinHead>
         <p>All Cabins</p>
-        <p>Filter / Sort</p>
+        <TableOperations />
       </CabinHead>
       <CabinTable />
 

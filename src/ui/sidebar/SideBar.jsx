@@ -45,13 +45,13 @@ function SideBar() {
             </StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="cabins">
+            <StyledNavLink to="/cabins?discount=all&sortby=name-asc">
               <HiOutlineHomeModern />
               Cabins
             </StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="users">
+            <StyledNavLink to="/users">
               <HiOutlineUsers />
               Users
             </StyledNavLink>

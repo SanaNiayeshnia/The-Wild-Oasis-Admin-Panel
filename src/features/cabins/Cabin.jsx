@@ -1,4 +1,4 @@
-import TableRow from "./cabinTable/TableRow";
+import TableRow from "../../ui/table/TableRow";
 import Button from "../../ui/Button";
 import CabinForm from "./CabinForm";
 import propTypes from "prop-types";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import { HiOutlineTrash, HiSquare2Stack } from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
-import LastTd from "./cabinTable/LastTd";
+import LastTd from "../../ui/table/LastTd";
 import useCreateEditCabin from "./useCreateEditCabin";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import DeleteCabinConfirmation from "./DeleteCabinConfirmation";

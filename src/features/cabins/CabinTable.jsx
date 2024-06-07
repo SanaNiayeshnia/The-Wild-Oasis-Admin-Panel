@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import TableRow from "./TableRow";
-import Tbody from "./Tbody";
-import Thead from "./Thead";
-import { getCabins } from "../../../services/apiCabins";
+import TableRow from "../../ui/table/TableRow";
+import Tbody from "../../ui/table/Tbody";
+import Thead from "../../ui/table/Thead";
+import { getCabins } from "../../services/apiCabins";
 import { useQuery } from "@tanstack/react-query";
-import Cabin from "../Cabin";
-import Spinner from "../../../ui/Spinner";
+import Cabin from "./Cabin";
+import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
+import useSortCabins from "./useSortFilterCabins";
 
 const StyledCabinTable = styled.table`
   min-width: 100%;
@@ -26,6 +27,7 @@ function CabinTable() {
     queryFn: getCabins,
     onError: (err) => toast.error(err.message),
   });
+  const { discountFilter, sortedCabins } = useSortCabins(cabins);
   return (
     <>
       {isLoading ? (
@@ -43,9 +45,24 @@ function CabinTable() {
             </TableRow>
           </Thead>
           <Tbody>
-            {cabins?.map((cabin) => (
-              <Cabin key={cabin.id} cabin={cabin} />
-            ))}
+            {sortedCabins?.map((cabin) => {
+              switch (discountFilter) {
+                case "all":
+                  return <Cabin key={cabin.id} cabin={cabin} />;
+                case "no-discount":
+                  return (
+                    cabin.discount === 0 && (
+                      <Cabin key={cabin.id} cabin={cabin} />
+                    )
+                  );
+                case "with-discount":
+                  return (
+                    cabin.discount !== 0 && (
+                      <Cabin key={cabin.id} cabin={cabin} />
+                    )
+                  );
+              }
+            })}
           </Tbody>
         </StyledCabinTable>
       )}
