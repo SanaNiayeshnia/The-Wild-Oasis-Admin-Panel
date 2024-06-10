@@ -23,6 +23,7 @@ function Sort({ options }) {
     <StyledSort
       onChange={(e) => {
         searchParams.set("sortby", e.target.value);
+        searchParams.set("page", 1);
         setSearchParams(searchParams);
       }}
       value={searchParams.get("sortby") || ""}

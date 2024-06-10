@@ -35,6 +35,7 @@ function Filter({ filterField, options }) {
               filterField,
               opt.replaceAll(" ", "-").toLowerCase()
             );
+            searchParams.set("page", 1);
             setSearchParams(searchParams);
           }}
         >
