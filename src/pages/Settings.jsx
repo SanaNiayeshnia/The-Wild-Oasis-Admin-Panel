@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import SettingsForm from "../features/settings/SettingsForm";
+import { APP_NAME } from "../utilities/constants";
+import { useEffect } from "react";
 
 const StyledSettings = styled.div`
   padding: 0 1rem;
@@ -13,6 +15,10 @@ const SettingsHead = styled.p`
   padding: 0 1.5rem;
 `;
 function Settings() {
+  useEffect(() => {
+    document.title = `${APP_NAME} - Settings`;
+  }, []);
+
   return (
     <StyledSettings>
       <SettingsHead>Hotel Settings</SettingsHead>

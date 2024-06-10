@@ -1,16 +1,17 @@
 import styled from "styled-components";
 const StyledTableRow = styled.tr`
-  display: flex;
+  display: grid;
   align-items: center;
+  grid-template-columns: ${(props) => props.gridcols};
   padding: 0.75rem;
+  gap: 0.75rem;
   & td,
   & th {
-    width: calc(100% / 6);
-    text-align: center;
     color: var(--color-Gray-800);
   }
 
   & th {
+    text-align: left;
     font-weight: 600;
   }
 
@@ -18,8 +19,9 @@ const StyledTableRow = styled.tr`
     margin: 0 auto;
   }
 `;
-function TableRow({ children }) {
-  return <StyledTableRow>{children}</StyledTableRow>;
+
+function TableRow({ gridcols, children }) {
+  return <StyledTableRow gridcols={gridcols}>{children}</StyledTableRow>;
 }
 
 export default TableRow;

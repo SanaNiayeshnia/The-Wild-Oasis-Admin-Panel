@@ -32,7 +32,7 @@ function Cabin({ cabin }) {
     useCreateEditCabin();
 
   function handelDuplicate() {
-    const { id, ...cabinData } = cabin;
+    const { id, created_at, ...cabinData } = cabin;
     duplicatingMutate({ cabinData });
   }
 
@@ -48,7 +48,7 @@ function Cabin({ cabin }) {
 
   return (
     <>
-      <TableRow>
+      <TableRow gridcols="1fr 1fr 1fr 1fr 1fr 1fr">
         <td>
           <CabinImage src={cabin.image} alt={cabin.name} />
         </td>

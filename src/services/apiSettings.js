@@ -5,7 +5,6 @@ export async function getSettings() {
     .select("*")
     .single();
   if (error) throw new Error("Settings could not be loaded!");
-  console.log(settings);
   return settings;
 }
 

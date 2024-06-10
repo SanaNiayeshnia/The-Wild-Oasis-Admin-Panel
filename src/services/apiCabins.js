@@ -1,12 +1,22 @@
+import { PAGE_SIZE } from "../utilities/constants";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getCabins() {
-  let { data: cabins, error } = await supabase
-    .from("cabins")
-    .select("*")
-    .order("name");
+export async function getCabins({ page, filter, sort }) {
+  let query = supabase.from("cabins").select("*", { count: "exact" });
+  if (filter) {
+    query = query[filter.func](filter.name, filter.value);
+  }
+  if (sort) {
+    query = query.order(sort.name, { ascending: sort.type === "asc" });
+  }
+  if (page)
+    query = query.range(
+      (page - 1) * PAGE_SIZE,
+      (page - 1) * PAGE_SIZE + (PAGE_SIZE - 1)
+    );
+  let { data: cabins, error, count } = await query;
   if (error) throw new Error(`cabins could not be loaded`);
-  return cabins;
+  return { cabins, count };
 }
 
 export async function deleteCabin(id) {

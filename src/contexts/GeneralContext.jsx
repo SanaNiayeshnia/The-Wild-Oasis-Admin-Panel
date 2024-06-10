@@ -4,6 +4,7 @@ function GeneralContextProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<div>modal content</div>);
   const mainRef = useRef();
+
   function handleShowModal(content) {
     mainRef.current.scrollTop = "0";
     setModalContent(content);

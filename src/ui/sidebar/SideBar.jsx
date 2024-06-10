@@ -30,7 +30,10 @@ function SideBar() {
   return (
     <StyledSideBar>
       <Div>
-        <Logo src="./imgs/logo-light.png" alt="The wild Oasis Logo" />
+        <Logo
+          src="../../../public/imgs/logo-light.png"
+          alt="The wild Oasis Logo"
+        />
         <SideList>
           <li>
             <StyledNavLink to="/dashboard">
@@ -45,7 +48,7 @@ function SideBar() {
             </StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="/cabins?discount=all&sortby=name-asc">
+            <StyledNavLink to="/cabins">
               <HiOutlineHomeModern />
               Cabins
             </StyledNavLink>

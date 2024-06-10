@@ -3,6 +3,7 @@ const LastTd = styled.td`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   gap: 0.5rem;
   & button {
     text-align: center;
