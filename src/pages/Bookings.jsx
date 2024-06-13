@@ -6,7 +6,7 @@ import BookingTableOperations from "../features/bookings/BookingTableOperations"
 
 const StyledBookings = styled.div`
   padding: 0 1rem;
-  max-width: 55rem;
+  max-width: 60rem;
   max-height: min-content;
   margin: auto;
 `;

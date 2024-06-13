@@ -3,6 +3,7 @@ import { getBookings } from "../../services/apiBookings";
 import toast from "react-hot-toast";
 import useSortFilter from "../../hooks/useSortFilter";
 import { PAGE_SIZE } from "../../utilities/constants";
+import { getSettings } from "../../services/apiSettings";
 
 function useBookings() {
   const filterHandler = (filterName, filterValue) => {
@@ -35,6 +36,10 @@ function useBookings() {
       queryKey: ["bookings", filter, sort, page - 1],
       queryFn: () => getBookings({ filter, sort, page: page - 1 }),
     });
+  queryClient.prefetchQuery({
+    queryKey: ["settings"],
+    queryFn: getSettings,
+  });
   return { bookings, isLoading, count };
 }
 

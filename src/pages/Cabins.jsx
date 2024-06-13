@@ -9,7 +9,7 @@ import { APP_NAME } from "../utilities/constants";
 
 const StyledCabins = styled.div`
   padding: 0 1rem;
-  max-width: 55rem;
+  max-width: 60rem;
   max-height: min-content;
   margin: auto;
 `;

@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import GeneralContextProvider from "./contexts/GeneralContext";
-import BookingDetail from "./features/bookings/BookingDetail";
+import BookingDetail from "./pages/BookingDetail";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

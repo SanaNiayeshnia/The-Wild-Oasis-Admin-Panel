@@ -17,7 +17,7 @@ function CabinTable() {
         <>
           <Table>
             <Thead>
-              <TableRow gridcols="1fr 1fr 1fr 1fr 1fr 1fr">
+              <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 1fr">
                 <th></th>
                 <th>Cabin</th>
                 <th>Capixity</th>

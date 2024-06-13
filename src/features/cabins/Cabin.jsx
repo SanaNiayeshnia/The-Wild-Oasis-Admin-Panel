@@ -48,12 +48,12 @@ function Cabin({ cabin }) {
 
   return (
     <>
-      <TableRow gridcols="1fr 1fr 1fr 1fr 1fr 1fr">
+      <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 1fr">
         <td>
           <CabinImage src={cabin.image} alt={cabin.name} />
         </td>
         <td>{cabin.name}</td>
-        <td>{cabin.maxCapacity}</td>
+        <td>fills up to {cabin.maxCapacity} guests</td>
         <td>{cabin.regularPrice}$</td>
         <td>{cabin.discount ? `${cabin.discount} $` : "-"}</td>
         <LastTd>

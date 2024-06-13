@@ -18,21 +18,27 @@ async function getBookings({ filter, sort, page }) {
     );
   let { data: bookings, error, count } = await query;
 
-  if (error) throw new Error("Can't get the bookings data");
+  if (error) throw new Error("Failed to get the bookings data");
   return { bookings, count };
 }
 
 async function getBooking(id) {
-  const {
-    data: booking,
-    isLoading,
-    error,
-  } = await supabase
+  const { data: booking, error } = await supabase
     .from("bookings")
     .select("* , cabins(*), guests(*)")
     .eq("id", id)
     .single();
-  if (error) throw new Error("Can't get the booking data");
+  if (error) throw new Error(`Failed to get booking ${id} data`);
   return booking;
 }
-export { getBookings, getBooking };
+
+async function updateBooking({ id, bookingObj }) {
+  const { error } = await supabase
+    .from("bookings")
+    .update(bookingObj)
+    .eq("id", id)
+    .select();
+  if (error) throw new Error(`Failed to update booking ${id}!`);
+}
+
+export { getBookings, getBooking, updateBooking };

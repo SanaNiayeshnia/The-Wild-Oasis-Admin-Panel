@@ -10,18 +10,20 @@ import {
 } from "../../utilities/helper";
 import { HiDotsVertical, HiEye } from "react-icons/hi";
 import LastTd from "../../ui/table/LastTd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContextMenu from "../../ui/ContextMenu";
 import { useNavigate } from "react-router-dom";
+import { HiBriefcase, HiClipboardDocumentCheck } from "react-icons/hi2";
+import useUpdateBooking from "./useUpdateBooking";
+import Spinner from "../../ui/Spinner";
 
 const GuestDateTd = styled.td`
   & p {
     margin: 0;
-    font-size: 0.9rem;
   }
   & :last-child {
     color: var(--color-Gray-500);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -48,6 +50,16 @@ function Booking({ booking, openContextId, setOpenContextId }) {
     date: sDate,
   } = formatDate(startDate);
   const { month: endMonth, year: endYear, date: eDate } = formatDate(endDate);
+
+  const { isPending: isPendingStatus, mutate: changeStatusMutate } =
+    useUpdateBooking(booking.id, setShowContext);
+
+  function handleChangeStatus(status) {
+    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const bookingObj = { ...restBooking, status };
+
+    changeStatusMutate({ id, bookingObj });
+  }
 
   return (
     <TableRow gridcols="1fr 2fr 2fr 1fr 1fr 0.1fr">
@@ -90,6 +102,26 @@ function Booking({ booking, openContextId, setOpenContextId }) {
               <HiEye />
               See Details
             </li>
+            {booking?.status === "unconfirmed" && (
+              <li onClick={() => handleChangeStatus("checked in")}>
+                {isPendingStatus ? (
+                  <Spinner type="secondary" />
+                ) : (
+                  <HiClipboardDocumentCheck />
+                )}
+                check in
+              </li>
+            )}
+            {booking?.status === "checked in" && (
+              <li onClick={() => handleChangeStatus("checked out")}>
+                {isPendingStatus ? (
+                  <Spinner type="secondary" />
+                ) : (
+                  <HiBriefcase />
+                )}
+                check out
+              </li>
+            )}
           </ContextMenu>
         )}
       </LastTd>

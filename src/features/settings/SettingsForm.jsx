@@ -11,6 +11,7 @@ import Spinner from "../../ui/Spinner";
 import Button from "../../ui/Button";
 import styled from "styled-components";
 import useUpdateSettings from "./useUpdateSettings";
+import useSettings from "./useSettings";
 
 const UpdateButton = styled(Button)`
   border-radius: 0;
@@ -18,11 +19,7 @@ const UpdateButton = styled(Button)`
 
 function SettingsForm() {
   const [isUpdated, setIsUpdated] = useState(false);
-  const { data: settings, isLoading } = useQuery({
-    queryKey: ["settings"],
-    queryFn: getSettings,
-    onError: (err) => toast.error(err),
-  });
+  const { settings, isLoading } = useSettings();
   const { register, handleSubmit, reset, formState, control } = useForm();
   const watchedValues = useWatch({ control });
   const { errors } = formState;

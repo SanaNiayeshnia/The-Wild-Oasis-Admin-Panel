@@ -1,0 +1,183 @@
+import styled from "styled-components";
+import Tag from "../ui/Tag";
+import {
+  HiArrowLeft,
+  HiOutlineBriefcase,
+  HiOutlineClipboardDocumentCheck,
+} from "react-icons/hi2";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getBooking } from "../services/apiBookings";
+import Spinner from "../ui/Spinner";
+import BookingDataBox from "../features/bookings/BookingDataBox";
+import Button from "../ui/Button";
+import useUpdateBooking from "../features/bookings/useUpdateBooking";
+import Payment from "../features/bookings/Payment";
+import Breakfast from "../features/bookings/Breakfast";
+import useSettings from "../features/settings/useSettings";
+import SelectBox from "../ui/SelectBox";
+
+const StyledBookingDetail = styled.div`
+  padding: 0 1rem;
+  max-width: 55rem;
+  max-height: min-content;
+  margin: auto;
+`;
+const BookingHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  margin: auto;
+
+  & span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-Gray-800);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  & span svg {
+    transition: all 0.3s;
+  }
+  & span:hover svg {
+    color: var(--color-green-500);
+    transform: scale(1.1);
+  }
+`;
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  &:first-child {
+    font-size: 1.5rem;
+    color: var(--color-Gray-800);
+    font-weight: 600;
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  & button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+`;
+
+function BookingDetail() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { data: booking, isLoading: isLoadingData } = useQuery({
+    queryKey: [`booking/${id}`],
+    queryFn: () => getBooking(id),
+  });
+  const { isLoading: isLoadingSettings, settings } = useSettings();
+  const { isPending: isPendingStatus, mutate: changeStatusMutate } =
+    useUpdateBooking(id);
+  const { isPending: isPendingPayment, mutate: paymentMutate } =
+    useUpdateBooking(id);
+
+  function handleChangeStatus(status) {
+    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const bookingObj = { ...restBooking, status };
+
+    changeStatusMutate({ id, bookingObj });
+  }
+
+  function handlePayment() {
+    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const bookingObj = { ...restBooking, isPaid: true };
+    paymentMutate({ id, bookingObj });
+  }
+
+  return (
+    <StyledBookingDetail>
+      <BookingHead>
+        <Div>
+          <p>Booking#{id}</p>
+          {!isLoadingData && (
+            <>
+              <Tag
+                statuses={[
+                  { name: "unconfirmed", color: "blue" },
+                  { name: "checked in", color: "green" },
+                  { name: "checked out", color: "Gray" },
+                ]}
+              >
+                {booking?.status}
+              </Tag>
+              {isPendingStatus ? (
+                <Spinner type="secondary" />
+              ) : (
+                <SelectBox
+                  onChange={(e) => {
+                    if (e.target.value === "default") return;
+                    handleChangeStatus(e.target.value);
+                  }}
+                >
+                  <option value="default">Change the status</option>
+                  <option value="unconfirmed">unconfirmed</option>
+                  <option value="checked in">checked in</option>
+                  <option value="checked out">checked out</option>
+                </SelectBox>
+              )}
+            </>
+          )}
+        </Div>
+        <span onClick={() => navigate(-1)}>
+          <HiArrowLeft />
+          Back
+        </span>
+      </BookingHead>
+      {isLoadingData || isLoadingSettings ? (
+        <Spinner type="primary" />
+      ) : (
+        <>
+          <BookingDataBox booking={booking} />
+          <Breakfast
+            booking={booking}
+            breakfastPrice={settings?.breakfastPrice}
+          />
+          <Payment
+            booking={booking}
+            handlePayment={handlePayment}
+            isPendingPayment={isPendingPayment}
+          />
+          {/* <ButtonContainer>
+            {booking?.status === "unconfirmed" && (
+              <Button
+                className="secondary"
+                onClick={() => handleChangeStatus("checked in")}
+              >
+                {isPendingStatus ? (
+                  <Spinner type="secondary" />
+                ) : (
+                  <HiOutlineClipboardDocumentCheck />
+                )}
+                check in
+              </Button>
+            )}
+            {booking?.status === "checked in" && (
+              <Button
+                className="secondary"
+                onClick={() => handleChangeStatus("checked out")}
+                disabled={!booking?.isPaid}
+              >
+                {isPendingStatus ? (
+                  <Spinner type="secondary" />
+                ) : (
+                  <HiOutlineBriefcase />
+                )}
+                check out
+              </Button>
+            )}
+          </ButtonContainer> */}
+        </>
+      )}
+    </StyledBookingDetail>
+  );
+}
+
+export default BookingDetail;

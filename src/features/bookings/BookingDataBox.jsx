@@ -4,6 +4,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineCheckCircle,
   HiOutlineUser,
+  HiOutlineChatBubbleOvalLeftEllipsis,
 } from "react-icons/hi2";
 import { arrivingDay, formatDate, formatPrice } from "../../utilities/helper";
 import propTypes from "prop-types";
@@ -63,7 +64,7 @@ const Total = styled.div`
   align-items: center;
   justify-content: space-between;
   ${(props) =>
-    props.isPaid
+    props.ispaid === "true"
       ? css`
           background-color: var(--color-green-100);
         `
@@ -77,7 +78,7 @@ const Total = styled.div`
   & span,
   & p {
     ${(props) =>
-      props.isPaid
+      props.ispaid === "true"
         ? css`
             color: var(--color-green-700);
           `
@@ -149,6 +150,16 @@ function BookingDataBox({ booking }) {
           <p> • {guest.email} • </p>
           <p>National ID {guest.nationalID}</p>
         </Section>
+        {booking?.observation && (
+          <Section>
+            <span>
+              <HiOutlineChatBubbleOvalLeftEllipsis />
+              Observersion
+            </span>
+            <p>{booking?.observation}</p>
+          </Section>
+        )}
+
         <Section>
           <span>
             <HiOutlineCheckCircle />
@@ -156,13 +167,17 @@ function BookingDataBox({ booking }) {
           </span>
           <p>{booking.hasBreakfast ? "Yes" : "No"}</p>
         </Section>
-        <Total isPaid={booking.isPaid}>
+        <Total ispaid={booking.isPaid.toString()}>
           <span>
             <HiOutlineCurrencyDollar />
             <span>Total price</span>{" "}
             {`${formatPrice(booking?.totalPrice)} (${formatPrice(
               booking.cabinPrice
-            )} cabin + ${formatPrice(booking.extrasPrice)} breakfast)`}
+            )} cabin ${
+              booking.hasBreakfast
+                ? `+ ${formatPrice(booking.extrasPrice)} breakfast`
+                : ""
+            })`}
           </span>
           <p>{booking.isPaid ? "PAID" : "WILL PAY AT PROPERTY"}</p>
         </Total>

@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  gap: 0.25rem;
   &.primary {
     background-color: var(--color-Gray-100);
   }
