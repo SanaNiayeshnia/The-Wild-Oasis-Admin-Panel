@@ -13,9 +13,16 @@ import LastTd from "../../ui/table/LastTd";
 import { useEffect, useState } from "react";
 import ContextMenu from "../../ui/ContextMenu";
 import { useNavigate } from "react-router-dom";
-import { HiBriefcase, HiClipboardDocumentCheck } from "react-icons/hi2";
+import {
+  HiBriefcase,
+  HiClipboardDocumentCheck,
+  HiTrash,
+} from "react-icons/hi2";
 import useUpdateBooking from "./useUpdateBooking";
 import Spinner from "../../ui/Spinner";
+import DeleteConfirmation from "../cabins/DeleteConfirmation";
+import { useGeneralContext } from "../../contexts/GeneralContext";
+import useDeleteBooking from "./useDeleteBooking";
 
 const GuestDateTd = styled.td`
   & p {
@@ -32,6 +39,7 @@ Booking.propTypes = {
 };
 
 function Booking({ booking, openContextId, setOpenContextId }) {
+  const { handleShowModal } = useGeneralContext();
   const {
     guests: guestInfo,
     cabins: cabinInfo,
@@ -54,11 +62,24 @@ function Booking({ booking, openContextId, setOpenContextId }) {
   const { isPending: isPendingStatus, mutate: changeStatusMutate } =
     useUpdateBooking(booking.id, setShowContext);
 
+  const { isPending: isPendingDelete, mutate: deletingMutate } =
+    useDeleteBooking();
+
   function handleChangeStatus(status) {
     const { id, created_at, guests, cabins, ...restBooking } = booking;
     const bookingObj = { ...restBooking, status };
 
     changeStatusMutate({ id, bookingObj });
+  }
+
+  function handleDelete() {
+    handleShowModal(
+      <DeleteConfirmation
+        whatToDelete="booking"
+        object={booking}
+        deletingMutate={deletingMutate}
+      />
+    );
   }
 
   return (
@@ -122,6 +143,10 @@ function Booking({ booking, openContextId, setOpenContextId }) {
                 check out
               </li>
             )}
+            <li onClick={handleDelete}>
+              {isPendingDelete ? <Spinner type="secondary" /> : <HiTrash />}
+              delete
+            </li>
           </ContextMenu>
         )}
       </LastTd>

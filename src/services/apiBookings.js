@@ -41,4 +41,15 @@ async function updateBooking({ id, bookingObj }) {
   if (error) throw new Error(`Failed to update booking ${id}!`);
 }
 
-export { getBookings, getBooking, updateBooking };
+async function deleteBooking(id) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw new Error(`Failed to delete booking ${id}!`);
+  return data;
+}
+
+export { getBookings, getBooking, updateBooking, deleteBooking };

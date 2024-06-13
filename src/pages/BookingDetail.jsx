@@ -1,25 +1,24 @@
 import styled from "styled-components";
 import Tag from "../ui/Tag";
-import {
-  HiArrowLeft,
-  HiOutlineBriefcase,
-  HiOutlineClipboardDocumentCheck,
-} from "react-icons/hi2";
+import { HiArrowLeft, HiTrash } from "react-icons/hi2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getBooking } from "../services/apiBookings";
 import Spinner from "../ui/Spinner";
 import BookingDataBox from "../features/bookings/BookingDataBox";
-import Button from "../ui/Button";
 import useUpdateBooking from "../features/bookings/useUpdateBooking";
 import Payment from "../features/bookings/Payment";
 import Breakfast from "../features/bookings/Breakfast";
 import useSettings from "../features/settings/useSettings";
 import SelectBox from "../ui/SelectBox";
+import Button from "../ui/Button";
+import { useGeneralContext } from "../contexts/GeneralContext";
+import DeleteConfirmation from "../features/cabins/DeleteConfirmation";
+import useDeleteBooking from "../features/bookings/useDeleteBooking";
 
 const StyledBookingDetail = styled.div`
   padding: 0 1rem;
-  max-width: 55rem;
+  max-width: 60rem;
   max-height: min-content;
   margin: auto;
 `;
@@ -59,7 +58,7 @@ const Div = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin: 1rem 0 1.5rem 0;
   & button svg {
     width: 1.25rem;
     height: 1.25rem;
@@ -68,6 +67,7 @@ const ButtonContainer = styled.div`
 
 function BookingDetail() {
   const navigate = useNavigate();
+  const { handleShowModal } = useGeneralContext();
   const { id } = useParams();
   const { data: booking, isLoading: isLoadingData } = useQuery({
     queryKey: [`booking/${id}`],
@@ -78,6 +78,8 @@ function BookingDetail() {
     useUpdateBooking(id);
   const { isPending: isPendingPayment, mutate: paymentMutate } =
     useUpdateBooking(id);
+  const { isPending: isPendingDelete, mutate: deletingMutate } =
+    useDeleteBooking();
 
   function handleChangeStatus(status) {
     const { id, created_at, guests, cabins, ...restBooking } = booking;
@@ -90,6 +92,16 @@ function BookingDetail() {
     const { id, created_at, guests, cabins, ...restBooking } = booking;
     const bookingObj = { ...restBooking, isPaid: true };
     paymentMutate({ id, bookingObj });
+  }
+
+  function handleDelete() {
+    handleShowModal(
+      <DeleteConfirmation
+        whatToDelete="booking"
+        object={booking}
+        deletingMutate={deletingMutate}
+      />
+    );
   }
 
   return (
@@ -118,9 +130,14 @@ function BookingDetail() {
                   }}
                 >
                   <option value="default">Change the status</option>
-                  <option value="unconfirmed">unconfirmed</option>
-                  <option value="checked in">checked in</option>
-                  <option value="checked out">checked out</option>
+                  {["unconfirmed", "checked in", "checked out"].map(
+                    (status, index) =>
+                      status !== booking.status && (
+                        <option value={status} key={index}>
+                          {status}
+                        </option>
+                      )
+                  )}
                 </SelectBox>
               )}
             </>
@@ -145,35 +162,12 @@ function BookingDetail() {
             handlePayment={handlePayment}
             isPendingPayment={isPendingPayment}
           />
-          {/* <ButtonContainer>
-            {booking?.status === "unconfirmed" && (
-              <Button
-                className="secondary"
-                onClick={() => handleChangeStatus("checked in")}
-              >
-                {isPendingStatus ? (
-                  <Spinner type="secondary" />
-                ) : (
-                  <HiOutlineClipboardDocumentCheck />
-                )}
-                check in
-              </Button>
-            )}
-            {booking?.status === "checked in" && (
-              <Button
-                className="secondary"
-                onClick={() => handleChangeStatus("checked out")}
-                disabled={!booking?.isPaid}
-              >
-                {isPendingStatus ? (
-                  <Spinner type="secondary" />
-                ) : (
-                  <HiOutlineBriefcase />
-                )}
-                check out
-              </Button>
-            )}
-          </ButtonContainer> */}
+          <ButtonContainer>
+            <Button className="tertiary" onClick={handleDelete}>
+              {isPendingDelete ? <Spinner type="seconsary" /> : <HiTrash />}
+              Delete
+            </Button>
+          </ButtonContainer>
         </>
       )}
     </StyledBookingDetail>

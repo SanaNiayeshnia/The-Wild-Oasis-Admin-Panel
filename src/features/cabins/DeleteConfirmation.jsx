@@ -18,21 +18,24 @@ const Head = styled.h3`
   margin-bottom: 0;
   color: var(--color-Gray-900);
 `;
-function DeleteCabinConfirmation({ cabin, deletingMutate }) {
+function DeleteConfirmation({ whatToDelete, object, deletingMutate }) {
   const { handleCloseModal } = useGeneralContext();
-  async function deleteCabin() {
-    await deletingMutate(cabin.id);
+  async function deleteObject() {
+    await deletingMutate(object.id);
     handleCloseModal();
   }
   return (
     <StyledDeletCabinConfirmation>
-      <Head>Delete Cabins</Head>
-      <p>Are you sure you want to delete cabin {cabin.name}?</p>
+      <Head>Delete {whatToDelete}s</Head>
+      <p>
+        Are you sure you want to delete {whatToDelete}{" "}
+        {object?.name || object?.id}?
+      </p>
       <Div>
         <Button className="primary" type="cancel" onClick={handleCloseModal}>
           Cancel
         </Button>
-        <Button className="secondary" onClick={deleteCabin}>
+        <Button className="secondary" onClick={deleteObject}>
           Confirm
         </Button>
       </Div>
@@ -40,4 +43,4 @@ function DeleteCabinConfirmation({ cabin, deletingMutate }) {
   );
 }
 
-export default DeleteCabinConfirmation;
+export default DeleteConfirmation;

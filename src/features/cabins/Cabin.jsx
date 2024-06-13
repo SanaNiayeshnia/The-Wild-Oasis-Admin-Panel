@@ -1,15 +1,22 @@
 import TableRow from "../../ui/table/TableRow";
-import Button from "../../ui/Button";
 import CabinForm from "./CabinForm";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
-import { HiOutlineTrash, HiSquare2Stack } from "react-icons/hi2";
+import {
+  HiClipboardDocumentCheck,
+  HiOutlineTrash,
+  HiSquare2Stack,
+} from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
 import LastTd from "../../ui/table/LastTd";
 import useCreateEditCabin from "./useCreateEditCabin";
 import { useGeneralContext } from "../../contexts/GeneralContext";
-import DeleteCabinConfirmation from "./DeleteCabinConfirmation";
+import DeleteConfirmation from "./DeleteConfirmation";
+import { HiDotsVertical, HiEye, HiTrash } from "react-icons/hi";
+import ContextMenu from "../../ui/ContextMenu";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CabinImage = styled.img`
   max-width: 100px;
@@ -17,19 +24,18 @@ const CabinImage = styled.img`
   border-radius: 0.25rem;
   vertical-align: middle;
 `;
-const DeleteSpinner = styled(Spinner)`
-  max-width: 20px !important;
-`;
 
 Cabin.propTypes = {
   cabin: propTypes.object,
 };
 
-function Cabin({ cabin }) {
+function Cabin({ cabin, setOpenContextId, openContextId }) {
+  const [showContext, setShowContext] = useState(false);
+  const navigate = useNavigate();
   const { handleShowModal } = useGeneralContext();
-  const { isDeleting, mutate: deletingMutate } = useDeleteCabin();
+  const { isDeleting, mutate: deletingMutate } = useDeleteCabin(setShowContext);
   const { isPending: isDuplicating, mutate: duplicatingMutate } =
-    useCreateEditCabin();
+    useCreateEditCabin(setShowContext);
 
   function handelDuplicate() {
     const { id, created_at, ...cabinData } = cabin;
@@ -38,7 +44,11 @@ function Cabin({ cabin }) {
 
   function handleDelete() {
     handleShowModal(
-      <DeleteCabinConfirmation cabin={cabin} deletingMutate={deletingMutate} />
+      <DeleteConfirmation
+        whatToDelete="cabin"
+        object={cabin}
+        deletingMutate={deletingMutate}
+      />
     );
   }
 
@@ -48,7 +58,7 @@ function Cabin({ cabin }) {
 
   return (
     <>
-      <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 1fr">
+      <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 0.1fr">
         <td>
           <CabinImage src={cabin.image} alt={cabin.name} />
         </td>
@@ -57,7 +67,39 @@ function Cabin({ cabin }) {
         <td>{cabin.regularPrice}$</td>
         <td>{cabin.discount ? `${cabin.discount} $` : "-"}</td>
         <LastTd>
-          <Button className="quaternary" onClick={handleUpdate}>
+          <HiDotsVertical
+            onClick={() => {
+              setShowContext((showContext) => !showContext);
+              setOpenContextId(cabin.id);
+            }}
+          />
+          {showContext === true && openContextId === cabin.id && (
+            <ContextMenu setShowContext={setShowContext}>
+              <li onClick={() => navigate(`${cabin.id}`)}>
+                <HiEye />
+                See Details
+              </li>
+
+              <li onClick={handleUpdate}>
+                <HiClipboardDocumentCheck />
+                update
+              </li>
+
+              <li onClick={handelDuplicate}>
+                {isDuplicating ? (
+                  <Spinner type="secondary" />
+                ) : (
+                  <HiSquare2Stack />
+                )}
+                duplicate
+              </li>
+              <li onClick={handleDelete}>
+                {isDeleting ? <Spinner type="secondary" /> : <HiTrash />}
+                delete
+              </li>
+            </ContextMenu>
+          )}
+          {/* <Button className="quaternary" onClick={handleUpdate}>
             Update
           </Button>
           {isDeleting ? (
@@ -78,7 +120,7 @@ function Cabin({ cabin }) {
               title="duplicate"
               onClick={handelDuplicate}
             />
-          )}
+          )} */}
         </LastTd>
       </TableRow>
     </>

@@ -3,7 +3,7 @@ import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 
-function useCreateEditCabin(isEditSession = false) {
+function useCreateEditCabin(isEditSession = false, setShowContext) {
   const { showModal, handleCloseModal } = useGeneralContext();
   const queryClient = useQueryClient();
 
@@ -17,6 +17,8 @@ function useCreateEditCabin(isEditSession = false) {
           ? `Cabin ${data.name} has been updated successfully!`
           : `New Cabin has been created successfully!`
       );
+      setShowContext && setShowContext(false);
+
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       showModal && handleCloseModal();
     },

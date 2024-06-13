@@ -6,7 +6,6 @@ const Table = styled.table`
   outline: none;
   border-radius: 0.75rem;
   margin: auto;
-  overflow: hidden;
   border-spacing: 0;
   background-color: white;
   box-shadow: 0px 0px 5px 0 #cbd5e1;

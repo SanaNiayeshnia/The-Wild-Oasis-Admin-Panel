@@ -7,7 +7,10 @@ function useUpdateBooking(id, setShowContext) {
   const { isPending, mutate } = useMutation({
     mutationKey: ["bookings"],
     mutationFn: updateBooking,
-    onError: (err) => toast.error(err.message),
+    onError: (err) => {
+      setShowContext && setShowContext(false);
+      toast.error(err.message);
+    },
     onSuccess: () => {
       toast.success(`Booking ${id} has been updated.`);
       setShowContext && setShowContext(false);
