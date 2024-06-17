@@ -7,6 +7,7 @@ import Spinner from "../../ui/Spinner";
 import useBookings from "./useBookings";
 import Pagination from "../../ui/Pagination";
 import { useState } from "react";
+import NothingFound from "../../ui/NothingFound";
 
 function BookingsTable() {
   const { bookings, isLoading, count } = useBookings();
@@ -17,29 +18,35 @@ function BookingsTable() {
       {isLoading ? (
         <Spinner type="primary" />
       ) : (
-        <Table>
-          <Thead>
-            <TableRow gridcols="1fr 2fr 2fr 1fr 1fr 0.1fr">
-              <th>Cabin</th>
-              <th>Guest</th>
-              <th>Dates</th>
-              <th>Status</th>
-              <th>Amount</th>
-              <th></th>
-            </TableRow>
-          </Thead>
-          <Tbody>
-            {bookings?.map((booking) => (
-              <Booking
-                key={booking.id}
-                booking={booking}
-                openContextId={openContextId}
-                setOpenContextId={setOpenContextId}
-              />
-            ))}
-          </Tbody>
-          <Pagination count={count} />
-        </Table>
+        <>
+          {count === 0 ? (
+            <NothingFound />
+          ) : (
+            <Table>
+              <Thead>
+                <TableRow gridcols="1fr 2fr 2fr 1fr 1fr 0.1fr">
+                  <th>Cabin</th>
+                  <th>Guest</th>
+                  <th>Dates</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                  <th></th>
+                </TableRow>
+              </Thead>
+              <Tbody>
+                {bookings?.map((booking) => (
+                  <Booking
+                    key={booking.id}
+                    booking={booking}
+                    openContextId={openContextId}
+                    setOpenContextId={setOpenContextId}
+                  />
+                ))}
+              </Tbody>
+              <Pagination count={count} />
+            </Table>
+          )}
+        </>
       )}
     </>
   );

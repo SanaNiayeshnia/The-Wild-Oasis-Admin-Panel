@@ -7,6 +7,7 @@ import Table from "../../ui/table/Table";
 import Pagination from "../../ui/Pagination";
 import useCabins from "./useCabins";
 import { useState } from "react";
+import NothingFound from "../../ui/NothingFound";
 
 function CabinTable() {
   const { cabins, count, isLoading } = useCabins();
@@ -17,29 +18,33 @@ function CabinTable() {
         <Spinner type="primary" />
       ) : (
         <>
-          <Table>
-            <Thead>
-              <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 0.1fr">
-                <th></th>
-                <th>Cabin</th>
-                <th>Capixity</th>
-                <th>Price</th>
-                <th>Discount</th>
-                <th></th>
-              </TableRow>
-            </Thead>
-            <Tbody>
-              {cabins.map((cabin) => (
-                <Cabin
-                  key={cabin.id}
-                  cabin={cabin}
-                  openContextId={openContextId}
-                  setOpenContextId={setOpenContextId}
-                />
-              ))}
-            </Tbody>
-            <Pagination count={count} />
-          </Table>
+          {count === 0 ? (
+            <NothingFound />
+          ) : (
+            <Table>
+              <Thead>
+                <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 0.1fr">
+                  <th></th>
+                  <th>Cabin</th>
+                  <th>Capixity</th>
+                  <th>Price</th>
+                  <th>Discount</th>
+                  <th></th>
+                </TableRow>
+              </Thead>
+              <Tbody>
+                {cabins.map((cabin) => (
+                  <Cabin
+                    key={cabin.id}
+                    cabin={cabin}
+                    openContextId={openContextId}
+                    setOpenContextId={setOpenContextId}
+                  />
+                ))}
+              </Tbody>
+              <Pagination count={count} />
+            </Table>
+          )}
         </>
       )}
     </>

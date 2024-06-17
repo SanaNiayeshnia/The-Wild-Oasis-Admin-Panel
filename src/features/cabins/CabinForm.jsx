@@ -25,7 +25,7 @@ CabinForm.propTypes = {
   cabinToEdit: propTypes.object,
 };
 
-function CabinForm({ cabinToEdit = {} }) {
+function CabinForm({ cabinToEdit = {}, setOpenContextId }) {
   const { handleCloseModal } = useGeneralContext();
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
@@ -34,7 +34,10 @@ function CabinForm({ cabinToEdit = {} }) {
   });
   const { errors } = formState;
   const watchedValues = useWatch({ control });
-  const { isPending, mutate } = useCreateEditCabin(isEditSession);
+  const { isPending, mutate } = useCreateEditCabin(
+    setOpenContextId,
+    isEditSession
+  );
   function onSubmit(cabinData) {
     mutate({ cabinData, editId });
   }

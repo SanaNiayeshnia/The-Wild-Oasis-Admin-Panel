@@ -30,10 +30,7 @@ function SideBar() {
   return (
     <StyledSideBar>
       <Div>
-        <Logo
-          src="../../../public/imgs/logo-light.png"
-          alt="The wild Oasis Logo"
-        />
+        <Logo minwidth="170px" />
         <SideList>
           <li>
             <StyledNavLink to="/dashboard">

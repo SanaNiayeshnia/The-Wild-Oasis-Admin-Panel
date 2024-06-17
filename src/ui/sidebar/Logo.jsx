@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
-const Logo = styled.img`
-  max-width: 170px;
+const StyledLogo = styled.img`
+  max-width: ${(prop) => prop.minwidth};
 `;
+function Logo({ minwidth }) {
+  return (
+    <StyledLogo
+      minwidth={minwidth}
+      src="../../../public/imgs/logo-light.png"
+      alt="The wild Oasis Logo"
+    />
+  );
+}
+
 export default Logo;

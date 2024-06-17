@@ -117,6 +117,7 @@ function BookingDetail() {
                   { name: "checked in", color: "green" },
                   { name: "checked out", color: "Gray" },
                 ]}
+                style={{ boxShadow: "0px 0px 5px 0 #cbd5e1" }}
               >
                 {booking?.status}
               </Tag>

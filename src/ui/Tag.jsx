@@ -9,12 +9,14 @@ const StyledTag = styled.p`
   color: var(--color-${(props) => props.statusColor}-700);
 `;
 
-function Tag({ statuses, children }) {
+function Tag({ style, statuses, children }) {
   const statuscolor = statuses?.find(
     (status) => status.name === children
   ).color;
   return (
-    <StyledTag statuscolor={statuscolor}>{children?.toUpperCase()}</StyledTag>
+    <StyledTag style={style} statuscolor={statuscolor}>
+      {children?.toUpperCase()}
+    </StyledTag>
   );
 }
 

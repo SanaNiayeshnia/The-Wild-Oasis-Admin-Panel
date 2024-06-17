@@ -16,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import GeneralContextProvider from "./contexts/GeneralContext";
 import BookingDetail from "./pages/BookingDetail";
 import CabinDetail from "./pages/CabinDetail";
+import ProtectedRoute from "./ui/ProtectedRoute";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -42,7 +43,13 @@ function App() {
         />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/bookings" element={<Bookings />} />
@@ -52,10 +59,10 @@ function App() {
               <Route path="/checkin/:bookingID" element={<CheckIn />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/account" element={<Account />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </GeneralContextProvider>

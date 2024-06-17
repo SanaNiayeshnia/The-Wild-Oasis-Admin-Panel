@@ -30,12 +30,12 @@ Cabin.propTypes = {
 };
 
 function Cabin({ cabin, setOpenContextId, openContextId }) {
-  const [showContext, setShowContext] = useState(false);
   const navigate = useNavigate();
   const { handleShowModal } = useGeneralContext();
-  const { isDeleting, mutate: deletingMutate } = useDeleteCabin(setShowContext);
+  const { isDeleting, mutate: deletingMutate } =
+    useDeleteCabin(setOpenContextId);
   const { isPending: isDuplicating, mutate: duplicatingMutate } =
-    useCreateEditCabin(setShowContext);
+    useCreateEditCabin(setOpenContextId);
 
   function handelDuplicate() {
     const { id, created_at, ...cabinData } = cabin;
@@ -53,7 +53,13 @@ function Cabin({ cabin, setOpenContextId, openContextId }) {
   }
 
   function handleUpdate() {
-    handleShowModal(<CabinForm key={Math.random()} cabinToEdit={cabin} />);
+    handleShowModal(
+      <CabinForm
+        key={Math.random()}
+        cabinToEdit={cabin}
+        setOpenContextId={setOpenContextId}
+      />
+    );
   }
 
   return (
@@ -69,12 +75,11 @@ function Cabin({ cabin, setOpenContextId, openContextId }) {
         <LastTd>
           <HiDotsVertical
             onClick={() => {
-              setShowContext((showContext) => !showContext);
-              setOpenContextId(cabin.id);
+              openContextId !== cabin.id && setOpenContextId(cabin.id);
             }}
           />
-          {showContext === true && openContextId === cabin.id && (
-            <ContextMenu setShowContext={setShowContext}>
+          {openContextId === cabin.id && (
+            <ContextMenu setOpenContextId={setOpenContextId}>
               <li onClick={() => navigate(`${cabin.id}`)}>
                 <HiEye />
                 See Details

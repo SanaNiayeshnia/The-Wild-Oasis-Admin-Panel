@@ -34,8 +34,8 @@ const StyledContextMenu = styled.ul`
     color: var(--color-green-500);
   }
 `;
-function ContextMenu({ children, setShowContext }) {
-  const ref = useOutsideClick(() => setShowContext(false));
+function ContextMenu({ children, setOpenContextId }) {
+  const ref = useOutsideClick(() => setOpenContextId(null));
 
   return <StyledContextMenu ref={ref}>{children}</StyledContextMenu>;
 }

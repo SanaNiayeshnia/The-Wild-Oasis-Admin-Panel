@@ -36,10 +36,7 @@ function useBookings() {
       queryKey: ["bookings", filter, sort, page - 1],
       queryFn: () => getBookings({ filter, sort, page: page - 1 }),
     });
-  queryClient.prefetchQuery({
-    queryKey: ["settings"],
-    queryFn: getSettings,
-  });
+
   return { bookings, isLoading, count };
 }
 

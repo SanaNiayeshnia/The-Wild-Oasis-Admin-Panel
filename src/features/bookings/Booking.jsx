@@ -50,7 +50,6 @@ function Booking({ booking, openContextId, setOpenContextId }) {
   } = booking;
   const { name: cabinName } = cabinInfo;
   const { fullName: guestName, email: guestEmail } = guestInfo;
-  const [showContext, setShowContext] = useState(false);
   const navigate = useNavigate();
   const {
     month: startMonth,
@@ -60,7 +59,7 @@ function Booking({ booking, openContextId, setOpenContextId }) {
   const { month: endMonth, year: endYear, date: eDate } = formatDate(endDate);
 
   const { isPending: isPendingStatus, mutate: changeStatusMutate } =
-    useUpdateBooking(booking.id, setShowContext);
+    useUpdateBooking(booking.id, setOpenContextId);
 
   const { isPending: isPendingDelete, mutate: deletingMutate } =
     useDeleteBooking();
@@ -113,12 +112,11 @@ function Booking({ booking, openContextId, setOpenContextId }) {
       <LastTd>
         <HiDotsVertical
           onClick={() => {
-            setShowContext((showContext) => !showContext);
             setOpenContextId(booking.id);
           }}
         />
-        {showContext === true && openContextId === booking.id && (
-          <ContextMenu setShowContext={setShowContext}>
+        {openContextId === booking.id && (
+          <ContextMenu setOpenContextId={setOpenContextId}>
             <li onClick={() => navigate(`${booking.id}`)}>
               <HiEye />
               See Details
