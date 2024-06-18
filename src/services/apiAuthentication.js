@@ -1,4 +1,15 @@
 import supabase from "./supabase";
+async function signUp({ email, password, fullName }) {
+  let { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { fullName, avatar: "" },
+    },
+  });
+  if (error) throw new Error(error.message);
+  return data;
+}
 
 async function login({ email, password }) {
   let { data, error } = await supabase.auth.signInWithPassword({
@@ -25,4 +36,4 @@ async function logout() {
   if (error) throw new Error("Something went wrong during the log out!");
 }
 
-export { login, getCurrentUser, logout };
+export { login, getCurrentUser, logout, signUp };

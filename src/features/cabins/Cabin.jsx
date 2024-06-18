@@ -23,6 +23,28 @@ const CabinImage = styled.img`
   max-height: 67px;
   border-radius: 0.25rem;
   vertical-align: middle;
+  &.loading {
+    display: none;
+  }
+  &.loaded {
+    display: block;
+  }
+`;
+const Skeleton = styled.div`
+  width: 100px;
+  height: 67px;
+  border-radius: 0.25rem;
+  vertical-align: middle;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
 `;
 
 Cabin.propTypes = {
@@ -30,6 +52,7 @@ Cabin.propTypes = {
 };
 
 function Cabin({ cabin, setOpenContextId, openContextId }) {
+  const [isLoadedImg, setIsLoadedImg] = useState(false);
   const navigate = useNavigate();
   const { handleShowModal } = useGeneralContext();
   const { isDeleting, mutate: deletingMutate } =
@@ -66,7 +89,13 @@ function Cabin({ cabin, setOpenContextId, openContextId }) {
     <>
       <TableRow gridcols="1fr 1fr 2fr 1fr 1fr 0.1fr">
         <td>
-          <CabinImage src={cabin.image} alt={cabin.name} />
+          <CabinImage
+            src={cabin.image}
+            alt={cabin.name}
+            className={isLoadedImg ? "loaded" : "loading"}
+            onLoad={() => setIsLoadedImg(true)}
+          />
+          {!isLoadedImg && <Skeleton />}
         </td>
         <td>{cabin.name}</td>
         <td>fills up to {cabin.maxCapacity} guests</td>

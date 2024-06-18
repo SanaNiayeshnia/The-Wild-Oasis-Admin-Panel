@@ -7,5 +7,6 @@ const FormHead = styled.p`
   width: 100%;
   margin: 0;
   text-align: center;
+  font-size: 1rem;
 `;
 export default FormHead;

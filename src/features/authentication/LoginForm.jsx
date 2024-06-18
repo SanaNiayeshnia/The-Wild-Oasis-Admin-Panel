@@ -2,9 +2,10 @@ import styled from "styled-components";
 import Logo from "../../ui/sidebar/Logo";
 import Input from "../../ui/form/Input";
 import Button from "../../ui/Button";
-import { useState } from "react";
 import useLogin from "./useLogin";
 import Spinner from "../../ui/Spinner";
+import Error from "../../ui/Error";
+import { useForm } from "react-hook-form";
 
 const StyledLoginForm = styled.div`
   position: absolute;
@@ -43,41 +44,50 @@ const FormHead = styled.p`
 `;
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const { register, formState, handleSubmit, reset } = useForm();
   const { isPending, loginMutate } = useLogin();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!password || !email) return null;
-    loginMutate({ email, password });
+  const { errors } = formState;
+  function onSubmit(data) {
+    loginMutate({ email: data.email, password: data.password });
   }
 
   return (
     <StyledLoginForm onSubmit={handleSubmit}>
       <Logo minwidth="140px" />
       <FormHead>Log in To Your Account</FormHead>
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <LoginFormField>
           <label htmlFor="userEmail">Email Address</label>
           <Input
-            type="email"
+            type="text"
             id="userEmail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             disabled={isPending}
+            {...register("email", {
+              required: "This field can't be empty!",
+              validate: (email) => {
+                return (
+                  String(email)
+                    .toLowerCase()
+                    .match(
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    ) || "This isn't a valid email address!"
+                );
+              },
+            })}
           />
+          <Error>{errors?.email?.message}</Error>
         </LoginFormField>
         <LoginFormField>
           <label htmlFor="userPass">Password</label>
           <Input
             type="password"
             id="userPass"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             disabled={isPending}
+            {...register("password", {
+              required: "This field can't be empty!",
+            })}
           />
+          <Error>{errors?.password?.message}</Error>
         </LoginFormField>
         <Button className="secondary" disabled={isPending}>
           {isPending && <Spinner type="secondary" />}
