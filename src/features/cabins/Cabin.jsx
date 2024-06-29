@@ -133,28 +133,6 @@ function Cabin({ cabin, setOpenContextId, openContextId }) {
               </li>
             </ContextMenu>
           )}
-          {/* <Button className="quaternary" onClick={handleUpdate}>
-            Update
-          </Button>
-          {isDeleting ? (
-            <DeleteSpinner type="secondary" />
-          ) : (
-            <HiOutlineTrash
-              className="deleteBtn"
-              title="delete"
-              onClick={handleDelete}
-            />
-          )}
-
-          {isDuplicating ? (
-            <DeleteSpinner type="secondary" />
-          ) : (
-            <HiSquare2Stack
-              className="duplicateBtn"
-              title="duplicate"
-              onClick={handelDuplicate}
-            />
-          )} */}
         </LastTd>
       </TableRow>
     </>

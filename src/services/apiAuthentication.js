@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 async function signUp({ email, password, fullName }) {
   let { data, error } = await supabase.auth.signUp({
     email,
@@ -36,4 +36,42 @@ async function logout() {
   if (error) throw new Error("Something went wrong during the log out!");
 }
 
-export { login, getCurrentUser, logout, signUp };
+async function updateUser({ fullName, avatar, password }) {
+  const isUpdatingPassword = password;
+  let query;
+
+  if (isUpdatingPassword) {
+    query = supabase.auth.updateUser({ password });
+  } else {
+    const imgName = `${Math.random()}-${avatar[0]?.name}`.replaceAll("/", "");
+    const isAvatarUpdated = !avatar?.toString().startsWith(supabaseUrl);
+
+    if (isAvatarUpdated) {
+      const { error: avatarError } = await supabase.storage
+        .from("avatars")
+        .upload(imgName, avatar[0], {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (avatarError) throw new Error(avatarError.message);
+    }
+
+    const imgUrl = isAvatarUpdated
+      ? `${supabaseUrl}/storage/v1/object/public/avatars/${imgName}`
+      : avatar;
+
+    query = supabase.auth.updateUser({
+      data: {
+        fullName,
+        avatar: imgUrl,
+      },
+    });
+  }
+
+  const { data: updatedData, error: updateError } = await query;
+  if (updateError) throw new Error(updateError.message);
+  return updatedData;
+}
+
+export { login, getCurrentUser, logout, signUp, updateUser };

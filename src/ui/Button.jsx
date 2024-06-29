@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  background-color: white;
   gap: 0.25rem;
   &.primary {
     background-color: var(--color-Gray-100);
@@ -52,6 +53,7 @@ const StyledButton = styled.button`
     opacity: 0.6;
   }
 `;
+
 function Button({ className, type, onClick, disabled, children }) {
   return (
     <StyledButton

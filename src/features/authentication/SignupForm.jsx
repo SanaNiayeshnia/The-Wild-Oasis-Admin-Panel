@@ -65,13 +65,19 @@ function SignupForm() {
         />
         <Error>{errors?.email?.message}</Error>
       </FormField>
-      <FormField label="Password (min 6 char)">
+      <FormField label="Password">
         <Input
           type="password"
           id="password"
           disabled={isPending}
           autoFocus
-          {...register("password", { required: "This field can't be empty!" })}
+          {...register("password", {
+            required: "This field can't be empty!",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters!",
+            },
+          })}
         />
         <Error>{errors?.password?.message}</Error>
       </FormField>
