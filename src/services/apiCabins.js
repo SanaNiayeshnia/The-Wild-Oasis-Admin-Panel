@@ -19,6 +19,18 @@ export async function getCabins({ page, filter, sort }) {
   return { cabins, count };
 }
 
+export async function getCabin(id) {
+  let { data, error } = await supabase
+    .from("cabins")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function deleteCabin(id) {
   const { data, error } = await supabase
     .from("cabins")

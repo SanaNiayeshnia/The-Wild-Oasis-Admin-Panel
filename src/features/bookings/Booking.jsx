@@ -10,7 +10,6 @@ import {
 } from "../../utilities/helper";
 import { HiDotsVertical, HiEye } from "react-icons/hi";
 import LastTd from "../../ui/table/LastTd";
-import { useEffect, useState } from "react";
 import ContextMenu from "../../ui/ContextMenu";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,7 +19,7 @@ import {
 } from "react-icons/hi2";
 import useUpdateBooking from "./useUpdateBooking";
 import Spinner from "../../ui/Spinner";
-import DeleteConfirmation from "../cabins/DeleteConfirmation";
+import DeleteConfirmation from "../../ui/DeleteConfirmation";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import useDeleteBooking from "./useDeleteBooking";
 

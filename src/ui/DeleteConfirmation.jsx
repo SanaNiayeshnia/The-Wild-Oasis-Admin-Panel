@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import Button from "../../ui/Button";
-import { useGeneralContext } from "../../contexts/GeneralContext";
+import Button from "./Button";
+import { useGeneralContext } from "../contexts/GeneralContext";
 
 const StyledDeletCabinConfirmation = styled.div`
   padding: 1rem 1.5rem;
+  background-color: var(--color-Gray-0);
+  & p {
+    color: var(--color-Gray-900);
+  }
 `;
 const Div = styled.div`
   display: flex;

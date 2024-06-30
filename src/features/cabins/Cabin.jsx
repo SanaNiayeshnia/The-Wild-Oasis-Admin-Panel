@@ -3,20 +3,17 @@ import CabinForm from "./CabinForm";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
-import {
-  HiClipboardDocumentCheck,
-  HiOutlineTrash,
-  HiSquare2Stack,
-} from "react-icons/hi2";
+import { HiClipboardDocumentCheck, HiSquare2Stack } from "react-icons/hi2";
 import useDeleteCabin from "./useDeleteCabin";
 import LastTd from "../../ui/table/LastTd";
 import useCreateEditCabin from "./useCreateEditCabin";
 import { useGeneralContext } from "../../contexts/GeneralContext";
-import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmation from "../../ui/DeleteConfirmation";
 import { HiDotsVertical, HiEye, HiTrash } from "react-icons/hi";
 import ContextMenu from "../../ui/ContextMenu";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../utilities/helper";
 
 const CabinImage = styled.img`
   max-width: 100px;
@@ -99,8 +96,8 @@ function Cabin({ cabin, setOpenContextId, openContextId }) {
         </td>
         <td>{cabin.name}</td>
         <td>fills up to {cabin.maxCapacity} guests</td>
-        <td>{cabin.regularPrice}$</td>
-        <td>{cabin.discount ? `${cabin.discount} $` : "-"}</td>
+        <td>{formatPrice(cabin.regularPrice)}</td>
+        <td>{cabin.discount ? formatPrice(cabin.discount) : "-"}</td>
         <LastTd>
           <HiDotsVertical
             onClick={() => {

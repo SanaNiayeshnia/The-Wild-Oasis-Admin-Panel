@@ -11,7 +11,7 @@ import useSettings from "../features/settings/useSettings";
 import SelectBox from "../ui/SelectBox";
 import Button from "../ui/Button";
 import { useGeneralContext } from "../contexts/GeneralContext";
-import DeleteConfirmation from "../features/cabins/DeleteConfirmation";
+import DeleteConfirmation from "../ui/DeleteConfirmation";
 import useDeleteBooking from "../features/bookings/useDeleteBooking";
 import useBooking from "../features/bookings/useBooking";
 
@@ -58,10 +58,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 1rem 0 1.5rem 0;
-  & button svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
 `;
 
 function BookingDetail() {
@@ -152,7 +148,7 @@ function BookingDetail() {
           <BookingDataBox booking={booking} />
           <Breakfast
             booking={booking}
-            breakfastPrice={settings?.breakfastPrice}
+            breakfastPrice={booking?.extrasPrice || settings?.breakfastPrice}
           />
           <Payment
             booking={booking}

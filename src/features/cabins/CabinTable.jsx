@@ -12,6 +12,7 @@ import Button from "../../ui/Button";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import styled from "styled-components";
 import CabinForm from "./CabinForm";
+import { HiPlus } from "react-icons/hi2";
 
 const Div = styled.div`
   margin: 0 auto;
@@ -68,6 +69,7 @@ function CabinTable() {
                     );
                   }}
                 >
+                  <HiPlus />
                   Add New Cabin
                 </Button>
               </Div>

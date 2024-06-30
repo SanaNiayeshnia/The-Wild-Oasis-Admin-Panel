@@ -22,6 +22,7 @@ function useCreateEditCabin(setOpenContextId, isEditSession = false) {
       );
       setOpenContextId && setOpenContextId(null);
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      queryClient.invalidateQueries(`cabin/${data.id}`);
       showModal && handleCloseModal();
     },
   });

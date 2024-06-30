@@ -1,7 +1,9 @@
 import { HiArrowLeft } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import CabinDataBox from "../features/cabins/CabinDataBox";
+import useCabin from "../features/cabins/useCabin";
+import Spinner from "../ui/Spinner";
 
 const StyledCabinDetail = styled.div`
   padding: 0 1rem;
@@ -37,17 +39,19 @@ const CabinHead = styled.div`
   }
 `;
 function CabinDetail() {
+  const { id } = useParams();
+  const { data: cabin, isLoading } = useCabin(id);
   const navigate = useNavigate();
   return (
     <StyledCabinDetail>
       <CabinHead>
-        <p>Cabin#246</p>
+        <p>Cabin#{id}</p>
         <span onClick={() => navigate(-1)}>
           <HiArrowLeft />
           Back
         </span>
       </CabinHead>
-      <CabinDataBox />
+      {isLoading ? <Spinner type="primary" /> : <CabinDataBox cabin={cabin} />}
     </StyledCabinDetail>
   );
 }

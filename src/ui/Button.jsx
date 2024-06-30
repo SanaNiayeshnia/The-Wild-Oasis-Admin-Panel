@@ -40,7 +40,6 @@ const StyledButton = styled.button`
     padding: 0.25rem 0.5rem;
     color: var(--color-blue-500);
     background-color: var(--color-Gray-0);
-
     border: 2px solid var(--color-blue-500);
   }
   &.quaternary:hover {

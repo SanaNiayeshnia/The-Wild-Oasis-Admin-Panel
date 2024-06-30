@@ -27,6 +27,7 @@ const ModalWindow = styled.div`
   position: fixed;
   min-width: 18rem;
   min-height: 5rem;
+  overflow: hidden;
   text-align: justify;
   background-color: white;
   border-radius: 0.5rem;
