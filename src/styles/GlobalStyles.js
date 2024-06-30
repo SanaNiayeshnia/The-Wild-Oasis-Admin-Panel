@@ -106,10 +106,12 @@ const GlobalStyles = createGlobalStyle`
 body{
     padding: 0;
     margin: 0;
+    background-color: var(--color-Gray-0);
 }
 
 *{
   box-sizing: border-box;
   font-family: "poppins";
+  transition: all 0.3s;
 }`;
 export default GlobalStyles;

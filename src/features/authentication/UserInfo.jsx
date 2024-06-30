@@ -42,7 +42,7 @@ function UserInfo() {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <Spinner type="primary" />
       ) : (
         <StyledUserInfo>
           <img

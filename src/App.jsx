@@ -13,10 +13,13 @@ import GlobalStyles from "./styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import GeneralContextProvider from "./contexts/GeneralContext";
+import GeneralContextProvider, {
+  useGeneralContext,
+} from "./contexts/GeneralContext";
 import BookingDetail from "./pages/BookingDetail";
 import CabinDetail from "./pages/CabinDetail";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { useEffect } from "react";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

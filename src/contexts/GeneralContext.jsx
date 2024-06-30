@@ -4,7 +4,10 @@ function GeneralContextProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<div>modal content</div>);
   const mainRef = useRef();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const mode = localStorage.getItem("mode");
+    return mode === "dark";
+  });
 
   function handleShowModal(content) {
     mainRef.current.scrollTop = "0";

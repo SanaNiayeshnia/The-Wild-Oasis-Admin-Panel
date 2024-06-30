@@ -38,6 +38,7 @@ const Main = styled.main`
 
 function AppLayout() {
   const { showModal, mainRef } = useGeneralContext();
+
   return (
     <StyledAppLayout>
       <SideBar />
