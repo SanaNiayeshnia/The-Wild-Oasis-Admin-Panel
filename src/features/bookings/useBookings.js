@@ -3,7 +3,6 @@ import { getBookings } from "../../services/apiBookings";
 import toast from "react-hot-toast";
 import useSortFilter from "../../hooks/useSortFilter";
 import { PAGE_SIZE } from "../../utilities/constants";
-import { getSettings } from "../../services/apiSettings";
 
 function useBookings() {
   const filterHandler = (filterName, filterValue) => {

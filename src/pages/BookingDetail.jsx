@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Tag from "../ui/Tag";
 import { HiArrowLeft, HiTrash } from "react-icons/hi2";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getBooking } from "../services/apiBookings";
 import Spinner from "../ui/Spinner";
 import BookingDataBox from "../features/bookings/BookingDataBox";
 import useUpdateBooking from "../features/bookings/useUpdateBooking";
@@ -15,10 +13,11 @@ import Button from "../ui/Button";
 import { useGeneralContext } from "../contexts/GeneralContext";
 import DeleteConfirmation from "../features/cabins/DeleteConfirmation";
 import useDeleteBooking from "../features/bookings/useDeleteBooking";
+import useBooking from "../features/bookings/useBooking";
 
 const StyledBookingDetail = styled.div`
   padding: 0 1rem;
-  max-width: 60rem;
+  max-width: 65rem;
   max-height: min-content;
   margin: auto;
 `;
@@ -69,10 +68,7 @@ function BookingDetail() {
   const navigate = useNavigate();
   const { handleShowModal } = useGeneralContext();
   const { id } = useParams();
-  const { data: booking, isLoading: isLoadingData } = useQuery({
-    queryKey: [`booking/${id}`],
-    queryFn: () => getBooking(id),
-  });
+  const { data: booking, isLoading: isLoadingData } = useBooking(id);
   const { isLoading: isLoadingSettings, settings } = useSettings();
   const { isPending: isPendingStatus, mutate: changeStatusMutate } =
     useUpdateBooking(id);

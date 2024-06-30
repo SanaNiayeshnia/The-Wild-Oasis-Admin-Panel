@@ -9,7 +9,7 @@ import { APP_NAME } from "../utilities/constants";
 
 const StyledCabins = styled.div`
   padding: 0 1rem;
-  max-width: 60rem;
+  max-width: 65rem;
   max-height: min-content;
   margin: auto;
 `;
@@ -27,17 +27,8 @@ const CabinHead = styled.div`
     font-size: 1.5rem;
   }
 `;
-const Div = styled.div`
-  max-width: 55rem;
-  margin: 0 auto;
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 0.5rem;
-`;
 
 function Cabins() {
-  const { handleShowModal } = useGeneralContext();
   useEffect(() => {
     document.title = `${APP_NAME} - Cabins`;
   }, []);
@@ -49,17 +40,6 @@ function Cabins() {
         <CabinTableOperations />
       </CabinHead>
       <CabinTable />
-
-      <Div>
-        <Button
-          className="secondary"
-          onClick={() => {
-            handleShowModal(<CabinForm key={Math.random()} cabinToEdit={{}} />);
-          }}
-        >
-          Add New Cabin
-        </Button>
-      </Div>
     </StyledCabins>
   );
 }
