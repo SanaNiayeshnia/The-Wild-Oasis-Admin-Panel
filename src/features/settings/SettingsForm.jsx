@@ -16,6 +16,9 @@ import useSettings from "./useSettings";
 const UpdateButton = styled(Button)`
   border-radius: 0;
 `;
+const StyledSettingsForm = styled(Form)`
+  border: 1px solid var(--color-Gray-200);
+`;
 
 function SettingsForm() {
   const [isUpdated, setIsUpdated] = useState(false);
@@ -47,7 +50,7 @@ function SettingsForm() {
       {isLoading ? (
         <Spinner type="primary" />
       ) : (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <StyledSettingsForm onSubmit={handleSubmit(onSubmit)}>
           <FormField label="Minimum Nights/Bookings">
             <Input
               type="number"
@@ -115,7 +118,7 @@ function SettingsForm() {
               <span>{!isUpdating ? "Update" : "Updating"}</span>
             </UpdateButton>
           )}
-        </Form>
+        </StyledSettingsForm>
       )}
     </>
   );

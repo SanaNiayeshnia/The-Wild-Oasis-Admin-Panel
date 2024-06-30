@@ -37,7 +37,7 @@ const Div = styled.div`
   gap: 0.5rem;
 `;
 const StyledButton = styled(Button)`
-  box-shadow: 0px 0px 5px 0 #cbd5e1;
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
   &:hover {
     color: var(--color-green-600);
   }

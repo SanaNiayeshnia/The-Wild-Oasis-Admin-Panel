@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  background-color: white;
+  background-color: var(--color-Gray-0);
   gap: 0.25rem;
   &.primary {
     background-color: var(--color-Gray-100);
@@ -29,23 +29,22 @@ const StyledButton = styled.button`
   &.tertiary {
     padding: 0.25rem 0.5rem;
     border: 2px solid var(--color-red-500);
-    background-color: white;
-
+    background-color: var(--color-Gray-0);
     color: var(--color-red-500);
   }
   &.tertiary:hover {
-    color: white;
+    color: var(--color-Gray-0);
     background-color: var(--color-red-500);
   }
   &.quaternary {
     padding: 0.25rem 0.5rem;
     color: var(--color-blue-500);
-    background-color: white;
+    background-color: var(--color-Gray-0);
 
     border: 2px solid var(--color-blue-500);
   }
   &.quaternary:hover {
-    color: white;
+    color: var(--color-Gray-0);
     background-color: var(--color-blue-500);
   }
   &:disabled {

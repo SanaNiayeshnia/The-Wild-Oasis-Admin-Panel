@@ -38,7 +38,13 @@ function App() {
           toastOptions={{
             success: { duration: 3000 },
             error: { duration: 5000 },
-            style: { fontSize: "0.9rem", padding: "1rem" },
+            style: {
+              fontSize: "0.9rem",
+              padding: "1rem",
+              backgroundColor: "var(--color-Gray-0)",
+              color: "var(--color-Gray-900)",
+              border: "1px solid var(--color-Gray-200)",
+            },
           }}
         />
         <BrowserRouter>

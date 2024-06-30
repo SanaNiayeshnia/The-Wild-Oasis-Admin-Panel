@@ -11,6 +11,8 @@ import propTypes from "prop-types";
 
 const StyledBookingBoxDate = styled.div`
   border-radius: 0.5rem;
+  background-color: var(--color-Gray-0);
+  border: 1px solid var(--color-Gray-200);
   overflow: hidden;
   & span {
     display: flex;
@@ -21,7 +23,7 @@ const StyledBookingBoxDate = styled.div`
     width: 1.5rem;
     height: 1.5rem;
   }
-  box-shadow: 0px 0px 5px 0 #cbd5e1;
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
 `;
 const BoxHeader = styled.div`
   background-color: var(--color-green-500);
@@ -41,7 +43,7 @@ const BoxHeader = styled.div`
   }
 `;
 const BoxBody = styled.div`
-  background-color: white;
+  background-color: var(--background-color);
   padding: 0.75rem 1.5rem;
 `;
 const Section = styled.div`
@@ -56,6 +58,7 @@ const Section = styled.div`
   }
   & span {
     font-weight: 500;
+    color: var(--color-Gray-900);
   }
 `;
 const Total = styled.div`

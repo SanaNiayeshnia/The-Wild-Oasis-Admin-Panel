@@ -19,6 +19,7 @@ const StyledSideBar = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--color-Gray-0);
 `;
 
 const Div = styled.div`

@@ -10,7 +10,7 @@ function Users() {
   }, []);
 
   function handleOpenAddUserForm() {
-    handleShowModal(<SignupForm />);
+    handleShowModal(<SignupForm key={Math.random()} />);
   }
   return (
     <div>

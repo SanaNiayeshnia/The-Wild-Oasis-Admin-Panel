@@ -3,10 +3,12 @@ import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import useLogout from "../features/authentication/useLogout";
 import Spinner from "./Spinner";
 import UserAvatar from "./UserAvatar";
+import DarkModeToggle from "./DarkModeToggle";
 
 const StyledHeader = styled.header`
   padding: 1rem;
   border-bottom: 1px solid var(--color-Gray-100);
+  background-color: var(--color-Gray-0);
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -39,7 +41,7 @@ function Header() {
       ) : (
         <HiArrowRightOnRectangle onClick={logoutMutate} />
       )}
-
+      <DarkModeToggle />
       <UserAvatar />
     </StyledHeader>
   );

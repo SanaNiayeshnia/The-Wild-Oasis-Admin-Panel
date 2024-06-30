@@ -8,9 +8,10 @@ const StyledContextMenu = styled.ul`
   transform: translate(0, -10%);
   border: 1px solid var(--color-Gray-200);
   border-radius: 0.25rem;
-  background-color: white;
+  background-color: var(--color-Gray-0);
+  color: var(--color-Gray-900);
   padding: 0.25rem 0.5rem;
-  box-shadow: 0px 0px 2px 0px #cbd5e1;
+  box-shadow: 0px 0px 2px 0px var(--shadow-color);
   width: max-content;
   height: max-content;
   list-style-type: none;

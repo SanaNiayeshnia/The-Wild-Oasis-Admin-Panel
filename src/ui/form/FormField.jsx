@@ -6,6 +6,7 @@ const StyledFormField = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
+  color: var(--color-Gray-900);
   gap: 0.5rem;
   &:not(.last) {
     border-bottom: 2px solid var(--color-Gray-100);

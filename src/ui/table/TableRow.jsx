@@ -4,7 +4,12 @@ const StyledTableRow = styled.tr`
   align-items: center;
   grid-template-columns: ${(props) => props.gridcols};
   padding: 0.75rem;
+  background-color: var(--color-Gray-0);
   gap: 0.75rem;
+  &:has(th),
+  &.footer {
+    background-color: var(--color-Gray-100);
+  }
   & td,
   & th {
     color: var(--color-Gray-800);

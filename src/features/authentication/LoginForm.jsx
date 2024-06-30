@@ -18,11 +18,12 @@ const StyledLoginForm = styled.div`
   gap: 0.25rem;
 `;
 const Form = styled.form`
-  background-color: white;
+  background-color: var(--color-Gray-0);
+  border: 1px solid var(--color-Gray-200);
   border-radius: 0.5rem;
   padding: 2rem 1.5rem;
   min-width: 350px;
-  box-shadow: 0px 0px 5px 0 #cbd5e1;
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
   display: flex;
   flex-direction: column;
   gap: 1rem;

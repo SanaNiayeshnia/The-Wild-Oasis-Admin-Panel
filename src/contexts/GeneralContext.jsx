@@ -4,6 +4,7 @@ function GeneralContextProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<div>modal content</div>);
   const mainRef = useRef();
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   function handleShowModal(content) {
     mainRef.current.scrollTop = "0";
@@ -13,6 +14,10 @@ function GeneralContextProvider({ children }) {
   function handleCloseModal() {
     setShowModal(false);
   }
+
+  function toggleDarkMode() {
+    setIsDarkMode((isDarkMode) => !isDarkMode);
+  }
   return (
     <GeneralContext.Provider
       value={{
@@ -21,6 +26,8 @@ function GeneralContextProvider({ children }) {
         handleCloseModal,
         mainRef,
         modalContent,
+        isDarkMode,
+        toggleDarkMode,
       }}
     >
       {children}

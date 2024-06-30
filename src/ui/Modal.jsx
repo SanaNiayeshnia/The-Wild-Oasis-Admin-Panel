@@ -45,6 +45,7 @@ const ModalWindow = styled.div`
     transition: all 0.3s;
     width: 1.25rem;
     height: 1.25rem;
+    color: var(--color-Gray-900);
   }
   & svg:hover {
     transform: scale(1.1);

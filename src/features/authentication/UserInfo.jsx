@@ -2,8 +2,8 @@ import styled from "styled-components";
 import useUser from "./useUser";
 import Spinner from "../../ui/Spinner";
 const StyledUserInfo = styled.div`
-  background-color: white;
-  box-shadow: 0px 0px 5px 0 #cbd5e1;
+  background-color: var(--color-Gray-0);
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
   border-radius: 0.5rem;
   padding: 2rem;
   display: flex;
@@ -17,8 +17,8 @@ const StyledUserInfo = styled.div`
     margin-bottom: 1rem;
     border-radius: 10rem;
     margin-top: -10%;
-    box-shadow: 0px 0px 2px 0 #cbd5e1;
-    border: 5px solid white;
+    box-shadow: 0px 0px 2px 0 var(--shadow-color);
+    border: 5px solid var(--color-Gray-0);
     outline: 3px solid var(--color-green-500);
   }
 `;
