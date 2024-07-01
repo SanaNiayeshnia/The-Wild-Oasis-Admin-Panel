@@ -17,6 +17,7 @@ import GeneralContextProvider from "./contexts/GeneralContext";
 import BookingDetail from "./pages/BookingDetail";
 import CabinDetail from "./pages/CabinDetail";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Guests from "./pages/Guests";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -65,6 +66,7 @@ function App() {
               <Route path="/checkin/:bookingID" element={<CheckIn />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/guests" element={<Guests />} />
               <Route path="/account" element={<Account />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>

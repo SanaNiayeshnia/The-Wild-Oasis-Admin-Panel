@@ -52,6 +52,12 @@ function SideBar() {
             </StyledNavLink>
           </li>
           <li>
+            <StyledNavLink to="/guests">
+              <HiOutlineUsers />
+              Guests
+            </StyledNavLink>
+          </li>
+          <li>
             <StyledNavLink to="/users">
               <HiOutlineUsers />
               Users

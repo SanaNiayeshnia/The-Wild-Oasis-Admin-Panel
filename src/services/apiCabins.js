@@ -15,7 +15,7 @@ export async function getCabins({ page, filter, sort }) {
       (page - 1) * PAGE_SIZE + (PAGE_SIZE - 1)
     );
   let { data: cabins, error, count } = await query;
-  if (error) throw new Error(`cabins could not be loaded`);
+  if (error) throw new Error(`Failed to load the cabins!`);
   return { cabins, count };
 }
 
