@@ -11,6 +11,12 @@ const StyledFormField = styled.div`
   &:not(.last) {
     border-bottom: 2px solid var(--color-Gray-100);
   }
+  & select {
+    border-radius: 0.25rem;
+    border: 2px solid var(--color-Gray-200);
+    outline: none;
+    padding: 0.25rem 0.5rem;
+  }
 `;
 
 FormField.propTypes = {

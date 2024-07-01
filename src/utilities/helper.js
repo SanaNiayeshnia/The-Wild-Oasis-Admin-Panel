@@ -1,4 +1,4 @@
-function formatPrice(price) {
+function formatPrice(price = 0) {
   return "$" + price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 function formatDate(date) {
@@ -40,10 +40,13 @@ function formatDate(date) {
 function countNights(startDate, endDate) {
   const startDateObj = new Date(startDate);
   const endDateObj = new Date(endDate);
-  const isStayingLastNight = endDateObj.getHours() > 14 ? true : false;
-  return isStayingLastNight
-    ? endDateObj.getDate() - startDateObj.getDate() + 1
-    : endDateObj.getDate() - startDateObj.getDate();
+  if (endDateObj <= startDateObj) {
+    return 0;
+  }
+  const diffTime = endDateObj - startDateObj;
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+  const isStayingLastNight = endDateObj.getHours() > 14;
+  return Math.floor(diffDays) + (isStayingLastNight ? 1 : 0);
 }
 
 function arrivingDay(startDate) {
@@ -55,13 +58,32 @@ function arrivingDay(startDate) {
     differenceInDays < -30
       ? `${Math.round(Math.abs(differenceInDays) / 30)} Months Ago`
       : differenceInDays < 0
-      ? `${Math.abs(differenceInDays)} Days Ago`
+      ? `${Math.abs(differenceInDays)} Day${
+          differenceInDays !== -1 ? "s" : ""
+        } Ago`
+      : differenceInDays === 0
+      ? "Tomorrow"
       : differenceInDays < 30
-      ? `In ${differenceInDays} Days`
+      ? `In ${differenceInDays} Day${differenceInDays !== 1 ? "s" : ""}`
       : differenceInDays > 30
       ? `In ${Math.round(differenceInDays / 30)} Months`
       : "Today";
 
   return arrivingDay;
 }
-export { formatPrice, formatDate, countNights, arrivingDay };
+
+const formatDateForHTMLInput = (d) => {
+  const date = new Date(d);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+export {
+  formatPrice,
+  formatDate,
+  countNights,
+  arrivingDay,
+  formatDateForHTMLInput,
+};

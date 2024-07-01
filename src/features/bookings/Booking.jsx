@@ -8,13 +8,14 @@ import {
   formatDate,
   formatPrice,
 } from "../../utilities/helper";
-import { HiDotsVertical, HiEye } from "react-icons/hi";
+import { HiCheckCircle, HiDotsVertical, HiEye } from "react-icons/hi";
 import LastTd from "../../ui/table/LastTd";
 import ContextMenu from "../../ui/ContextMenu";
 import { useNavigate } from "react-router-dom";
 import {
   HiBriefcase,
   HiClipboardDocumentCheck,
+  HiIdentification,
   HiTrash,
 } from "react-icons/hi2";
 import useUpdateBooking from "./useUpdateBooking";
@@ -22,6 +23,7 @@ import Spinner from "../../ui/Spinner";
 import DeleteConfirmation from "../../ui/DeleteConfirmation";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import useDeleteBooking from "./useDeleteBooking";
+import BookingForm from "./BookingForm";
 
 const GuestDateTd = styled.td`
   & p {
@@ -64,10 +66,10 @@ function Booking({ booking, openContextId, setOpenContextId }) {
     useDeleteBooking();
 
   function handleChangeStatus(status) {
-    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const { id: editId, created_at, guests, cabins, ...restBooking } = booking;
     const bookingObj = { ...restBooking, status };
 
-    changeStatusMutate({ id, bookingObj });
+    changeStatusMutate({ editId, bookingObj });
   }
 
   function handleDelete() {
@@ -80,6 +82,12 @@ function Booking({ booking, openContextId, setOpenContextId }) {
     );
   }
 
+  function handleUpdate() {
+    handleShowModal(
+      <BookingForm key={Math.random()} bookingToEdit={booking} />
+    );
+  }
+
   return (
     <TableRow gridcols="1fr 2fr 2fr 1fr 1fr 0.1fr">
       <td>{cabinName}</td>
@@ -89,8 +97,7 @@ function Booking({ booking, openContextId, setOpenContextId }) {
       </GuestDateTd>
       <GuestDateTd>
         <p>
-          {arrivingDay(startDate)} - {countNights(startDate, endDate)} night
-          stay
+          {arrivingDay(startDate)} - {booking?.numNights} night stay
         </p>
         <p>
           {startMonth} {sDate} {startYear} - {endMonth} {eDate} {endYear}
@@ -125,7 +132,7 @@ function Booking({ booking, openContextId, setOpenContextId }) {
                 {isPendingStatus ? (
                   <Spinner type="secondary" />
                 ) : (
-                  <HiClipboardDocumentCheck />
+                  <HiIdentification />
                 )}
                 check in
               </li>
@@ -140,6 +147,10 @@ function Booking({ booking, openContextId, setOpenContextId }) {
                 check out
               </li>
             )}
+            <li onClick={handleUpdate}>
+              <HiClipboardDocumentCheck />
+              update
+            </li>
             <li onClick={handleDelete}>
               {isPendingDelete ? <Spinner type="secondary" /> : <HiTrash />}
               delete

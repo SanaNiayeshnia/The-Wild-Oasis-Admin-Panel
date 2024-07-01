@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useSortFilter from "../../hooks/useSortFilter";
 import { PAGE_SIZE } from "../../utilities/constants";
 
-function useCabins() {
+function useCabins(all = false) {
   const filterHandler = (filterName, filterValue) => {
     return !filterValue || filterValue === "all"
       ? null
@@ -20,7 +20,9 @@ function useCabins() {
           func: "eq",
         };
   };
-  const { sort, filter, page } = useSortFilter("discount", filterHandler);
+
+  const { sort, filter, page: p } = useSortFilter("discount", filterHandler);
+  const page = all ? null : p;
   const { data, isLoading } = useQuery({
     queryKey: ["cabins", page, sort, filter],
     queryFn: () => getCabins({ page, filter, sort }),

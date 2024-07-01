@@ -32,13 +32,22 @@ async function getBooking(id) {
   return booking;
 }
 
-async function updateBooking({ id, bookingObj }) {
+async function createBooking(booking) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert([booking])
+    .select();
+  if (error) throw new Error("Failed to create the new booking!");
+  return data;
+}
+
+async function updateBooking({ editId, bookingObj }) {
   const { error } = await supabase
     .from("bookings")
     .update(bookingObj)
-    .eq("id", id)
+    .eq("id", editId)
     .select();
-  if (error) throw new Error(`Failed to update booking ${id}!`);
+  if (error) throw new Error(`Failed to update booking ${editId}!`);
 }
 
 async function deleteBooking(id) {
@@ -52,4 +61,4 @@ async function deleteBooking(id) {
   return data;
 }
 
-export { getBookings, getBooking, updateBooking, deleteBooking };
+export { getBookings, getBooking, updateBooking, deleteBooking, createBooking };
