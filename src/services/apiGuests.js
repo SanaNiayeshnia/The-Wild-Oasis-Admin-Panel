@@ -12,3 +12,32 @@ export async function getGuests({ page }) {
   if (error) throw new Error("Failed to load the guests!");
   return { guests, count };
 }
+
+export async function createGuest(guest) {
+  const { data, error } = await supabase
+    .from("guests")
+    .insert([guest])
+    .select()
+    .single();
+
+  if (error) throw new Error("Failed to create the new user!");
+  return data;
+}
+
+export async function deleteGuest(id) {
+  const { data, error } = await supabase.from("guests").delete().eq("id", id);
+
+  if (error) throw new Error("Failed to delete the guest!");
+  return data;
+}
+
+export async function updateGuest({ editId, guest }) {
+  const { data, error } = await supabase
+    .from("guests")
+    .update(guest)
+    .eq("id", editId)
+    .select()
+    .single();
+  if (error) throw new Error("Failed to update the guest info!");
+  return data;
+}

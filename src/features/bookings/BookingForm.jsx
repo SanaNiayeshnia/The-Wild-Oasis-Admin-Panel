@@ -128,187 +128,177 @@ function BookingForm({ bookingToEdit = {} }) {
   }
 
   return (
-    <>
-      {isLoadingCabins || isLoadingGuests ? (
-        <Spinner type="primary" />
-      ) : (
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormHead>Add New Booking</FormHead>
-          <FormField label="Cabin">
-            <Input
-              list="cabinsList"
-              id="Cabin"
-              {...register("cabin", {
-                required: "This field can't be empty!",
-                validate: (value) =>
-                  cabins.some((cabin) => cabin.name === value) ||
-                  "You should select an available cabin!",
-              })}
-            />
-            <datalist id="cabinsList">
-              {cabins?.map((cabin) => (
-                <option value={cabin.name} key={cabin.id}>
-                  {cabin.name}
-                </option>
-              ))}
-            </datalist>
-            <Error>{errors?.cabin?.message}</Error>
-          </FormField>
-          <FormField label="Guest">
-            <Input
-              list="guestsList"
-              id="Guest"
-              {...register("guest", {
-                required: "This field can't be empty!",
-                validate: (value) =>
-                  guests.some((guest) => guest.fullName === value) ||
-                  "You should select an already defined user!",
-              })}
-            />
-            <datalist id="guestsList">
-              {guests?.map((guest) => (
-                <option value={guest.fullName} key={guest.id}>
-                  {guest.fullName}
-                </option>
-              ))}
-            </datalist>
-            <Error>{errors?.guest?.message}</Error>
-          </FormField>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormHead>Add New Booking</FormHead>
+      <FormField label="Cabin">
+        <Input
+          list="cabinsList"
+          id="Cabin"
+          {...register("cabin", {
+            required: "This field can't be empty!",
+            validate: (value) =>
+              cabins.some((cabin) => cabin.name === value) ||
+              "You should select an available cabin!",
+          })}
+        />
+        <datalist id="cabinsList">
+          {cabins?.map((cabin) => (
+            <option value={cabin.name} key={cabin.id}>
+              {cabin.name}
+            </option>
+          ))}
+        </datalist>
+        <Error>{errors?.cabin?.message}</Error>
+      </FormField>
+      <FormField label="Guest">
+        <Input
+          list="guestsList"
+          id="Guest"
+          {...register("guest", {
+            required: "This field can't be empty!",
+            validate: (value) =>
+              guests.some((guest) => guest.fullName === value) ||
+              "You should select an already defined user!",
+          })}
+        />
+        <datalist id="guestsList">
+          {guests?.map((guest) => (
+            <option value={guest.fullName} key={guest.id}>
+              {guest.fullName}
+            </option>
+          ))}
+        </datalist>
+        <Error>{errors?.guest?.message}</Error>
+      </FormField>
 
-          <Container>
-            <div>
-              <label htmlFor="startDate">Start Date :</label>
-              <Input
-                type="date"
-                id="startDate"
-                {...register("startDate", {
-                  validate: (value) => {
-                    if (isEditSession) return true;
-                    const startDate = new Date(value);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
+      <Container>
+        <div>
+          <label htmlFor="startDate">Start Date :</label>
+          <Input
+            type="date"
+            id="startDate"
+            {...register("startDate", {
+              validate: (value) => {
+                if (isEditSession) return true;
+                const startDate = new Date(value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-                    if (startDate < today) {
-                      return "The start date cannot be in the past!";
-                    }
-                    return true;
-                  },
-                })}
-              />
-            </div>
-            <div>
-              <label htmlFor="endDate">End Date :</label>
-              <Input
-                type="date"
-                id="endDate"
-                {...register("endDate", {
-                  validate: (value) => {
-                    const startDate = new Date(watchedValues?.startDate);
-                    const endDate = new Date(value);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const nights = countNights(startDate, endDate);
+                if (startDate < today) {
+                  return "The start date cannot be in the past!";
+                }
+                return true;
+              },
+            })}
+          />
+        </div>
+        <div>
+          <label htmlFor="endDate">End Date :</label>
+          <Input
+            type="date"
+            id="endDate"
+            {...register("endDate", {
+              validate: (value) => {
+                const startDate = new Date(watchedValues?.startDate);
+                const endDate = new Date(value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const nights = countNights(startDate, endDate);
 
-                    if (endDate <= today) {
-                      return isEditSession
-                        ? true
-                        : "The end date must be later than today's date!";
-                    }
-                    if (endDate <= startDate) {
-                      return "The end date must be later than the start date!";
-                    }
-                    if (nights < minBookingLength) {
-                      return `You can't reserve for less than ${minBookingLength} nights!`;
-                    }
-                    if (nights > maxBookingLength) {
-                      return `You can't reserve for more than ${maxBookingLength} nights!`;
-                    }
-                    return true;
-                  },
-                })}
-              />
-            </div>
-            <Error>
-              {errors?.startDate?.message || errors?.endDate?.message}
-            </Error>
-          </Container>
+                if (endDate <= today) {
+                  return isEditSession
+                    ? true
+                    : "The end date must be later than today's date!";
+                }
+                if (endDate <= startDate) {
+                  return "The end date must be later than the start date!";
+                }
+                if (nights < minBookingLength) {
+                  return `You can't reserve for less than ${minBookingLength} nights!`;
+                }
+                if (nights > maxBookingLength) {
+                  return `You can't reserve for more than ${maxBookingLength} nights!`;
+                }
+                return true;
+              },
+            })}
+          />
+        </div>
+        <Error>{errors?.startDate?.message || errors?.endDate?.message}</Error>
+      </Container>
 
-          <FormField label="Number of guests">
-            <Input
-              type="number"
-              id="numGuests"
-              {...register("numGuests", {
-                required: "This field can't be empty!",
-                min: {
-                  value: 1,
-                  message: "Number of guests should be greater than 1!",
-                },
-                max: {
-                  value: maxGuestsPerBooking,
-                  message: `Number of guests can't be greater thab ${maxGuestsPerBooking}`,
-                },
-              })}
-            />
-            <Error>{errors?.numGuests?.message}</Error>
-          </FormField>
-          {isEditSession && (
-            <FormField label="Status">
-              <select id="status" {...register("status")}>
-                <option value="unconfirmed">unconfirmed</option>
-                <option value="checked in">checked in</option>
-                <option value="checked out">checked out</option>
-              </select>
-            </FormField>
-          )}
-
-          <FormField label="Observation">
-            <Textarea id="observation" rows={2} {...register("observation")} />
-            <Error>{errors?.observation?.message}</Error>
-          </FormField>
-          <Container className="last">
-            <Container className="last">
-              <div>
-                <label htmlFor="hasBreakfast">Want breakfast?</label>
-                <Input
-                  type="checkbox"
-                  id="hasBreakfast"
-                  {...register("hasBreakfast")}
-                />
-              </div>
-            </Container>
-            <Container className="last">
-              <div>
-                <label htmlFor="isPaid">
-                  Has total price of {formatPrice(totalPrice)} been paid?
-                </label>
-                <Input type="checkbox" id="isPaid" {...register("isPaid")} />
-              </div>
-            </Container>
-          </Container>
-
-          <Div>
-            <Button
-              className="primary"
-              type="reset"
-              onClick={handleCloseModal}
-              disabled={isPendingCreate || isPendingUpdate}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="secondary"
-              type="submit"
-              disabled={isPendingCreate || isPendingUpdate}
-            >
-              {(isPendingCreate || isPendingUpdate) && (
-                <Spinner type="secondary" />
-              )}
-              {isEditSession ? "Update Booking" : "Add booking"}
-            </Button>
-          </Div>
-        </Form>
+      <FormField label="Number of guests">
+        <Input
+          type="number"
+          id="numGuests"
+          {...register("numGuests", {
+            required: "This field can't be empty!",
+            min: {
+              value: 1,
+              message: "Number of guests should be greater than 1!",
+            },
+            max: {
+              value: maxGuestsPerBooking,
+              message: `Number of guests can't be greater thab ${maxGuestsPerBooking}`,
+            },
+          })}
+        />
+        <Error>{errors?.numGuests?.message}</Error>
+      </FormField>
+      {isEditSession && (
+        <FormField label="Status">
+          <select id="status" {...register("status")}>
+            <option value="unconfirmed">unconfirmed</option>
+            <option value="checked in">checked in</option>
+            <option value="checked out">checked out</option>
+          </select>
+        </FormField>
       )}
-    </>
+
+      <FormField label="Observation">
+        <Textarea id="observation" rows={2} {...register("observation")} />
+        <Error>{errors?.observation?.message}</Error>
+      </FormField>
+      <Container className="last">
+        <Container className="last">
+          <div>
+            <label htmlFor="hasBreakfast">Want breakfast?</label>
+            <Input
+              type="checkbox"
+              id="hasBreakfast"
+              {...register("hasBreakfast")}
+            />
+          </div>
+        </Container>
+        <Container className="last">
+          <div>
+            <label htmlFor="isPaid">
+              Has total price of {formatPrice(totalPrice)} been paid?
+            </label>
+            <Input type="checkbox" id="isPaid" {...register("isPaid")} />
+          </div>
+        </Container>
+      </Container>
+
+      <Div>
+        <Button
+          className="primary"
+          type="reset"
+          onClick={handleCloseModal}
+          disabled={isPendingCreate || isPendingUpdate}
+        >
+          Cancel
+        </Button>
+        <Button
+          className="secondary"
+          type="submit"
+          disabled={isPendingCreate || isPendingUpdate}
+        >
+          {(isPendingCreate || isPendingUpdate) && <Spinner type="secondary" />}
+          {isEditSession ? "Update Booking" : "Add booking"}
+        </Button>
+      </Div>
+    </Form>
   );
 }
 

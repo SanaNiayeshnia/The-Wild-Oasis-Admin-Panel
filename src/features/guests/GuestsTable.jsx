@@ -9,10 +9,23 @@ import Tbody from "../../ui/table/Tbody";
 import Thead from "../../ui/table/Thead";
 import Guest from "./Guest";
 import useGuests from "./useGuests";
+import { HiPlus } from "react-icons/hi2";
+import { useGeneralContext } from "../../contexts/GeneralContext";
+import GuestForm from "./GuestForm";
+import styled from "styled-components";
+
+const Div = styled.div`
+  margin: 0 auto;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+`;
 
 function GuestsTable() {
   const [openContextId, setOpenContextId] = useState();
   const { guests, isLoading, count } = useGuests();
+  const { handleShowModal } = useGeneralContext();
   return (
     <>
       {isLoading ? (
@@ -47,17 +60,17 @@ function GuestsTable() {
               </Table>
             )}
           </>
-          {/* <Div>
+          <Div>
             <Button
               className="secondary"
               onClick={() => {
-                handleShowModal(<BookingForm key={Math.random()} />);
+                handleShowModal(<GuestForm key={Math.random()} />);
               }}
             >
               <HiPlus />
-              Add New User
+              Add New Guest
             </Button>
-          </Div> */}
+          </Div>
         </>
       )}
     </>

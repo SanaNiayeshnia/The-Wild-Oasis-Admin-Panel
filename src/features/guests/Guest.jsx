@@ -4,8 +4,30 @@ import LastTd from "../../ui/table/LastTd";
 import ContextMenu from "../../ui/ContextMenu";
 import { HiClipboardDocumentCheck, HiTrash } from "react-icons/hi2";
 import Spinner from "../../ui/Spinner";
+import { useGeneralContext } from "../../contexts/GeneralContext";
+import DeleteConfirmation from "../../ui/DeleteConfirmation";
+import useDeleteGuest from "./useDeleteGuest";
+import GuestForm from "./GuestForm";
 
 function Guest({ guest, openContextId, setOpenContextId }) {
+  const { handleShowModal } = useGeneralContext();
+  const { isPending: isPendingDelete, mutate: deletingMutate } =
+    useDeleteGuest();
+
+  function handleDelete() {
+    handleShowModal(
+      <DeleteConfirmation
+        whatToDelete="guest"
+        object={guest}
+        deletingMutate={deletingMutate}
+      />
+    );
+  }
+
+  function handleUpdate() {
+    handleShowModal(<GuestForm key={Math.random()} guestToEdit={guest} />);
+  }
+
   return (
     <TableRow gridcols="2fr 2fr 1fr 1fr 0.1fr">
       <td>{guest.fullName}</td>
@@ -20,12 +42,12 @@ function Guest({ guest, openContextId, setOpenContextId }) {
         />
         {openContextId === guest.id && (
           <ContextMenu setOpenContextId={setOpenContextId}>
-            <li>
+            <li onClick={handleUpdate}>
               <HiClipboardDocumentCheck />
               update
             </li>
-            <li>
-              {/* {isPendingDelete ? <Spinner type="secondary" /> : <HiTrash />} */}
+            <li onClick={handleDelete}>
+              {isPendingDelete ? <Spinner type="secondary" /> : <HiTrash />}
               delete
             </li>
           </ContextMenu>
