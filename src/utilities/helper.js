@@ -53,17 +53,19 @@ function arrivingDay(startDate) {
   const startDateObj = new Date(startDate);
   const today = new Date();
   const oneDay = 24 * 60 * 60 * 1000;
-  const differenceInDays = Math.round((startDateObj - today) / oneDay);
+  const differenceInDays = Math.ceil((startDateObj - today) / oneDay);
   const arrivingDay =
     differenceInDays < -30
       ? `${Math.round(Math.abs(differenceInDays) / 30)} Months Ago`
-      : differenceInDays === -1
-      ? "Today"
       : differenceInDays < 0
       ? `${Math.abs(differenceInDays)} Day${
           differenceInDays !== -1 ? "s" : ""
         } Ago`
+      : differenceInDays === -1
+      ? "Yesterday"
       : differenceInDays === 0
+      ? "Today"
+      : differenceInDays === 1
       ? "Tomorrow"
       : differenceInDays < 30
       ? `In ${differenceInDays} Day${differenceInDays !== 1 ? "s" : ""}`

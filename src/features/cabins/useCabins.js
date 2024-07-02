@@ -21,8 +21,14 @@ function useCabins(all = false) {
         };
   };
 
-  const { sort, filter, page: p } = useSortFilter("discount", filterHandler);
+  const {
+    sort: s,
+    filter: f,
+    page: p,
+  } = useSortFilter("discount", filterHandler);
   const page = all ? null : p;
+  const filter = all ? null : f;
+  const sort = all ? null : s;
   const { data, isLoading } = useQuery({
     queryKey: ["cabins", page, sort, filter],
     queryFn: () => getCabins({ page, filter, sort }),

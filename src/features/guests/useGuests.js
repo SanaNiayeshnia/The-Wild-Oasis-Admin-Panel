@@ -5,8 +5,9 @@ import { PAGE_SIZE } from "../../utilities/constants";
 import useSortFilter from "../../hooks/useSortFilter";
 
 function useGuests(all) {
-  const { page: p, sort } = useSortFilter();
+  const { page: p, sort: s } = useSortFilter();
   const page = all ? null : p;
+  const sort = all ? null : s;
   const { data, isLoading } = useQuery({
     queryKey: ["guests", page, sort],
     queryFn: () => getGuests({ page, sort }),
