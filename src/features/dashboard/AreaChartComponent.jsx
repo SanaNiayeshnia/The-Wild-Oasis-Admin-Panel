@@ -13,9 +13,12 @@ import { isSameDay, subDays } from "date-fns";
 
 const StyledAreaChartComponent = styled.div`
   background-color: var(--color-Gray-0);
-  padding: 1rem;
+  padding: 1.5rem;
   grid-column: 1/-1;
-  height: 300px;
+  height: 320px;
+  border: 1px solid var(--color-Gray-200);
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
   & p {
     color: var(--color-Gray-900);
     margin: 0 0 1rem 0;
@@ -67,7 +70,7 @@ function AreaChartComponent({ bookings, numDays }) {
           margin={{
             top: 10,
             right: 30,
-            left: 0,
+            left: 10,
             bottom: 40,
           }}
         >

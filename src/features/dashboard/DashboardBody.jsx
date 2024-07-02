@@ -4,9 +4,6 @@ import Statistics from "./Statistics";
 import useRecentBookings from "./useRecentBookings";
 import useRecentStays from "./useRecentStays";
 import useCabins from "../cabins/useCabins";
-import { AreaChart, PieChart } from "recharts";
-import AreaChartComponent from "./AreaChartComponent";
-import PieChartComponent from "./PieChartComponent";
 import Charts from "./Charts";
 
 const StyledDashboardBody = styled.div``;
@@ -19,7 +16,7 @@ function DashboardBody() {
     confirmedStays,
     numDays,
   } = useRecentStays();
-  const { isLoading: isLoadingCabins, cabins, count } = useCabins(true);
+  const { isLoading: isLoadingCabins, count } = useCabins(true);
 
   return (
     <>

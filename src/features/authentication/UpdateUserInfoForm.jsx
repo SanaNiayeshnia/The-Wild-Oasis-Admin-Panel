@@ -31,7 +31,6 @@ function UpdateUserInfoForm() {
   const { errors } = formState;
   const { handleCloseModal } = useGeneralContext();
   const { isPending, mutate: updateUserMutate } = useUpdateUser();
-  console.log(user?.user_metadata?.avatar);
   function onSubmit(data) {
     updateUserMutate(data);
   }

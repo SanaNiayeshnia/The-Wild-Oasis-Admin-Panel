@@ -57,12 +57,12 @@ function SideBar() {
               Guests
             </StyledNavLink>
           </li>
-          <li>
+          {/* <li>
             <StyledNavLink to="/users">
               <HiOutlineUsers />
               Users
             </StyledNavLink>
-          </li>
+          </li> */}
           <li>
             <StyledNavLink to="/settings">
               <HiOutlineCog6Tooth />

@@ -8,6 +8,8 @@ const StyledStatstic = styled.div`
   border-radius: 0.5rem;
   padding: 1.5rem 1rem;
   gap: 0.5rem;
+  border: 1px solid var(--color-Gray-200);
+  box-shadow: 0px 0px 5px 0 var(--shadow-color);
   & svg {
     width: 3.5rem;
     height: 3.5rem;

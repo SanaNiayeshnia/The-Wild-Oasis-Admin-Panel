@@ -64,7 +64,10 @@ function BookingForm({ bookingToEdit = {} }) {
   const isEditSession = Boolean(editId);
   const { handleCloseModal } = useGeneralContext();
   const { cabins, isLoading: isLoadingCabins } = useCabins(true);
+  cabins?.sort((a, b) => a.name - b.name);
   const { guests, isLoading: isLoadingGuests } = useGuests(true);
+  guests?.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
   const { settings } = useSettings();
   const breakfastPrice = settings?.breakfastPrice;
   const maxGuestsPerBooking = settings?.maxGuestsPerBooking;
@@ -89,9 +92,16 @@ function BookingForm({ bookingToEdit = {} }) {
   const selectedGuest = guests?.find(
     (guest) => guest?.fullName === watchedValues?.guest
   );
+  const numNights = countNights(
+    new Date(watchedValues?.startDate),
+    new Date(watchedValues?.endDate)
+  );
+
   const totalPrice = watchedValues?.hasBreakfast
-    ? (selectedCabin?.regularPrice || 0) + breakfastPrice
-    : selectedCabin?.regularPrice;
+    ? (selectedCabin?.regularPrice - selectedCabin?.discount + breakfastPrice) *
+      numNights
+    : (selectedCabin?.regularPrice - selectedCabin?.discount) * numNights;
+
   const { mutate: createBookingMutate, isPending: isPendingCreate } =
     useCreateBooking();
   const { mutate: updateBookingMutate, isPending: isPendingUpdate } =
@@ -120,7 +130,7 @@ function BookingForm({ bookingToEdit = {} }) {
       hasBreakfast,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
-      numNights: countNights(new Date(startDate), new Date(endDate)),
+      numNights,
     };
     if (isEditSession) updateBookingMutate({ editId, bookingObj });
     else createBookingMutate(bookingObj);
@@ -270,16 +280,19 @@ function BookingForm({ bookingToEdit = {} }) {
           </div>
         </Container>
 
-        {watchedValues.cabin && (
-          <Container className="last">
-            <div>
-              <label htmlFor="isPaid">
-                Has total price of {formatPrice(totalPrice)} been paid?
-              </label>
-              <Input type="checkbox" id="isPaid" {...register("isPaid")} />
-            </div>
-          </Container>
-        )}
+        {watchedValues.cabin &&
+          watchedValues.startDate &&
+          watchedValues.endDate &&
+          watchedValues?.endDate > watchedValues?.startDate && (
+            <Container className="last">
+              <div>
+                <label htmlFor="isPaid">
+                  Has total price of {formatPrice(totalPrice)} been paid?
+                </label>
+                <Input type="checkbox" id="isPaid" {...register("isPaid")} />
+              </div>
+            </Container>
+          )}
       </Container>
 
       <Div>

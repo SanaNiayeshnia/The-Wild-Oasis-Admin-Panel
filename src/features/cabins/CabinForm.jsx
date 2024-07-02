@@ -99,7 +99,7 @@ function CabinForm({ cabinToEdit = {}, setOpenContextId }) {
               message: "Discount can't be a negative number!",
             },
             validate: (value) =>
-              value <= watchedValues.regularPrice ||
+              value <= Number(watchedValues.regularPrice) ||
               "Discount must be less than or euqual to Regular Price!",
           })}
         />
