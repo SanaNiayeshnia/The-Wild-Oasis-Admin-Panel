@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import CabinTable from "../features/cabins/CabinTable";
-import Button from "../ui/Button";
-import CabinForm from "../features/cabins/CabinForm";
-import { useGeneralContext } from "../contexts/GeneralContext";
 import CabinTableOperations from "../features/cabins/CabinTableOperations";
 import { useEffect } from "react";
 import { APP_NAME } from "../utilities/constants";

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GuestsTable from "../features/guests/GuestsTable";
+import GuestTableOperations from "../features/guests/GuestTableOperations";
 
 const StyledGuests = styled.div`
   padding: 0 1rem;
@@ -26,6 +27,7 @@ function Guests() {
     <StyledGuests>
       <GuestsHead>
         <p>Guests</p>
+        <GuestTableOperations />
       </GuestsHead>
       <GuestsTable />
     </StyledGuests>

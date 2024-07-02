@@ -1,8 +1,11 @@
 import { PAGE_SIZE } from "../utilities/constants";
 import supabase from "./supabase";
 
-export async function getGuests({ page }) {
+export async function getGuests({ page, sort }) {
   let query = supabase.from("guests").select("*", { count: "exact" });
+  if (sort) {
+    query = query.order(sort.name, { ascending: sort.type === "asc" });
+  }
   if (page)
     query = query.range(
       (page - 1) * PAGE_SIZE,

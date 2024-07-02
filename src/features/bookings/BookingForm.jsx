@@ -54,7 +54,6 @@ const Container = styled.div`
 function BookingForm({ bookingToEdit = {} }) {
   const {
     id: editId,
-    created_at,
     cabins: cabinToEdit,
     guests: guestToEdit,
     startDate: startDateToEdit,
@@ -103,12 +102,14 @@ function BookingForm({ bookingToEdit = {} }) {
       startDate,
       endDate,
       hasBreakfast,
-      isPaid,
-      observation,
       numGuests,
       status,
+      cabin,
+      guest,
+      ...rest
     } = data;
     const bookingObj = {
+      ...rest,
       cabinId: selectedCabin?.id,
       guestId: selectedGuest?.id,
       cabinPrice: selectedCabin?.regularPrice,
@@ -117,8 +118,6 @@ function BookingForm({ bookingToEdit = {} }) {
       status: isEditSession ? status : "unconfirmed",
       numGuests: Number(numGuests),
       hasBreakfast,
-      isPaid,
-      observation,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
       numNights: countNights(new Date(startDate), new Date(endDate)),
