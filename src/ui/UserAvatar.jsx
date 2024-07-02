@@ -11,7 +11,7 @@ const StyledUserAvatar = styled(NavLink)`
   & img {
     width: 30px;
     height: 30px;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     border-radius: 10rem;
   }
   & p {

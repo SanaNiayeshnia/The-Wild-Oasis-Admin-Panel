@@ -57,6 +57,8 @@ function arrivingDay(startDate) {
   const arrivingDay =
     differenceInDays < -30
       ? `${Math.round(Math.abs(differenceInDays) / 30)} Months Ago`
+      : differenceInDays === -1
+      ? "Today"
       : differenceInDays < 0
       ? `${Math.abs(differenceInDays)} Day${
           differenceInDays !== -1 ? "s" : ""

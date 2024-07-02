@@ -4,12 +4,12 @@ import Statistics from "./Statistics";
 import useRecentBookings from "./useRecentBookings";
 import useRecentStays from "./useRecentStays";
 import useCabins from "../cabins/useCabins";
+import { AreaChart, PieChart } from "recharts";
+import AreaChartComponent from "./AreaChartComponent";
+import PieChartComponent from "./PieChartComponent";
+import Charts from "./Charts";
 
-const StyledDashboardBody = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1rem;
-`;
+const StyledDashboardBody = styled.div``;
 
 function DashboardBody() {
   const { isLoading: isLoadingBookings, bookings } = useRecentBookings();
@@ -33,6 +33,7 @@ function DashboardBody() {
             numDays={numDays}
             cabinsCount={count}
           />
+          <Charts bookings={bookings} stays={stays} numDays={numDays} />
         </StyledDashboardBody>
       )}
     </>

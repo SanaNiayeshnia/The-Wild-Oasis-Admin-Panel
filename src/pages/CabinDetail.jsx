@@ -4,6 +4,8 @@ import styled from "styled-components";
 import CabinDataBox from "../features/cabins/CabinDataBox";
 import useCabin from "../features/cabins/useCabin";
 import Spinner from "../ui/Spinner";
+import { APP_NAME } from "../utilities/constants";
+import { useEffect } from "react";
 
 const StyledCabinDetail = styled.div`
   padding: 0 1rem;
@@ -42,10 +44,14 @@ function CabinDetail() {
   const { id } = useParams();
   const { data: cabin, isLoading } = useCabin(id);
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = `${APP_NAME} - Cabin ${cabin.name}`;
+  }, [id]);
+
   return (
     <StyledCabinDetail>
       <CabinHead>
-        <p>Cabin#{id}</p>
+        <p>Cabin {cabin.name}</p>
         <span onClick={() => navigate(-1)}>
           <HiArrowLeft />
           Back

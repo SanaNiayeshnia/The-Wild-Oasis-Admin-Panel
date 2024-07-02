@@ -46,7 +46,7 @@ const StyledButton = styled(Button)`
 function Account() {
   const { handleShowModal } = useGeneralContext();
   useEffect(() => {
-    document.title = `${APP_NAME} - Acount`;
+    document.title = `${APP_NAME} - Account`;
   }, []);
 
   function handleShowUpdateUserForm() {

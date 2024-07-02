@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Tag from "../ui/Tag";
-import { HiArrowLeft, HiTrash } from "react-icons/hi2";
+import {
+  HiArrowLeft,
+  HiClipboardDocumentCheck,
+  HiTrash,
+} from "react-icons/hi2";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../ui/Spinner";
 import BookingDataBox from "../features/bookings/BookingDataBox";
@@ -14,6 +18,9 @@ import { useGeneralContext } from "../contexts/GeneralContext";
 import DeleteConfirmation from "../ui/DeleteConfirmation";
 import useDeleteBooking from "../features/bookings/useDeleteBooking";
 import useBooking from "../features/bookings/useBooking";
+import BookingForm from "../features/bookings/BookingForm";
+import { useEffect } from "react";
+import { APP_NAME } from "../utilities/constants";
 
 const StyledBookingDetail = styled.div`
   padding: 0 1rem;
@@ -56,8 +63,11 @@ const Div = styled.div`
 `;
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin: 1rem 0 1.5rem 0;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 function BookingDetail() {
@@ -95,6 +105,15 @@ function BookingDetail() {
       />
     );
   }
+  function handleUpdate() {
+    handleShowModal(
+      <BookingForm key={Math.random()} bookingToEdit={booking} />
+    );
+  }
+
+  useEffect(() => {
+    document.title = `${APP_NAME} - Booking ${id}`;
+  }, [id]);
 
   return (
     <StyledBookingDetail>
@@ -156,8 +175,12 @@ function BookingDetail() {
             isPendingPayment={isPendingPayment}
           />
           <ButtonContainer>
+            <Button className="quaternary" onClick={handleUpdate}>
+              <HiClipboardDocumentCheck />
+              Update
+            </Button>
             <Button className="tertiary" onClick={handleDelete}>
-              {isPendingDelete ? <Spinner type="seconsary" /> : <HiTrash />}
+              {isPendingDelete ? <Spinner type="secondary" /> : <HiTrash />}
               Delete
             </Button>
           </ButtonContainer>

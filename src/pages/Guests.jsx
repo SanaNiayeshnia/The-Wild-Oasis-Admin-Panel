@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import GuestsTable from "../features/guests/GuestsTable";
 import GuestTableOperations from "../features/guests/GuestTableOperations";
+import { APP_NAME } from "../utilities/constants";
+import { useEffect } from "react";
 
 const StyledGuests = styled.div`
   padding: 0 1rem;
@@ -23,6 +25,10 @@ const GuestsHead = styled.div`
   }
 `;
 function Guests() {
+  useEffect(() => {
+    document.title = `${APP_NAME} - Guests`;
+  }, []);
+
   return (
     <StyledGuests>
       <GuestsHead>
