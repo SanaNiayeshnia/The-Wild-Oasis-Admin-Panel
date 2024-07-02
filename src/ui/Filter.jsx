@@ -23,26 +23,21 @@ const StyledFilter = styled.div`
 
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter =
-    searchParams.get(filterField)?.replaceAll("-", " ") ||
-    options[0].toLowerCase();
+  let currentFilter = searchParams.get(filterField) || options[0].value;
 
   return (
     <StyledFilter>
       {options.map((opt, i) => (
         <Button
           key={i}
-          className={currentFilter === opt.toLowerCase() && "active"}
+          className={currentFilter === opt.value && "active"}
           onClick={() => {
-            searchParams.set(
-              filterField,
-              opt.replaceAll(" ", "-").toLowerCase()
-            );
+            searchParams.set(filterField, opt.value);
             searchParams.set("page", 1);
             setSearchParams(searchParams);
           }}
         >
-          {opt}
+          {opt.title}
         </Button>
       ))}
     </StyledFilter>

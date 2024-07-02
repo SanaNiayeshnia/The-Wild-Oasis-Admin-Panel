@@ -1,4 +1,5 @@
 import { PAGE_SIZE } from "../utilities/constants";
+import { getToday } from "../utilities/helper";
 import supabase from "./supabase";
 
 async function getBookings({ filter, sort, page }) {
@@ -61,4 +62,34 @@ async function deleteBooking(id) {
   return data;
 }
 
-export { getBookings, getBooking, updateBooking, deleteBooking, createBooking };
+async function getBookingsAfterDate(date) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }));
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+async function getStaysAfterDate(date) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guest(fullName)")
+    .gte("stratDate", date)
+    .lte("startDate", getToday());
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export {
+  getBookings,
+  getBooking,
+  updateBooking,
+  deleteBooking,
+  createBooking,
+  getBookingsAfterDate,
+  getStaysAfterDate,
+};

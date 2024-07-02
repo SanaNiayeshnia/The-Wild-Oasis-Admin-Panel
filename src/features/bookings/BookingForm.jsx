@@ -269,14 +269,17 @@ function BookingForm({ bookingToEdit = {} }) {
             />
           </div>
         </Container>
-        <Container className="last">
-          <div>
-            <label htmlFor="isPaid">
-              Has total price of {formatPrice(totalPrice)} been paid?
-            </label>
-            <Input type="checkbox" id="isPaid" {...register("isPaid")} />
-          </div>
-        </Container>
+
+        {watchedValues.cabin && (
+          <Container className="last">
+            <div>
+              <label htmlFor="isPaid">
+                Has total price of {formatPrice(totalPrice)} been paid?
+              </label>
+              <Input type="checkbox" id="isPaid" {...register("isPaid")} />
+            </div>
+          </Container>
+        )}
       </Container>
 
       <Div>

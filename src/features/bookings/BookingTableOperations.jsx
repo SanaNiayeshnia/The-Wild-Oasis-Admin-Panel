@@ -11,7 +11,12 @@ function BookingTableOperations() {
     <StyledBookingTableOperations>
       <Filter
         filterField="status"
-        options={["All", "Unconfirmed", "Checked In", "Checked Out"]}
+        options={[
+          { title: "All", value: "all" },
+          { title: "Unconfirmed", value: "unconfirmed" },
+          { title: "Checked In", value: "checked-in" },
+          { title: "Checked Out", value: "checked-out" },
+        ]}
       />
       <Sort
         options={[

@@ -11,7 +11,11 @@ function CabinTableOperations() {
     <StyledTableOperations>
       <Filter
         filterField="discount"
-        options={["All", "No Discount", "With Discount"]}
+        options={[
+          { title: "All", value: "all" },
+          { title: "No Discount", value: "no-discount" },
+          { title: "With Discount", value: "with-discount" },
+        ]}
       />
       <Sort
         options={[
