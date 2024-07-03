@@ -59,7 +59,7 @@ function FakeDataButton() {
       const cabin = cabins[Math.floor(Math.random() * cabins.length)];
       const guest = guests[Math.floor(Math.random() * guests.length)];
       const hasBreakfast = Math.random() >= 0.5;
-      const isPaid = Math.random() >= 0.5;
+      const isPaid = status === "checked out" ? true : Math.random() >= 0.5;
       const cabinPrice = (cabin?.regularPrice - cabin?.discount) * numNights;
       const extrasPrice = hasBreakfast ? breakfastPrice * numNights : 0;
       const totalPrice = cabinPrice + extrasPrice;

@@ -35,4 +35,4 @@ Use the following credentials to login:
 
 ## Acknowledgements
 
-This project was developed as part of the [The Ultimate React Course 2024: React, Redux & More](https://www.udemy.com/course/the-ultimate-react-course/) by Jonas Schmedtmann on Udemy. Special thanks to Jonas Schmedtmann for his comprehensive and insightful course, which provided the foundation and guidance necessary for the creation of this application.
+This project was developed as part of the [The Ultimate React Course 2024: React, Redux & More](https://www.udemy.com/course/the-ultimate-react-course/) by Jonas Schmedtmann on Udemy. Special thanks to Jonas Schmedtmann for his comprehensive and insightful course, which provided the foundation and guidance necessary for the creation of this application. Additionally, I have developed more features beyond those considered in the course.
