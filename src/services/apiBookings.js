@@ -67,7 +67,7 @@ async function getBookingsAfterDate(date) {
     .from("bookings")
     .select("*")
     .gte("created_at", date)
-    .lte("created_at", getToday({ end: true }));
+    .lte("created_at", getToday());
 
   if (error) throw new Error(error.message);
   return data;
@@ -76,12 +76,36 @@ async function getBookingsAfterDate(date) {
 async function getStaysAfterDate(date) {
   const { data, error } = await supabase
     .from("bookings")
-    .select("*, guest(fullName)")
+    .select("*, guests(fullName)")
     .gte("stratDate", date)
     .lte("startDate", getToday());
 
   if (error) throw new Error(error.message);
   return data;
+}
+
+async function getTodaysBookings() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedToday = `${year}-${month}-${day}`;
+
+  const {
+    data: todaysBookings,
+    error,
+    count,
+  } = await supabase
+    .from("bookings")
+    .select("*, guests(fullName)", { count: "exact" })
+    .or(
+      `and(status.eq.unconfirmed,startDate.eq.${formattedToday}),and(status.eq.checked in,endDate.eq.${formattedToday})`
+    )
+    .order("created_at");
+
+  if (error) throw new Error(error.message);
+
+  return { todaysBookings, count };
 }
 
 export {
@@ -92,4 +116,5 @@ export {
   createBooking,
   getBookingsAfterDate,
   getStaysAfterDate,
+  getTodaysBookings,
 };

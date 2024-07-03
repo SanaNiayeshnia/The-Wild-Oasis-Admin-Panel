@@ -130,7 +130,7 @@ const startDataDark = [
 const StyledPieChartComponent = styled.div`
   background-color: var(--color-Gray-0);
   padding: 1.5rem;
-  grid-column: 1/-3;
+  grid-column: 3/-1;
   height: 320px;
   border: 1px solid var(--color-Gray-200);
   border-radius: 0.5rem;

@@ -84,11 +84,13 @@ const formatDateForHTMLInput = (d) => {
   return `${year}-${month}-${day}`;
 };
 
-function getToday(options) {
+function getToday() {
   const today = new Date();
-  if (options?.end) today.setUTCHours(23, 59, 59, 999);
-  else today.getUTCHours(0, 0, 0, 0, 0);
-  return today.toISOString();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedToday = `${year}-${month}-${day}`;
+  return formattedToday;
 }
 
 export {

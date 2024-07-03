@@ -84,10 +84,10 @@ function BookingDetail() {
     useDeleteBooking();
 
   function handleChangeStatus(status) {
-    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const { id: editId, created_at, guests, cabins, ...restBooking } = booking;
     const bookingObj = { ...restBooking, status };
 
-    changeStatusMutate({ id, bookingObj });
+    changeStatusMutate({ editId, bookingObj });
   }
 
   function handlePayment() {
