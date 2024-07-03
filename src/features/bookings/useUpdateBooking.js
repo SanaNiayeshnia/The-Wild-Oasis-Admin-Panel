@@ -23,6 +23,12 @@ function useUpdateBooking(id, setOpenContextId) {
       queryClient.invalidateQueries({
         queryKey: [`bookings`],
       });
+      queryClient.invalidateQueries({
+        queryKey: [`booking/${id}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`today-activity`],
+      });
     },
   });
   return { isPending, mutate };

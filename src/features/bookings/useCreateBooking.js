@@ -13,6 +13,9 @@ function useCreateBooking() {
     onSuccess: (data) => {
       toast.success(`Booking ${data?.id} has been created successfully!`);
       queryClient.invalidateQueries("bookings");
+      queryClient.invalidateQueries({
+        queryKey: [`today-activity`],
+      });
       showModal && handleCloseModal();
     },
   });

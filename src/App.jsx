@@ -5,7 +5,6 @@ import Bookings from "./pages/Bookings";
 import Cabins from "./pages/Cabins";
 import CheckIn from "./pages/CheckIn";
 import Settings from "./pages/Settings";
-import Users from "./pages/Users";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
 import PageNotFound from "./pages/PageNotFound";
@@ -65,7 +64,6 @@ function App() {
               <Route path="/cabins/:id" element={<CabinDetail />} />
               <Route path="/checkin/:bookingID" element={<CheckIn />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/users" element={<Users />} />
               <Route path="/guests" element={<Guests />} />
               <Route path="/account" element={<Account />} />
               <Route path="*" element={<PageNotFound />} />

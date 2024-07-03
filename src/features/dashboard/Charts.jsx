@@ -8,10 +8,19 @@ const StyledCharts = styled.div`
   gap: 1rem;
   margin: 1rem 0;
 `;
-function Charts({ bookings, numDays, stays }) {
+function Charts({
+  bookings,
+  numDays,
+  stays,
+  todaysBookingsCount,
+  todaysBookings,
+}) {
   return (
     <StyledCharts>
-      <TodaysActivity />
+      <TodaysActivity
+        todaysBookings={todaysBookings}
+        todaysBookingsCount={todaysBookingsCount}
+      />
       <PieChartComponent stays={stays} />
       <AreaChartComponent bookings={bookings} numDays={numDays} />
     </StyledCharts>

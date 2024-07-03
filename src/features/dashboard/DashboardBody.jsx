@@ -5,6 +5,7 @@ import useRecentBookings from "./useRecentBookings";
 import useRecentStays from "./useRecentStays";
 import useCabins from "../cabins/useCabins";
 import Charts from "./Charts";
+import useTodaysBookings from "./useTodaysBookings";
 
 const StyledDashboardBody = styled.div``;
 
@@ -16,11 +17,19 @@ function DashboardBody() {
     confirmedStays,
     numDays,
   } = useRecentStays();
-  const { isLoading: isLoadingCabins, count } = useCabins(true);
+  const { isLoading: isLoadingCabins, count: cabinCount } = useCabins(true);
+  const {
+    todaysBookings,
+    isLoading: isLoadingTodaysBookings,
+    count: tBookingCount,
+  } = useTodaysBookings();
 
   return (
     <>
-      {isLoadingBookings || isLoadingStays || isLoadingCabins ? (
+      {isLoadingBookings ||
+      isLoadingStays ||
+      isLoadingCabins ||
+      isLoadingTodaysBookings ? (
         <Spinner type="primary" />
       ) : (
         <StyledDashboardBody>
@@ -28,9 +37,15 @@ function DashboardBody() {
             bookings={bookings}
             confirmedStays={confirmedStays}
             numDays={numDays}
-            cabinsCount={count}
+            cabinsCount={cabinCount}
           />
-          <Charts bookings={bookings} stays={stays} numDays={numDays} />
+          <Charts
+            bookings={bookings}
+            stays={stays}
+            numDays={numDays}
+            todaysBookings={todaysBookings}
+            todaysBookingsCount={tBookingCount}
+          />
         </StyledDashboardBody>
       )}
     </>
