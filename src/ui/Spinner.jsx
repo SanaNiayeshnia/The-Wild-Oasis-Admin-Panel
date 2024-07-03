@@ -17,16 +17,10 @@ function Spinner({ type }) {
   return (
     <StyledSpinner>
       {type === "primary" && (
-        <PrimaryImg
-          src="../../public/imgs/Loader.gif"
-          alt="Loader"
-        ></PrimaryImg>
+        <PrimaryImg src="/imgs/Loader.gif" alt="Loader"></PrimaryImg>
       )}
       {type === "secondary" && (
-        <SecondaryImg
-          src="../../public/imgs/spinner.gif"
-          alt="Loader"
-        ></SecondaryImg>
+        <SecondaryImg src="/imgs/spinner.gif" alt="Loader"></SecondaryImg>
       )}
     </StyledSpinner>
   );

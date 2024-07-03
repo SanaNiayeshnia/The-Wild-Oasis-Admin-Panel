@@ -9,11 +9,7 @@ function Logo({ minwidth }) {
   return (
     <StyledLogo
       minwidth={minwidth}
-      src={
-        isDarkMode
-          ? "../../../public/imgs/logo-dark.png"
-          : "../../../public/imgs/logo-light.png"
-      }
+      src={isDarkMode ? "/imgs/logo-dark.png" : "/imgs/logo-light.png"}
       alt="The wild Oasis Logo"
     />
   );
