@@ -10,6 +10,7 @@ import Logo from "./Logo";
 import DesignedBy from "./DesignedBy";
 import SideList from "./SideList";
 import StyledNavLink from "./StyledNavLink";
+import FakeDataButton from "../FakeDataButton";
 
 const StyledSideBar = styled.aside`
   grid-row: 1/-1;
@@ -57,12 +58,6 @@ function SideBar() {
               Guests
             </StyledNavLink>
           </li>
-          {/* <li>
-            <StyledNavLink to="/users">
-              <HiOutlineUsers />
-              Users
-            </StyledNavLink>
-          </li> */}
           <li>
             <StyledNavLink to="/settings">
               <HiOutlineCog6Tooth />
@@ -72,7 +67,10 @@ function SideBar() {
         </SideList>
       </Div>
 
-      <DesignedBy>developed by sana</DesignedBy>
+      <div>
+        <FakeDataButton />
+        <DesignedBy>developed by sana</DesignedBy>
+      </div>
     </StyledSideBar>
   );
 }

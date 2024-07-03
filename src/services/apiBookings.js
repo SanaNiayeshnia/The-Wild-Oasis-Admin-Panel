@@ -57,6 +57,15 @@ async function createBooking(booking) {
   return data;
 }
 
+async function createBookings(bookings) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert(bookings)
+    .select();
+  if (error) throw new Error("Failed to create fake booking data!");
+  return data;
+}
+
 async function updateBooking({ editId, bookingObj }) {
   const { error } = await supabase
     .from("bookings")
@@ -132,4 +141,5 @@ export {
   getBookingsAfterDate,
   getStaysAfterDate,
   getTodaysBookings,
+  createBookings,
 };

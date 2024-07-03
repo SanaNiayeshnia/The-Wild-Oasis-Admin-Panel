@@ -96,12 +96,12 @@ function BookingForm({ bookingToEdit = {} }) {
     new Date(watchedValues?.startDate),
     new Date(watchedValues?.endDate)
   );
-
-  const totalPrice = watchedValues?.hasBreakfast
-    ? (selectedCabin?.regularPrice - selectedCabin?.discount + breakfastPrice) *
-      numNights
-    : (selectedCabin?.regularPrice - selectedCabin?.discount) * numNights;
-
+  const cabinPrice =
+    (selectedCabin?.regularPrice - selectedCabin?.discount) * numNights;
+  const extrasPrice = watchedValues?.hasBreakfast
+    ? breakfastPrice * numNights
+    : 0;
+  const totalPrice = cabinPrice + extrasPrice;
   const { mutate: createBookingMutate, isPending: isPendingCreate } =
     useCreateBooking();
   const { mutate: updateBookingMutate, isPending: isPendingUpdate } =
@@ -122,8 +122,8 @@ function BookingForm({ bookingToEdit = {} }) {
       ...rest,
       cabinId: selectedCabin?.id,
       guestId: selectedGuest?.id,
-      cabinPrice: selectedCabin?.regularPrice,
-      extrasPrice: hasBreakfast ? breakfastPrice : 0,
+      cabinPrice,
+      extrasPrice,
       totalPrice,
       status: isEditSession ? status : "unconfirmed",
       numGuests: Number(numGuests),
