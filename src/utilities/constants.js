@@ -1,2 +1,2 @@
 export const APP_NAME = "The Wild Oasis";
-export const PAGE_SIZE = 8;
+export const PAGE_SIZE = 10;

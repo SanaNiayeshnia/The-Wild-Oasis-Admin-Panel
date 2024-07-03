@@ -24,9 +24,6 @@ function useUpdateBooking(id, setOpenContextId) {
         queryKey: [`bookings`],
       });
       queryClient.invalidateQueries({
-        queryKey: [`booking/${id}`],
-      });
-      queryClient.invalidateQueries({
         queryKey: [`today-activity`],
       });
     },

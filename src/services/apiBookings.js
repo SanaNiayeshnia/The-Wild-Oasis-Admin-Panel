@@ -124,8 +124,7 @@ async function getTodaysBookings() {
     .select("*, guests(fullName)", { count: "exact" })
     .or(
       `and(status.eq.unconfirmed,startDate.eq.${formattedToday}),and(status.eq.checked in,endDate.eq.${formattedToday})`
-    )
-    .order("created_at");
+    );
 
   if (error) throw new Error(error.message);
 

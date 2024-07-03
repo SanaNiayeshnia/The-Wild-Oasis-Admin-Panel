@@ -12,6 +12,7 @@ function useCreateFakeBookings() {
       toast.success("Fake booking data has been created successfully!");
       queryClient.invalidateQueries("bookings");
       queryClient.invalidateQueries("today-activity");
+      queryClient.invalidateQueries();
     },
   });
   return { isPending, mutate };
