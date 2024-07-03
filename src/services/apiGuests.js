@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utilities/constants";
 import supabase from "./supabase";
 
-export async function getGuests({ page, sort }) {
+export async function getGuests({ page, sort, searchQuery }) {
   let query = supabase.from("guests").select("*", { count: "exact" });
   if (sort) {
     query = query.order(sort.name, { ascending: sort.type === "asc" });
@@ -11,6 +11,9 @@ export async function getGuests({ page, sort }) {
       (page - 1) * PAGE_SIZE,
       (page - 1) * PAGE_SIZE + (PAGE_SIZE - 1)
     );
+  if (searchQuery) {
+    query = query.ilike("fullName", `%${searchQuery}%`);
+  }
   let { data: guests, error, count } = await query;
   if (error) throw new Error("Failed to load the guests!");
   return { guests, count };

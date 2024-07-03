@@ -20,11 +20,14 @@ const Div = styled.div`
 function SearchForm({ searchFor }) {
   const { handleCloseModal } = useGeneralContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   function handleSearch(e) {
     e.preventDefault();
-    searchParams.set("query", searchQuery);
-    setSearchParams(searchParams);
+    if (searchQuery === "") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ query: searchQuery });
+    }
     handleCloseModal();
   }
 
@@ -33,7 +36,7 @@ function SearchForm({ searchFor }) {
       <FormHead>Search for {searchFor}</FormHead>
       <Div>
         <Input
-          placeholder="cabin name"
+          placeholder={searchFor}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

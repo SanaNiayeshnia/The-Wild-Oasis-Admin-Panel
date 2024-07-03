@@ -26,7 +26,7 @@ function BookingsTable() {
   const { bookings, isLoading, count } = useBookings();
   const [openContextId, setOpenContextId] = useState(null);
   const { handleShowModal } = useGeneralContext();
-
+  console.log(count);
   return (
     <>
       {isLoading ? (

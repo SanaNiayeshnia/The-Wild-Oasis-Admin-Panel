@@ -2,7 +2,7 @@ import { PAGE_SIZE } from "../utilities/constants";
 import { getToday } from "../utilities/helper";
 import supabase from "./supabase";
 
-async function getBookings({ filter, sort, page }) {
+async function getBookings({ filter, sort, page, searchQuery }) {
   let query = supabase
     .from("bookings")
     .select("* , cabins(*), guests(*)", { count: "exact" });
@@ -17,6 +17,21 @@ async function getBookings({ filter, sort, page }) {
       (page - 1) * PAGE_SIZE,
       (page - 1) * PAGE_SIZE + (PAGE_SIZE - 1)
     );
+  if (searchQuery) {
+    const { data: filteredGuests, error: guestsError } = await supabase
+      .from("guests")
+      .select("id")
+      .ilike("fullName", `%${searchQuery}%`);
+
+    if (guestsError) throw new Error("Failed to filter guests");
+
+    const guestIds = filteredGuests.map((guest) => guest.id);
+    if (guestIds.length > 0) {
+      query = query.in("guestId", guestIds);
+    } else {
+      return { bookings: [], count: 0 };
+    }
+  }
   let { data: bookings, error, count } = await query;
 
   if (error) throw new Error("Failed to get the bookings data");

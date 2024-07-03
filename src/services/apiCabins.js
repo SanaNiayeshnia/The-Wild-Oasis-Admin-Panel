@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utilities/constants";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getCabins({ page, filter, sort }) {
+export async function getCabins({ page, filter, sort, searchQuery }) {
   let query = supabase.from("cabins").select("*", { count: "exact" });
   if (filter) {
     query = query[filter.func](filter.name, filter.value);
@@ -14,6 +14,9 @@ export async function getCabins({ page, filter, sort }) {
       (page - 1) * PAGE_SIZE,
       (page - 1) * PAGE_SIZE + (PAGE_SIZE - 1)
     );
+  if (searchQuery) {
+    query = query.ilike("name", `%${searchQuery}%`);
+  }
   let { data: cabins, error, count } = await query;
   if (error) throw new Error(`Failed to load the cabins!`);
   return { cabins, count };

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Filter from "../../ui/Filter";
 import Sort from "../../ui/Sort";
+import SearchButton from "../../ui/SearchButton";
 const StyledBookingTableOperations = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -41,6 +42,7 @@ function BookingTableOperations() {
           { value: "totalPrice-desc", label: "Sort by amount (high first)" },
         ]}
       />
+      <SearchButton searchFor="guest's name" />
     </StyledBookingTableOperations>
   );
 }

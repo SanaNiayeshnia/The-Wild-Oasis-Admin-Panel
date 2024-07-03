@@ -25,13 +25,15 @@ function useCabins(all = false) {
     sort: s,
     filter: f,
     page: p,
+    searchQuery: q,
   } = useSortFilter("discount", filterHandler);
   const page = all ? null : p;
   const filter = all ? null : f;
   const sort = all ? null : s;
+  const searchQuery = all ? null : q;
   const { data, isLoading } = useQuery({
-    queryKey: ["cabins", page, sort, filter],
-    queryFn: () => getCabins({ page, filter, sort }),
+    queryKey: ["cabins", page, sort, filter, searchQuery],
+    queryFn: () => getCabins({ page, filter, sort, searchQuery }),
     onError: (err) => toast.error(err.message),
   });
   const cabins = data?.cabins || [];
@@ -41,13 +43,13 @@ function useCabins(all = false) {
   const pageCount = count / PAGE_SIZE;
   if (page < pageCount)
     queryClient.prefetchQuery({
-      queryKey: ["cabins", page + 1, sort, filter],
-      queryFn: () => getCabins({ page: page + 1, filter, sort }),
+      queryKey: ["cabins", page + 1, sort, filter, searchQuery],
+      queryFn: () => getCabins({ page: page + 1, filter, sort, searchQuery }),
     });
   if (page > 1)
     queryClient.prefetchQuery({
-      queryKey: ["cabins", page - 1, sort, filter],
-      queryFn: () => getCabins({ page: page - 1, filter, sort }),
+      queryKey: ["cabins", page - 1, sort, filter, searchQuery],
+      queryFn: () => getCabins({ page: page - 1, filter, sort, searchQuery }),
     });
   return { cabins, count, isLoading };
 }

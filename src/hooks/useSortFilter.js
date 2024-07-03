@@ -13,7 +13,8 @@ function useSortFilter(filterName = "", filterHandler) {
         name: sortFilter.split("-")[0],
         type: sortFilter.split("-")[1],
       };
-  return { sort, filter, page };
+  const searchQuery = searchParams.get("query");
+  return { sort, filter, page, searchQuery };
 }
 
 export default useSortFilter;

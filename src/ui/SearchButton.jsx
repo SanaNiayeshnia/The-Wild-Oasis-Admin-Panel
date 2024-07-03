@@ -26,7 +26,9 @@ function SearchButton({ searchFor }) {
   return (
     <StyledSearchButton
       onClick={() => {
-        handleShowModal(<SearchForm searchFor={searchFor} />);
+        handleShowModal(
+          <SearchForm key={Math.random()} searchFor={searchFor} />
+        );
       }}
     >
       <HiSearch />
