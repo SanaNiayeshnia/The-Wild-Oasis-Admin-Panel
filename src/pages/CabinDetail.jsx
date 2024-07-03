@@ -45,13 +45,13 @@ function CabinDetail() {
   const { data: cabin, isLoading } = useCabin(id);
   const navigate = useNavigate();
   useEffect(() => {
-    document.title = `${APP_NAME} - Cabin ${cabin.name}`;
-  }, [id]);
+    document.title = `${APP_NAME} - Cabin ${cabin?.name}`;
+  }, [id, cabin?.name]);
 
   return (
     <StyledCabinDetail>
       <CabinHead>
-        <p>Cabin {cabin.name}</p>
+        <p>Cabin {cabin?.name}</p>
         <span onClick={() => navigate(-1)}>
           <HiArrowLeft />
           Back
