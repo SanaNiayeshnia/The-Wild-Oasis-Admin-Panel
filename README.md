@@ -4,19 +4,12 @@
 
 **The Wild Oasis** is a comprehensive hotel management application designed for the employees of The Wild Oasis hotel. This React-based app allows hotel staff to efficiently manage bookings, cabins, settings, and guest records. The main page features a dashboard that provides insightful statistics and charts based on bookings and sales.
 
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Acknowledgements](#acknowledgements)
-- [Demo](#demo)
-
 ## Features
 
-- **Booking Management**: Add, update, or delete bookings with ease. View detailed booking information.
+- **Booking Management**: Create, update, or delete bookings with ease. View detailed booking information.
 - **Cabin Management**: Create, update, or delete cabin information. View detailed cabin information.
 - **Settings Management**: Modify application settings as required.
-- **Guest Management**: Add, edit, or delete guest records in the database.
+- **Guest Management**: Create, update, or delete guest records in the database.
 - **Search Functionality**: Search through bookings, cabins, and guest records.
 - **Account Center**: View and edit user profile information.
 - **Dashboard**: View statistics and charts related to bookings and sales on the main page.
