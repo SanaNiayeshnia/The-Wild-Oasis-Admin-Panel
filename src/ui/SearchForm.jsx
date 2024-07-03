@@ -1,0 +1,46 @@
+import styled from "styled-components";
+import Form from "./form/Form";
+import FormHead from "./form/FormHead";
+import Input from "./form/Input";
+import Button from "./Button";
+import { useGeneralContext } from "../contexts/GeneralContext";
+import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem auto;
+  & button {
+    font-size: 0.85rem !important;
+  }
+`;
+function SearchForm({ searchFor }) {
+  const { handleCloseModal } = useGeneralContext();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState();
+  function handleSearch(e) {
+    e.preventDefault();
+    searchParams.set("query", searchQuery);
+    setSearchParams(searchParams);
+    handleCloseModal();
+  }
+
+  return (
+    <Form onSubmit={handleSearch}>
+      <FormHead>Search for {searchFor}</FormHead>
+      <Div>
+        <Input
+          placeholder="cabin name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Button className="secondary">search</Button>
+      </Div>
+    </Form>
+  );
+}
+
+export default SearchForm;

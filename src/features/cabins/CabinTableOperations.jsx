@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Filter from "../../ui/Filter";
 import Sort from "../../ui/Sort";
+import SearchButton from "../../ui/SearchButton";
 
 const StyledTableOperations = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ function CabinTableOperations() {
           { value: "maxCapacity-desc", label: "Sort by capacity (high first)" },
         ]}
       />
+      <SearchButton searchFor="cabin name" />
     </StyledTableOperations>
   );
 }
