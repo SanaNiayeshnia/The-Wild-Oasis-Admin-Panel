@@ -46,10 +46,7 @@ function UserInfo() {
       ) : (
         <StyledUserInfo>
           <img
-            src={
-              user?.user_metadata?.avatar ||
-              "../../../public/imgs/default-user.jpg"
-            }
+            src={user?.user_metadata?.avatar || "/imgs/default-user.jpg"}
             alt="avatar"
           />
           <Info>
