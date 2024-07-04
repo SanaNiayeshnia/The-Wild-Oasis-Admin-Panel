@@ -27,8 +27,8 @@ function FakeDataButton() {
         startDate = subDays(today, Math.floor(Math.random() * (5 - 1) + 1));
         endDate = today;
       } else if (index >= 90 && index < 95) {
-        startDate = subDays(today, Math.floor(Math.random() * 3));
-        endDate = addDays(startDate, Math.floor(Math.random() * 5));
+        startDate = today;
+        endDate = addDays(startDate, Math.floor(Math.random() * (5 - 1) + 1));
       } else {
         startDate = addDays(created_at, Math.floor(Math.random() * 100));
         endDate = addDays(

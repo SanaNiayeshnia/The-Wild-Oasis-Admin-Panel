@@ -26,8 +26,24 @@ async function getBookings({ filter, sort, page, searchQuery }) {
     if (guestsError) throw new Error("Failed to filter guests");
 
     const guestIds = filteredGuests.map((guest) => guest.id);
-    if (guestIds.length > 0) {
+
+    const { data: filteredCabins, error: cabinsError } = await supabase
+      .from("cabins")
+      .select("id")
+      .ilike("name", `%${searchQuery}%`);
+
+    if (cabinsError) throw new Error("Failed to filter cabins");
+
+    const cabinIds = filteredCabins.map((cabin) => cabin.id);
+
+    if (guestIds.length > 0 && cabinIds.length > 0) {
+      query = query.or(
+        `guestId.in.(${guestIds.join(",")}),cabinId.in.(${cabinIds.join(",")})`
+      );
+    } else if (guestIds.length > 0) {
       query = query.in("guestId", guestIds);
+    } else if (cabinIds.length > 0) {
+      query = query.in("cabinId", cabinIds);
     } else {
       return { bookings: [], count: 0 };
     }

@@ -42,7 +42,7 @@ function BookingTableOperations() {
           { value: "totalPrice-desc", label: "Sort by amount (high first)" },
         ]}
       />
-      <SearchButton searchFor="guest's name" />
+      <SearchButton searchFor="a cabin or guest name" />
     </StyledBookingTableOperations>
   );
 }

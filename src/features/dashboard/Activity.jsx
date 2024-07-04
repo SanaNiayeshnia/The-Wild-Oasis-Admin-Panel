@@ -26,7 +26,11 @@ function Activity({ booking }) {
 
   function handleChangeStatus(status) {
     const { id: editId, created_at, guests, ...restBooking } = booking;
-    const bookingObj = { ...restBooking, status };
+    const bookingObj = {
+      ...restBooking,
+      status,
+      isPaid: status === "checked out" ? true : restBooking.isPaid,
+    };
 
     changeStatusMutate({ editId, bookingObj });
   }
@@ -46,7 +50,7 @@ function Activity({ booking }) {
         {booking?.numNights} night{booking?.numNights !== 1 && "s"}
       </p>
       <Button
-        className="secondary"
+        className={booking?.status === "unconfirmed" ? "secondary" : "quinery"}
         style={{ padding: "0.25rem 0.75rem" }}
         onClick={() =>
           booking?.status === "unconfirmed"

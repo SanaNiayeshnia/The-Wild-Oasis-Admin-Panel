@@ -6,6 +6,10 @@ import Button from "./Button";
 import { useGeneralContext } from "../contexts/GeneralContext";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
+
+const StyledSearchForm = styled.div`
+  min-width: 400px;
+`;
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,6 +17,9 @@ const Div = styled.div`
   align-items: center;
   gap: 0.75rem;
   margin: 1rem auto;
+  & input {
+    min-width: 250px;
+  }
   & button {
     font-size: 0.85rem !important;
   }
@@ -32,17 +39,19 @@ function SearchForm({ searchFor }) {
   }
 
   return (
-    <Form onSubmit={handleSearch}>
-      <FormHead>Search for {searchFor}</FormHead>
-      <Div>
-        <Input
-          placeholder={searchFor}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <Button className="secondary">search</Button>
-      </Div>
-    </Form>
+    <StyledSearchForm>
+      <Form onSubmit={handleSearch}>
+        <FormHead>Search for {searchFor}</FormHead>
+        <Div>
+          <Input
+            placeholder={searchFor}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button className="secondary">search</Button>
+        </Div>
+      </Form>
+    </StyledSearchForm>
   );
 }
 

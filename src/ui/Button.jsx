@@ -46,6 +46,14 @@ const StyledButton = styled.button`
     color: var(--color-Gray-0);
     background-color: var(--color-blue-500);
   }
+  &.quinery {
+    background-color: var(--color-Gray-200);
+  }
+  &.quinery:hover {
+    background-color: var(--color-Gray-300);
+    color: var(--color-Gray-900);
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;

@@ -67,7 +67,11 @@ function Booking({ booking, openContextId, setOpenContextId }) {
 
   function handleChangeStatus(status) {
     const { id: editId, created_at, guests, cabins, ...restBooking } = booking;
-    const bookingObj = { ...restBooking, status };
+    const bookingObj = {
+      ...restBooking,
+      status,
+      isPaid: status === "checked out" ? true : restBooking.isPaid,
+    };
 
     changeStatusMutate({ editId, bookingObj });
   }
