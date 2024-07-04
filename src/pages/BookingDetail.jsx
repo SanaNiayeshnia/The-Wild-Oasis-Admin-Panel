@@ -91,9 +91,9 @@ function BookingDetail() {
   }
 
   function handlePayment() {
-    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const { id: editId, created_at, guests, cabins, ...restBooking } = booking;
     const bookingObj = { ...restBooking, isPaid: true };
-    paymentMutate({ id, bookingObj });
+    paymentMutate({ editId, bookingObj });
   }
 
   function handleDelete() {

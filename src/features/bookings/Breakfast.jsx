@@ -12,18 +12,18 @@ function Breakfast({ booking, breakfastPrice }) {
   );
 
   function handleAddBreakfast() {
-    const { id, created_at, guests, cabins, ...restBooking } = booking;
+    const { id: editId, created_at, guests, cabins, ...restBooking } = booking;
     const hasBreakfast = !restBooking.hasBreakfast;
     const bookingObj = {
       ...restBooking,
       hasBreakfast,
-      extrasPrice: hasBreakfast ? breakfastPrice : 0,
+      extrasPrice: hasBreakfast ? breakfastPrice * restBooking?.numNights : 0,
       totalPrice: hasBreakfast
-        ? restBooking.cabinPrice + breakfastPrice
+        ? restBooking.cabinPrice + breakfastPrice * restBooking?.numNights
         : restBooking.cabinPrice,
       isPaid: hasBreakfast ? false : restBooking.isPaid,
     };
-    mutate({ id, bookingObj });
+    mutate({ editId, bookingObj });
   }
 
   return (
