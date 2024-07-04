@@ -5,7 +5,7 @@ import { TbFileSad } from "react-icons/tb";
 
 const StyledPageNotFound = styled.div`
   padding: 0 1rem;
-  max-width: 65rem;
+  max-width: 70rem;
   max-height: min-content;
   height: 100%;
   margin: auto;

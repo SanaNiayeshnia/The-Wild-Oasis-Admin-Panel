@@ -24,7 +24,7 @@ import { APP_NAME } from "../utilities/constants";
 
 const StyledBookingDetail = styled.div`
   padding: 0 1rem;
-  max-width: 65rem;
+  max-width: 70rem;
   max-height: min-content;
   margin: auto;
 `;
