@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Filter from "../../ui/Filter";
 import Sort from "../../ui/Sort";
 import SearchButton from "../../ui/SearchButton";
+import NoFilterButton from "../../ui/NoFilterButton";
 const StyledBookingTableOperations = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -43,6 +44,7 @@ function BookingTableOperations() {
         ]}
       />
       <SearchButton searchFor="a cabin or guest name" />
+      <NoFilterButton />
     </StyledBookingTableOperations>
   );
 }

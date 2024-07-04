@@ -6,7 +6,7 @@ import { useGeneralContext } from "../contexts/GeneralContext";
 import Modal from "./Modal";
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 18rem 1fr;
+  grid-template-columns: 0.23fr 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
 `;

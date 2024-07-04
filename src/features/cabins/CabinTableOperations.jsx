@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Filter from "../../ui/Filter";
 import Sort from "../../ui/Sort";
 import SearchButton from "../../ui/SearchButton";
+import NoFilterButton from "../../ui/NoFilterButton";
 
 const StyledTableOperations = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ function CabinTableOperations() {
         ]}
       />
       <SearchButton searchFor="cabin name" />
+      <NoFilterButton />
     </StyledTableOperations>
   );
 }

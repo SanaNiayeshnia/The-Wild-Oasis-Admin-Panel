@@ -11,7 +11,7 @@ const StyledSearchButton = styled.div`
   border: 1px solid var(--color-Gray-200);
   border-radius: 0.5rem;
   box-shadow: 0px 0px 5px 0 var(--shadow-color);
-  padding: 0.75rem;
+  padding: 0.75rem 0.8rem;
   cursor: pointer;
 
   &:hover {

@@ -3,11 +3,10 @@ import { useEffect } from "react";
 import { APP_NAME } from "../utilities/constants";
 import DashboardOperation from "../features/dashboard/DashboardOperation";
 import DashboardBody from "../features/dashboard/DashboardBody";
-import AreaChartComponent from "../features/dashboard/AreaChartComponent";
 
 const StyledDashboard = styled.div`
   padding: 0 1rem;
-  max-width: 65rem;
+  max-width: 70rem;
   max-height: min-content;
   margin: auto;
 `;

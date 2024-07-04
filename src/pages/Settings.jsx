@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const StyledSettings = styled.div`
   padding: 0 1rem;
-  max-width: 65rem;
+  max-width: 70rem;
   margin: auto;
 `;
 const SettingsHead = styled.p`

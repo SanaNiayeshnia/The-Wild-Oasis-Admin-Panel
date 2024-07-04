@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Sort from "../../ui/Sort";
 import SearchButton from "../../ui/SearchButton";
+import NoFilterButton from "../../ui/NoFilterButton";
 const StyledGuestTableOperation = styled.div`
   display: flex;
   gap: 0.5rem;
@@ -33,6 +34,7 @@ function GuestTableOperations() {
         ]}
       />
       <SearchButton searchFor="guest's name" />
+      <NoFilterButton />
     </StyledGuestTableOperation>
   );
 }

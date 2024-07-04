@@ -47,6 +47,7 @@ function SearchForm({ searchFor }) {
             placeholder={searchFor}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            autoFocus
           />
           <Button className="secondary">search</Button>
         </Div>

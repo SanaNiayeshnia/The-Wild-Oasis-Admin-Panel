@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const StyledGuests = styled.div`
   padding: 0 1rem;
-  max-width: 65rem;
+  max-width: 70rem;
   max-height: min-content;
   margin: auto;
 `;

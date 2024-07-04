@@ -9,7 +9,7 @@ import { useGeneralContext } from "../contexts/GeneralContext";
 import UserInfo from "../features/authentication/UserInfo";
 const StyledAccount = styled.div`
   padding: 0 1rem;
-  max-width: 60rem;
+  max-width: 70rem;
   max-height: min-content;
   margin: auto;
   height: 100%;
