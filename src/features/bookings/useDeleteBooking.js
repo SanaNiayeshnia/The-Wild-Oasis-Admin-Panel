@@ -19,6 +19,7 @@ function useDeleteBooking(setShowContext) {
       queryClient.invalidateQueries({
         queryKey: [`today-activity`],
       });
+      queryClient.invalidateQueries({ active: true });
     },
   });
   return { isPending, mutate };

@@ -16,6 +16,8 @@ function useCreateBooking() {
       queryClient.invalidateQueries({
         queryKey: [`today-activity`],
       });
+      queryClient.invalidateQueries({ active: true });
+
       showModal && handleCloseModal();
     },
   });

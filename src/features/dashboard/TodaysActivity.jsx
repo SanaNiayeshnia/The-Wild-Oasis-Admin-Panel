@@ -18,6 +18,7 @@ const StyledTodaysActivity = styled.div`
   & .scrollBox {
     overflow: auto;
     display: grid;
+    justify-content: center;
     height: 90%;
     & div:not(:last-child) {
       border-bottom: 1px solid var(--color-Gray-200);

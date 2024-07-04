@@ -11,7 +11,7 @@ function useRecentStays() {
   const date = new Date();
   date.setDate(date.getDate() - numDays);
   const { isLoading, data: stays } = useQuery({
-    queryKey: ["bookings", `last-${numDays}`],
+    queryKey: ["stays", `last-${numDays}`],
     queryFn: () => getStaysAfterDate(date.toISOString()),
   });
 
