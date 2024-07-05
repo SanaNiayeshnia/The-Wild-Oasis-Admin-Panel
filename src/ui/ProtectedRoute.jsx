@@ -19,19 +19,6 @@ function ProtectedRoute({ children }) {
     if (!isAuthenticated && !isLoading) navigate("/login");
   }, [isAuthenticated, navigate, isLoading]);
 
-  const { isDarkMode } = useGeneralContext();
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("light-mode");
-      document.documentElement.classList.add("dark-mode");
-      localStorage.setItem("mode", "dark");
-    } else {
-      document.documentElement.classList.remove("dark-mode");
-      document.documentElement.classList.add("light-mode");
-      localStorage.setItem("mode", "light");
-    }
-  }, [isDarkMode]);
-
   if (isLoading)
     return (
       <FullPage>

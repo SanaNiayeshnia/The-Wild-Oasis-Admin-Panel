@@ -5,7 +5,7 @@ import LoginForm from "../features/authentication/LoginForm";
 
 const StyledLogin = styled.div`
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 0.5rem);
   background-color: var(--color-Gray-50);
 `;
 

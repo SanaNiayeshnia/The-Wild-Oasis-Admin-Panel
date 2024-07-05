@@ -46,7 +46,7 @@ const FormHead = styled.p`
 `;
 
 function LoginForm() {
-  const { register, formState, handleSubmit, reset } = useForm();
+  const { register, formState, handleSubmit } = useForm();
   const { isPending, loginMutate } = useLogin();
   const { errors } = formState;
   function onSubmit(data) {
