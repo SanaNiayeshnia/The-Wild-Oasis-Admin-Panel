@@ -11,6 +11,7 @@ import { useGeneralContext } from "../../contexts/GeneralContext";
 import useUpdateUser from "./useUpdateUser";
 import useUser from "./useUser";
 import FileInput from "../../ui/form/FileInput";
+import toast from "react-hot-toast";
 
 const Div = styled.div`
   display: flex;
@@ -34,9 +35,12 @@ function UpdateUserInfoForm() {
   function onSubmit(data) {
     updateUserMutate(data);
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormHead>Update user data</FormHead>
 
       <FormField label="Email address">
@@ -55,6 +59,8 @@ function UpdateUserInfoForm() {
           autoFocus
           {...register("fullName", {
             required: "This field can't be empty!",
+            validate: (value) =>
+              value.length > 0 || "The full name can't be empty!",
           })}
         />
         <Error>{errors?.fullName?.message}</Error>

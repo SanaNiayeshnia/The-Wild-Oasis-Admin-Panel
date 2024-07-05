@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import useSignup from "./useSignup";
 import Spinner from "../../ui/Spinner";
+import toast from "react-hot-toast";
 
 const Div = styled.div`
   display: flex;
@@ -31,8 +32,12 @@ function SignupForm() {
       fullName: data.fullName,
     });
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormHead>Create a new user</FormHead>
       <FormField label="Full name">
         <Input

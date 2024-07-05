@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { useGeneralContext } from "../contexts/GeneralContext";
 import { IoClose } from "react-icons/io5";
 import useOutsideClick from "../hooks/useOutsideClick";
+import { useEffect, useState } from "react";
 
 const StyledModal = styled.div`
   display: none;
-  position: absolute;
+  position: fixed;
   background-color: #37415142;
   backdrop-filter: blur(2px);
   top: 0;
@@ -25,7 +26,8 @@ const StyledModal = styled.div`
 `;
 const ModalWindow = styled.div`
   position: fixed;
-  min-width: 18rem;
+  min-width: 350px;
+  max-width: 600px;
   min-height: 5rem;
   overflow: hidden;
   text-align: justify;
@@ -56,7 +58,7 @@ const ModalWindow = styled.div`
       top: -100%;
     }
     to {
-      top: 50%;
+      top: ${({ scrollposition }) => `${scrollposition}px`};
     }
   }
 `;
@@ -64,11 +66,19 @@ const ModalText = styled.div`
   font-size: 0.9rem;
 `;
 function Modal({ className = "" }) {
-  const { modalContent, handleCloseModal } = useGeneralContext();
+  const { modalContent, handleCloseModal, showModal } = useGeneralContext();
   const ref = useOutsideClick(handleCloseModal);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    if (showModal) {
+      setScrollPosition(window.scrollY + window.innerHeight / 2);
+    }
+  }, [showModal]);
+
   return (
     <StyledModal className={className}>
-      <ModalWindow ref={ref}>
+      <ModalWindow ref={ref} scrollposition={scrollPosition}>
         <ModalText>{modalContent}</ModalText>
         <IoClose onClick={handleCloseModal} />
       </ModalWindow>

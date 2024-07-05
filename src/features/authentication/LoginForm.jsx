@@ -6,6 +6,7 @@ import useLogin from "./useLogin";
 import Spinner from "../../ui/Spinner";
 import Error from "../../ui/Error";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const StyledLoginForm = styled.div`
   position: absolute;
@@ -51,12 +52,15 @@ function LoginForm() {
   function onSubmit(data) {
     loginMutate({ email: data.email, password: data.password });
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
 
   return (
-    <StyledLoginForm onSubmit={handleSubmit}>
+    <StyledLoginForm>
       <Logo minwidth="140px" />
       <FormHead>Log in To Your Account</FormHead>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <LoginFormField>
           <label htmlFor="userEmail">Email Address</label>
           <Input

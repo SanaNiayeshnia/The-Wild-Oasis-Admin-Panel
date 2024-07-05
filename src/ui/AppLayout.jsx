@@ -15,7 +15,6 @@ const Main = styled.main`
   background-color: var(--color-Gray-50);
   position: relative;
   overflow: auto;
-  padding: 0 0.75rem;
   scroll-behavior: smooth;
   &::-webkit-scrollbar {
     appearance: none;
@@ -39,13 +38,13 @@ const Main = styled.main`
 `;
 
 function AppLayout() {
-  const { showModal, mainRef } = useGeneralContext();
+  const { showModal } = useGeneralContext();
 
   return (
     <StyledAppLayout>
       <SideBar />
       <Header />
-      <Main className={showModal && "modal-open"} ref={mainRef}>
+      <Main className={showModal && "modal-open"}>
         <Modal className={`no-padding ${showModal && "show"}`} />
         <Outlet />
       </Main>

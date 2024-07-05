@@ -10,6 +10,7 @@ import { useGeneralContext } from "../../contexts/GeneralContext";
 import useCreateGuest from "./useCreateGuest";
 import Spinner from "../../ui/Spinner";
 import useUpdateGuest from "./useUpdateGuest";
+import toast from "react-hot-toast";
 
 const Div = styled.div`
   display: flex;
@@ -35,9 +36,12 @@ function GuestForm({ guestToEdit = {} }) {
     if (isEditSession) updateGuestMutate({ editId, guest });
     else craeteGuestMutate(guest);
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormHead>Add New Guest</FormHead>
       <FormField label="Full Name">
         <Input

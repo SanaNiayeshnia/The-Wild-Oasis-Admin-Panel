@@ -7,7 +7,6 @@ import { APP_NAME } from "../utilities/constants";
 const StyledCabins = styled.div`
   min-width: 950px;
   max-width: 950px;
-  max-height: min-content;
   margin: auto;
 `;
 const CabinHead = styled.div`

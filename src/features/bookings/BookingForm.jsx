@@ -19,6 +19,7 @@ import useSettings from "../settings/useSettings";
 import useCreateBooking from "./useCreateBooking";
 import Spinner from "../../ui/Spinner";
 import useUpdateBooking from "./useUpdateBooking";
+import toast from "react-hot-toast";
 
 const Div = styled.div`
   display: flex;
@@ -135,9 +136,12 @@ function BookingForm({ bookingToEdit = {} }) {
     if (isEditSession) updateBookingMutate({ editId, bookingObj });
     else createBookingMutate(bookingObj);
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormHead>Add New Booking</FormHead>
       <FormField label="Cabin">
         <Input

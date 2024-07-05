@@ -1,16 +1,14 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useState } from "react";
 const GeneralContext = createContext();
 function GeneralContextProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<div>modal content</div>);
-  const mainRef = useRef();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const mode = localStorage.getItem("mode");
     return mode === "dark";
   });
 
   function handleShowModal(content) {
-    mainRef.current.scrollTop = "0";
     setModalContent(content);
     setShowModal(true);
   }
@@ -27,7 +25,6 @@ function GeneralContextProvider({ children }) {
         showModal,
         handleShowModal,
         handleCloseModal,
-        mainRef,
         modalContent,
         isDarkMode,
         toggleDarkMode,

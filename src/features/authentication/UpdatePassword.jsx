@@ -9,6 +9,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useGeneralContext } from "../../contexts/GeneralContext";
 import useUpdateUser from "./useUpdateUser";
 import Spinner from "../../ui/Spinner";
+import toast from "react-hot-toast";
 
 const Div = styled.div`
   display: flex;
@@ -26,9 +27,12 @@ function UpdatePassword() {
   function onSubmit(data) {
     UpdatePaswordMutate(data);
   }
+  function onError() {
+    toast("Fill the form correctly and try again!", { icon: "✍️" });
+  }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormHead>Change Password</FormHead>
 
       <FormField label="New password">
