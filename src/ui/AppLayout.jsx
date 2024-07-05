@@ -15,10 +15,12 @@ const Main = styled.main`
   background-color: var(--color-Gray-50);
   position: relative;
   overflow: auto;
+  padding: 0 0.75rem;
   scroll-behavior: smooth;
   &::-webkit-scrollbar {
     appearance: none;
     width: 0.5rem;
+    height: 0.5rem;
     background-color: var(--color-Gray-300);
     transition: all 0.3s;
   }
