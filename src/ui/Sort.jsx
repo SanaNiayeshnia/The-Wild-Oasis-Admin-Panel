@@ -15,6 +15,7 @@ const StyledSort = styled.select`
   & option {
     transition: all 0.3s;
     cursor: pointer;
+    font-size: 0.8rem;
   }
   & option:hover {
     background-color: var(--color-green-500);

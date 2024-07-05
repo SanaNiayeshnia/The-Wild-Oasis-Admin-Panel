@@ -5,8 +5,8 @@ import DashboardOperation from "../features/dashboard/DashboardOperation";
 import DashboardBody from "../features/dashboard/DashboardBody";
 
 const StyledDashboard = styled.div`
-  padding: 0 1rem;
-  max-width: 70rem;
+  min-width: 950px;
+  max-width: 950px;
   max-height: min-content;
   margin: auto;
 `;

@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useSearchParams } from "react-router-dom";
 const StyledFilter = styled.div`
   display: flex;
-  gap: 0.25rem;
+  gap: 0.15rem;
   background-color: var(--color-Gray-0);
   color: var(--color-Gray-900);
   border-radius: 0.5rem;
@@ -13,6 +13,7 @@ const StyledFilter = styled.div`
   & button {
     background-color: var(--color-Gray-0);
     color: var(--color-Gray-900);
+    font-size: 0.8rem;
   }
   & button.active {
     background-color: var(--color-green-500);

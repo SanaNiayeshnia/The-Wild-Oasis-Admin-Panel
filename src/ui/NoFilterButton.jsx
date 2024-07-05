@@ -14,7 +14,7 @@ const StyledNoButtonFilter = styled.div`
   box-shadow: 0px 0px 5px 0 var(--shadow-color);
   padding: 0.75rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   &:hover {
     background-color: var(--color-Gray-100);
   }

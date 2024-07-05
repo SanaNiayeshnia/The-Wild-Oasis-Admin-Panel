@@ -3,7 +3,6 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Bookings from "./pages/Bookings";
 import Cabins from "./pages/Cabins";
-import CheckIn from "./pages/CheckIn";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Account from "./pages/Account";

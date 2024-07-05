@@ -13,6 +13,10 @@ const StyledSearchButton = styled.div`
   box-shadow: 0px 0px 5px 0 var(--shadow-color);
   padding: 0.75rem 0.8rem;
   cursor: pointer;
+  & svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 
   &:hover {
     background-color: var(--color-Gray-100);

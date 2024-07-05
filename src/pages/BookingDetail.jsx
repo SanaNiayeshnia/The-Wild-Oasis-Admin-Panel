@@ -23,8 +23,8 @@ import { useEffect } from "react";
 import { APP_NAME } from "../utilities/constants";
 
 const StyledBookingDetail = styled.div`
-  padding: 0 1rem;
-  max-width: 70rem;
+  min-width: 950px;
+  max-width: 950px;
   max-height: min-content;
   margin: auto;
 `;

@@ -5,8 +5,8 @@ import { APP_NAME } from "../utilities/constants";
 import BookingTableOperations from "../features/bookings/BookingTableOperations";
 
 const StyledBookings = styled.div`
-  padding: 0 1rem;
-  max-width: 70rem;
+  min-width: 950px;
+  max-width: 950px;
   max-height: min-content;
   margin: auto;
 `;
@@ -16,6 +16,10 @@ const BookingsHead = styled.div`
   align-items: center;
   padding: 0 0 0 1.5rem;
   margin: auto;
+  gap: 1.5rem;
+  min-width: 950px;
+  max-width: 950px;
+
   & p {
     color: var(--color-Gray-800);
     font-weight: 600;

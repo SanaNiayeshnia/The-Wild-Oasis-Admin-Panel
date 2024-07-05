@@ -8,8 +8,8 @@ import { HiClipboardDocumentCheck, HiKey } from "react-icons/hi2";
 import { useGeneralContext } from "../contexts/GeneralContext";
 import UserInfo from "../features/authentication/UserInfo";
 const StyledAccount = styled.div`
-  padding: 0 1rem;
-  max-width: 70rem;
+  min-width: 950px;
+  max-width: 950px;
   max-height: min-content;
   margin: auto;
   height: 100%;

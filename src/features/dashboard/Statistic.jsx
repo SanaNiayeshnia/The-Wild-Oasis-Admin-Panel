@@ -6,7 +6,7 @@ const StyledStatstic = styled.div`
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 0.75rem;
   gap: 0.5rem;
   border: 1px solid var(--color-Gray-200);
   box-shadow: 0px 0px 5px 0 var(--shadow-color);
@@ -35,7 +35,7 @@ const StyledStatstic = styled.div`
   }
 
   & div p.value {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 `;
 function Statistic({ title, icon, value, color }) {

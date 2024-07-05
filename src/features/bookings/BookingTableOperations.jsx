@@ -4,7 +4,8 @@ import Sort from "../../ui/Sort";
 import SearchButton from "../../ui/SearchButton";
 import NoFilterButton from "../../ui/NoFilterButton";
 const StyledBookingTableOperations = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
   gap: 0.5rem;
 `;
 
