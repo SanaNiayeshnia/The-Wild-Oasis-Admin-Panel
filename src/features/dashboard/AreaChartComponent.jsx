@@ -86,7 +86,7 @@ function AreaChartComponent({ bookings, numDays }) {
             tick={{ fill: "var(--color-Gray-900)" }}
             tickLine={{ fill: "var(--color-Gray-900)" }}
           />
-          <Tooltip />
+          <Tooltip contentStyle={{ backgroundColor: "var(--color-Gray-0)" }} />
           <Area
             type="monotone"
             dataKey="totalPrice"
