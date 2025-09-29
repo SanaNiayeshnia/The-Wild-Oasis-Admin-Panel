@@ -68,7 +68,7 @@ function SideBar() {
       </Div>
 
       <div>
-        {/*<FakeDataButton />*/}
+        <FakeDataButton />
         <DesignedBy>developed by sana</DesignedBy>
       </div>
     </StyledSideBar>
