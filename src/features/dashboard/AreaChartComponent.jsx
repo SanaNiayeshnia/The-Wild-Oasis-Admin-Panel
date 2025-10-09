@@ -82,17 +82,21 @@ function AreaChartComponent({ bookings, numDays }) {
           />
           <YAxis
             dataKey="totalPrice"
-            unit="$"
+            tickFormatter={(value) => `$${value}`}
             tick={{ fill: "var(--color-Gray-900)" }}
             tickLine={{ fill: "var(--color-Gray-900)" }}
           />
-          <Tooltip contentStyle={{ backgroundColor: "var(--color-Gray-0)" }} />
+          <Tooltip
+            formatter={(value) => `$${value}`}
+            contentStyle={{ backgroundColor: "var(--color-Gray-0)" }}
+          />
           <Area
             type="monotone"
             dataKey="totalPrice"
             stackId="1"
             stroke="var(--color-brand-500)"
             fill="var(--color-brand-200)"
+            name="Total price"
           />
           <Area
             type="monotone"
@@ -100,6 +104,7 @@ function AreaChartComponent({ bookings, numDays }) {
             stackId="2"
             stroke="var(--color-green-500)"
             fill="var(--color-green-200)"
+            name="Extras price"
           />
         </AreaChart>
       </ResponsiveContainer>
