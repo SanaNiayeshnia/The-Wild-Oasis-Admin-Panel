@@ -11,6 +11,7 @@ import useCreateGuest from "./useCreateGuest";
 import Spinner from "../../ui/Spinner";
 import useUpdateGuest from "./useUpdateGuest";
 import toast from "react-hot-toast";
+import useCountries from "./useCountries";
 
 const Div = styled.div`
   display: flex;
@@ -31,6 +32,8 @@ function GuestForm({ guestToEdit = {} }) {
     useCreateGuest();
   const { isPending: isPendingUpdate, mutate: updateGuestMutate } =
     useUpdateGuest();
+  const { countries } = useCountries();
+  console.log(countries?.map((c) => c?.name));
 
   function onSubmit(guest) {
     if (isEditSession) updateGuestMutate({ editId, guest });
@@ -71,14 +74,17 @@ function GuestForm({ guestToEdit = {} }) {
         <Error>{errors?.email?.message}</Error>
       </FormField>
       <FormField label="Nationality">
-        <Input
-          type="text"
+        <select
           id="nationality"
-          {...register("nationality", {
-            required: "This field can't be empty!",
-          })}
-        />
-        <Error>{errors?.nationality?.message}</Error>
+          {...register("nationality")}
+          style={{ maxWidth: "180px" }}
+        >
+          {countries?.map((country, index) => (
+            <option key={index} value={country?.name}>
+              {country?.name}
+            </option>
+          ))}
+        </select>
       </FormField>
       <FormField label="National ID" className="last">
         <Input

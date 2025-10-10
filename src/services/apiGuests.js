@@ -47,3 +47,15 @@ export async function updateGuest({ editId, guest }) {
   if (error) throw new Error("Failed to update the guest info!");
   return data;
 }
+
+export async function getCountries() {
+  try {
+    const res = await fetch(
+      "https://restcountries.com/v2/all?fields=name,flag"
+    );
+    return res.json();
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+}
