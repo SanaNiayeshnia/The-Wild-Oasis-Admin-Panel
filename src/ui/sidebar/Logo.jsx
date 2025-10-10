@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useGeneralContext } from "../../contexts/GeneralContext";
+import { Link } from "react-router-dom";
 
 const StyledLogo = styled.img`
   max-width: ${(prop) => prop.minwidth};
@@ -7,11 +8,13 @@ const StyledLogo = styled.img`
 function Logo({ minwidth }) {
   const { isDarkMode } = useGeneralContext();
   return (
-    <StyledLogo
-      minwidth={minwidth}
-      src={isDarkMode ? "/imgs/logo-dark.png" : "/imgs/logo-light.png"}
-      alt="The wild Oasis Logo"
-    />
+    <Link to="/">
+      <StyledLogo
+        minwidth={minwidth}
+        src={isDarkMode ? "/imgs/logo-dark.png" : "/imgs/logo-light.png"}
+        alt="The wild Oasis Logo"
+      />
+    </Link>
   );
 }
 

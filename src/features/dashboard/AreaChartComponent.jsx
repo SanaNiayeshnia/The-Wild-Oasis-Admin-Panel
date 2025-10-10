@@ -82,12 +82,12 @@ function AreaChartComponent({ bookings, numDays }) {
           />
           <YAxis
             dataKey="totalPrice"
-            tickFormatter={(value) => `$${value}`}
+            tickFormatter={(value) => `$${value.toLocaleString()}`}
             tick={{ fill: "var(--color-Gray-900)" }}
             tickLine={{ fill: "var(--color-Gray-900)" }}
           />
           <Tooltip
-            formatter={(value) => `$${value}`}
+            formatter={(value) => `$${value.toLocaleString()}`}
             contentStyle={{ backgroundColor: "var(--color-Gray-0)" }}
           />
           <Area

@@ -22,9 +22,10 @@ const StyledFilter = styled.div`
   }
 `;
 
-function Filter({ filterField, options }) {
+function Filter({ defaultValue, filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  let currentFilter = searchParams.get(filterField) || options[0].value;
+  let currentFilter =
+    searchParams.get(filterField) || defaultValue || options?.[0]?.value;
 
   return (
     <StyledFilter>

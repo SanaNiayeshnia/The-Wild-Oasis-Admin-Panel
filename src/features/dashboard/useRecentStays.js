@@ -6,7 +6,7 @@ function useRecentStays() {
   const [searchParams] = useSearchParams();
   const numDays = searchParams.get("duration")
     ? Number(searchParams.get("duration"))
-    : 7;
+    : 90;
 
   const date = new Date();
   date.setDate(date.getDate() - numDays);

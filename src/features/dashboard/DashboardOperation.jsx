@@ -10,6 +10,7 @@ function DashboardOperation() {
           { title: "Last 30 days", value: "30" },
           { title: "Last 90 days", value: "90" },
         ]}
+        defaultValue="90"
       />
     </div>
   );
