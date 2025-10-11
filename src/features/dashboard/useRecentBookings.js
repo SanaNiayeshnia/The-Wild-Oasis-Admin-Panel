@@ -6,7 +6,7 @@ function useRecentBookings() {
   const [searchParams] = useSearchParams();
   const numDays = searchParams.get("duration")
     ? Number(searchParams.get("duration"))
-    : 90s;
+    : 90;
   const date = new Date();
   date.setDate(date.getDate() - numDays);
   const { isLoading, data: bookings } = useQuery({
