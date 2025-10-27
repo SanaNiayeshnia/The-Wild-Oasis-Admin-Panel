@@ -50,7 +50,6 @@ function Booking({ booking, openContextId, setOpenContextId }) {
     endDate,
   } = booking;
   const { name: cabinName } = cabinInfo;
-  const { fullName: guestName, email: guestEmail } = guestInfo;
   const navigate = useNavigate();
   const {
     month: startMonth,
@@ -96,8 +95,8 @@ function Booking({ booking, openContextId, setOpenContextId }) {
     <TableRow gridcols="1fr 2fr 2fr 1fr 1fr 0.1fr">
       <td>{cabinName}</td>
       <GuestDateTd>
-        <p>{guestName}</p>
-        <p>{guestEmail}</p>
+        <p>{guestInfo?.fullName || "Anonymous"}</p>
+        <p>{guestInfo?.email}</p>
       </GuestDateTd>
       <GuestDateTd>
         <p>

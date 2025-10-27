@@ -28,7 +28,7 @@ function Payment({ booking, handlePayment, isPendingPayment }) {
       )}
 
       <label htmlFor="paymentCheckBox">
-        I confirm that {booking.guests.fullName} has paid the total amount of{" "}
+        I confirm that {booking.guests?.fullName} has paid the total amount of{" "}
         {formatPrice(booking.totalPrice)}
       </label>
     </CheckBox>

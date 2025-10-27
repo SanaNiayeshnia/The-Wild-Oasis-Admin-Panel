@@ -25,7 +25,7 @@ async function getBookings({ filter, sort, page, searchQuery }) {
 
     if (guestsError) throw new Error("Failed to filter guests");
 
-    const guestIds = filteredGuests.map((guest) => guest.id);
+    const guestIds = filteredGuests.map((guest) => guest?.id);
 
     const { data: filteredCabins, error: cabinsError } = await supabase
       .from("cabins")

@@ -50,7 +50,7 @@ function GuestsTable() {
                   {guests?.map((guest) => (
                     <Guest
                       guest={guest}
-                      key={guest.id}
+                      key={guest?.id}
                       openContextId={openContextId}
                       setOpenContextId={setOpenContextId}
                     />

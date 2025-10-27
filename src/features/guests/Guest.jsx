@@ -30,17 +30,17 @@ function Guest({ guest, openContextId, setOpenContextId }) {
 
   return (
     <TableRow gridcols="2fr 2fr 1fr 1fr 0.1fr">
-      <td>{guest.fullName}</td>
-      <td>{guest.email}</td>
-      <td>{guest.nationality}</td>
-      <td>{guest.nationalID}</td>
+      <td>{guest?.fullName}</td>
+      <td>{guest?.email}</td>
+      <td>{guest?.nationality}</td>
+      <td>{guest?.nationalID}</td>
       <LastTd>
         <HiDotsVertical
           onClick={() => {
-            setOpenContextId(guest.id);
+            setOpenContextId(guest?.id);
           }}
         />
-        {openContextId === guest.id && (
+        {openContextId === guest?.id && (
           <ContextMenu setOpenContextId={setOpenContextId}>
             <li onClick={handleUpdate}>
               <HiClipboardDocumentCheck />

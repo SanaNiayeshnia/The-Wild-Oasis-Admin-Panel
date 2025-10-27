@@ -135,7 +135,7 @@ function BookingDataBox({ booking }) {
       <BoxHeader>
         <span>
           <HiOutlineHomeModern />
-          {booking.numNights} nights in Cabin {cabin.name}
+          {booking?.numNights} nights in Cabin {cabin?.name}
         </span>
         <span>
           {startWeekday}, {startMonth} {startDate} {startYear} (
@@ -147,11 +147,11 @@ function BookingDataBox({ booking }) {
         <Section>
           <span>
             <HiOutlineUser />
-            {guest.fullName} + {booking.numGuests - 1} guest
-            {booking.numGuests - 1 !== 1 && "s"}
+            {guest?.fullName} + {booking?.numGuests - 1} guest
+            {booking?.numGuests - 1 !== 1 && "s"}
           </span>
-          <p> • {guest.email} • </p>
-          <p>National ID {guest.nationalID}</p>
+          <p> • {guest?.email} • </p>
+          <p>National ID {guest?.nationalID}</p>
         </Section>
         {booking?.observation && (
           <Section>

@@ -170,14 +170,14 @@ function BookingForm({ bookingToEdit = {} }) {
           {...register("guest", {
             required: "This field can't be empty!",
             validate: (value) =>
-              guests.some((guest) => guest.fullName === value) ||
+              guests.some((guest) => guest?.fullName === value) ||
               "You should select an already defined user!",
           })}
         />
         <datalist id="guestsList">
           {guests?.map((guest) => (
-            <option value={guest.fullName} key={guest.id}>
-              {guest.fullName}
+            <option value={guest?.fullName} key={guest?.id}>
+              {guest?.fullName}
             </option>
           ))}
         </datalist>
